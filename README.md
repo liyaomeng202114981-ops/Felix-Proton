@@ -1,6 +1,6 @@
 # WE-Proton：UU / Steam 网络集成与修复
 
-**维护者：Yaomeng Li。在 SHORiN-KiWATA 的 WE-Proton 和 proton-wrapper 基础上，借助 OpenAI Codex 完成新增实现、排查与验证整理。**
+**维护者：Felix Li。在 SHORiN-KiWATA 的 WE-Proton 和 proton-wrapper 基础上，借助 OpenAI Codex 完成新增实现、排查与验证整理。**
 
 本 fork 的工作是让原生 Linux Steam 从统一入口接入 UU 的加速网络，使标准启动链中的游戏继承网络环境，并修复反复创建/删除虚拟网卡时发现的 Wine 接口查询问题及修复过程中引入的性能退化。
 
