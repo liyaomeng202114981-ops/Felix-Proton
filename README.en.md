@@ -1,6 +1,6 @@
 # WE-Proton: UU / native Steam network integration and fixes
 
-**Maintained by Yaomeng Li, with OpenAI Codex assistance for the added implementation, investigation and validation documentation, on top of SHORiN-KiWATA’s WE-Proton and proton-wrapper.**
+**Maintained by Felix Li, with OpenAI Codex assistance for the added implementation, investigation and validation documentation, on top of SHORiN-KiWATA’s WE-Proton and proton-wrapper.**
 
 This fork adds a common entrypoint for native Linux Steam to join UU’s network, so games in the standard Steam process tree inherit that network. It also fixes stale interface lookups in Wine and repairs a performance regression introduced by the additional validation.
 
