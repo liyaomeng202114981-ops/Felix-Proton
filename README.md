@@ -1,3 +1,10 @@
+> **本 fork 的 UU / Steam 网络集成工作在 [`uu-network-integration` 分支](https://github.com/liyaomeng202114981-ops/we-proton/tree/uu-network-integration)。**
+> [方案与使用说明](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/README.md) · [来源和贡献边界](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/PROVENANCE.md) · [验证与未解决项](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/VALIDATION.md)
+>
+> 基于 [SHORiN-KiWATA/we-proton](https://github.com/SHORiN-KiWATA/we-proton) 与作者的 [proton-wrapper](https://github.com/SHORiN-KiWATA/proton-wrapper)，新增 Steam 共享网络入口及两项 Wine 网络修复。该工作基于已测试的上游 `4617d991`，目前仅发布源码；本页下方保留上游介绍，原作者的功能和测试不归为本 fork 的新增成果。
+
+---
+
 # WE-Proton
 
 中文 | [English](README.en.md)
