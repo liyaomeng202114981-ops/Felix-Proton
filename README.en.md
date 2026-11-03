@@ -1,3 +1,36 @@
+# WE-Proton: UU / native Steam network integration and fixes
+
+**Maintained by Yaomeng Li, with OpenAI Codex assistance for the added implementation, investigation and validation documentation, on top of SHORiN-KiWATA’s WE-Proton and proton-wrapper.**
+
+This fork adds a common entrypoint for native Linux Steam to join UU’s network, so games in the standard Steam process tree inherit that network. It also fixes stale interface lookups in Wine and repairs a performance regression introduced by the additional validation.
+
+**[My contributions and implementation details (Chinese)](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/CONTRIBUTIONS.md)** · [Code branch](https://github.com/liyaomeng202114981-ops/we-proton/tree/uu-network-integration) · [Portable entrypoints (English)](https://github.com/liyaomeng202114981-ops/we-proton/tree/uu-network-integration/we/integration/uu-network) · [Validation](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/VALIDATION.md) · [Provenance](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/PROVENANCE.md)
+
+## What I added
+
+| Contribution | Implementation | Practical result |
+| --- | --- | --- |
+| Common native Steam network entrypoint | Separate UU, Steam and generic-command launchers; check the network of an existing Steam instance; keep UU-only launch defaults out of native entrypoints | Avoid repeating wrapper parameters for each standard Steam child process and detect reuse of a client in the wrong network |
+| Stale interface filtering | Validate the current Linux name-to-index mapping before using a cached interface record | Exclude deleted interfaces and same-name replacements with a different index from affected Windows API queries |
+| Route-enumeration regression repair | Reuse successful interface translations within one enumeration, then discard them | Retain validation while avoiding repeated checks for routes using the same interface; restore performance near the original baseline |
+| Reusable integration and evidence | Parameterized paths and runner selection, configuration guards, 45 launcher tests, network probes and controlled comparisons | Make the additions reviewable and configurable without presenting historical tests as universal compatibility |
+
+## How the shared network works
+
+The upstream wrapper manages a network namespace with its own interfaces and routes; pasta connects it to the outside network. Upstream WE-Proton provides Wintun compatibility for UU to create its virtual interface and routes. **This fork starts native Steam in that same network, allowing its standard child processes to inherit it.** Steam continues to manage each game’s Proton version, prefix and launch options.
+
+To change the acceleration target, select the game, region, routing mode and node in UU. UU installs the corresponding routes; the launcher does not detect games or invent acceleration policies. Selecting Steam Store is not a policy for every game. An existing Steam client in another network must exit normally and restart through the new entrypoint; the launcher detects that conflict.
+
+Wintun, the namespace/session architecture and wrapper integration are upstream work; [pasta](https://passt.top/) is also an external dependency. This fork does not modify the wrapper. See [contribution boundaries](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/PROVENANCE.md) and [the detailed design](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/CONTRIBUTIONS.md).
+
+## Publication status
+
+The additions are on **`uu-network-integration`**, based on upstream `4617d991`, as a source-only publication. All 45 portable-launcher isolated tests passed. Historical API and Steam inheritance checks are documented separately. Startup can still take 10–30 seconds, and an earlier same-version target-switch hang remains in the record; successful retesting does not establish a complete cure. Network probes do not establish real-game compatibility. Window-resizing changes are outside this publication. See [validation and remaining limits](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/VALIDATION.md).
+
+---
+
+The upstream introduction is preserved below. Its demonstrations, compatibility claims, release packages and install commands belong to upstream. Use the branch and entrypoint links above for this fork’s additions.
+
 # WE-Proton
 
 [中文](README.md) | English
@@ -81,3 +114,4 @@ The script fetches the submodules, patches them with `patches/protonprep-valve-s
 - [GE-Proton](https://github.com/GloriousEggroll/proton-ge-custom) by GloriousEggroll
 - [DW-Proton](https://dawn.wine/dawn-winery/dwproton) by Dawn Winery
 - [Wine](https://www.winehq.org/), [DXVK](https://github.com/doitsujin/dxvk), [vkd3d-proton](https://github.com/HansKristian-Work/vkd3d-proton) and the other projects Proton is built from
+
