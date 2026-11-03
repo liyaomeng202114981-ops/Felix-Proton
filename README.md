@@ -1,3 +1,15 @@
+# WE-Proton：UU / Steam 网络集成分支
+
+> 本分支是 [SHORiN-KiWATA/we-proton](https://github.com/SHORiN-KiWATA/we-proton) 的独立 fork，基于 `we-proton-ge11-11-31`（`4617d991`）。Windows 加速器支持、Wintun、独立网络与 pasta 方案来自上游；本分支增加 Steam 共享网络入口及两项 Wine 网络修复。未向上游提交或声称已被接纳。
+>
+> **[方案、代码与使用说明](we/network-integration/README.md)** · [来源和贡献边界](we/network-integration/PROVENANCE.md) · [验证与未解决项](we/network-integration/VALIDATION.md) · [构建与回退](we/network-integration/BUILD.md)
+>
+> 本次仅发布源码。历史客户端测试与本分支公开便携入口的测试分别标注；不承诺所有游戏/节点可用，不包含窗口缩放改动。
+
+---
+
+以下保留上游项目介绍；其中上游游戏兼容表和演示不是本 fork 新增的测试结果。
+
 # WE-Proton
 
 中文 | [English](README.en.md)

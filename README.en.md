@@ -1,3 +1,15 @@
+# WE-Proton: UU / native Steam network integration branch
+
+> This independent fork is based on [SHORiN-KiWATA/we-proton](https://github.com/SHORiN-KiWATA/we-proton), release `we-proton-ge11-11-31` (`4617d991`). Accelerator support, Wintun compatibility, network namespaces and the pasta architecture come from upstream. This branch adds native Steam entrypoints and two Wine network fixes; it does not claim upstream acceptance.
+>
+> **[Design and usage (Chinese)](we/network-integration/README.md)** · [Portable entrypoints (English)](we/integration/uu-network/README.md) · [Attribution and licenses](we/network-integration/PROVENANCE.md) · [Validation and limitations](we/network-integration/VALIDATION.md)
+>
+> Source-only publication. Historical runtime evidence and the portable scripts' isolated tests have different scopes. This branch does not add window-resizing changes or claim universal game/node compatibility.
+
+---
+
+The upstream introduction is preserved below. Its demonstrations and compatibility table are upstream work, not new validation by this fork.
+
 # WE-Proton
 
 [中文](README.md) | English
