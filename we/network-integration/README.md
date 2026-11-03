@@ -2,6 +2,8 @@
 
 本分支基于 [SHORiN-KiWATA/WE-Proton](https://github.com/SHORiN-KiWATA/we-proton) 的 `we-proton-ge11-11-31`（`4617d991`），并调用作者的 [shorin-proton-wrapper](https://github.com/SHORiN-KiWATA/proton-wrapper)。Windows 加速器支持、Wintun 兼容、网络命名空间与 pasta 连接方案来自上游。本分支的工作是 **原生 Steam 启动整合、两项 Wine 网络修复及验证整理**。完整作者、版本和许可证见 [来源与贡献边界](PROVENANCE.md)。这是独立 fork，不代表上游已接纳这些改动。
 
+**想先了解本 fork 做了什么，请读[我的工作与实现原理](CONTRIBUTIONS.md)：按问题、代码机制、效果和证据逐项说明。**
+
 ## 要解决的问题
 
 UU 在独立网络中显示“正在加速”，并不意味着已经在宿主网络运行的 Steam 也使用该网络。原来逐游戏填写 wrapper 参数也容易将网络入口、游戏的 Proton 前缀和运行器选项混在一起。
@@ -66,6 +68,7 @@ flowchart LR
 
 ## 目录和继续排障
 
+- [我的具体贡献、完整数据路径与代码定位](CONTRIBUTIONS.md)
 - [来源、作者、版本、许可证](PROVENANCE.md)
 - [构建、探针与回退](BUILD.md)
 - [验证结果、性能数据和已知限制](VALIDATION.md)
