@@ -1,5 +1,7 @@
 # UU 路由模式与 Steam 共享网络集成
 
+> 2026-11-05 更新：本文保留此前公开网络补丁与显式入口的历史范围。最新普通图标集成、Python CM 连接保护和当前验收请见 [Felix-Proton](../felix-proton/README.md) 与 [本轮工作说明](../felix-proton/docs/WORK_REPORT.md)。
+
 本分支基于 [SHORiN-KiWATA/WE-Proton](https://github.com/SHORiN-KiWATA/we-proton) 的 `we-proton-ge11-11-31`（`4617d991`），并调用作者的 [shorin-proton-wrapper](https://github.com/SHORiN-KiWATA/proton-wrapper)。Windows 加速器支持、Wintun 兼容、网络命名空间与 pasta 连接方案来自上游。本分支的工作是 **原生 Steam 启动整合、两项 Wine 网络修复及验证整理**。完整作者、版本和许可证见 [来源与贡献边界](PROVENANCE.md)。这是独立 fork，不代表上游已接纳这些改动。
 
 **想先了解本 fork 做了什么，请读[我的工作与实现原理](CONTRIBUTIONS.md)：按问题、代码机制、效果和证据逐项说明。**

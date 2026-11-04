@@ -1,4 +1,6 @@
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+> 2026-11-05 更新：本文保留此前公开网络补丁与显式入口的历史范围。最新普通图标集成、Python CM 连接保护和当前验收请见 [Felix-Proton](../felix-proton/README.md) 与 [本轮工作说明](../felix-proton/docs/WORK_REPORT.md)。
 # Felix Li 的新增工作与实现原理
 
 本分支由 **Felix Li 在 OpenAI Codex 协助下**完成使用场景整合、问题复现、两项 Wine 网络修复、测试与公开代码整理。工作围绕两个实际需求展开：让原生 Steam 的标准启动链进入 UU 的网络，同时保留每款游戏原有运行环境；处理虚拟网卡反复创建、删除及大量路由增删时暴露的兼容问题。

@@ -1,5 +1,7 @@
 # 上游来源、版本与许可证
 
+> 2026-11-05 更新：本文保留此前公开网络补丁与显式入口的历史范围。最新普通图标集成、Python CM 连接保护和当前验收请见 [Felix-Proton](../felix-proton/README.md) 与 [本轮工作说明](../felix-proton/docs/WORK_REPORT.md)。
+
 核对日期：2026-11-03。发布分支：`uu-network-integration`。
 
 本分支基于 [SHORiN-KiWATA/we-proton](https://github.com/SHORiN-KiWATA/we-proton)，发布 **0062、0063 两项 Wine 网络补丁，以及原生 Steam 共享网络会话的启动入口、测试源码和文档**。本分支只发布源码，不分发运行器、pasta、UU 或 Steam 二进制。

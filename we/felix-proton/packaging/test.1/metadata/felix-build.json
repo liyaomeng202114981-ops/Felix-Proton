@@ -1,0 +1,30 @@
+{
+  "display_name": "Felix Proton UU Test 0.1.0-test.1",
+  "steam_tool_id": "felix-proton-uu-test-0.1.0-test.1",
+  "version": "0.1.0-test.1",
+  "kind": "repack of a previously tested module build",
+  "base_runner": "we-proton-ge11-11-31-desktop-netfix2",
+  "we_proton": "4617d991e787603f5300c484f54b4bd61c776090",
+  "wine_gitlink": "c53678ab22a85f0fad3588dd34f0452a463bd015",
+  "historical_wine_patches": {
+    "0061": "6e1fb3f92cd8da1d8dfbdeb0a37afa6dd39ac4f9",
+    "0062": "0784ca7162a8532a8587b9c3dcf38668379eb3ce",
+    "0063": "28db1f7cd049a6f6e4be9fb5f8ce275868b7a4bb"
+  },
+  "sha256": {
+    "files/lib/wine/x86_64-unix/nsiproxy.so": "d5c538f1eda8d9bbb11c79afbc5f4e01303d5c0ee18a1173ec52c8356202e807",
+    "files/lib/wine/i386-unix/nsiproxy.so": "81dd705bd950bc8bb58fe5676265579522a7c0a789c21af4d79d970621323f3a",
+    "files/lib/wine/x86_64-unix/winex11.so": "e5cd3a881bfba5fb9c3d3e67fb1e082a2f01f91243e8d6dee8dff9cd9e0c5ac1",
+    "files/lib/wine/i386-unix/winex11.so": "ea547d25d7ecef4e66f43a9ccd1ac8cb40b374293db959aaee5473bc16b93ff8",
+    "proton": "85af7e90a49e54ca59ce71aec0fd83cb37adb89e968f0cf756d785967969fe3c",
+    "desktop_shortcuts.py": "95cb1b0f47743205ac8bbf3ca96a8ef75ad97113c1b8850d75690b6550ee1896"
+  },
+  "sdk_for_historical_module_build": "registry.gitlab.steamos.cloud/proton/steamrt4/sdk/x86_64@sha256:6c1789cad862fd8ed9d46d71bbf8752bb7cb2336ab5e9680c0f0e3e7c88d77f1",
+  "desktop_behavior": "The base includes the optional desktop launcher/importer and X11 integration. Per-app prefixes are external to this tool.",
+  "operator": "Felix",
+  "upstream": "https://github.com/SHORiN-KiWATA/we-proton",
+  "downstream_maintainer": "Felix Li",
+  "downstream_assistance": "OpenAI Codex",
+  "based_on": "SHORiN-KiWATA / WE-Proton",
+  "upstream_pr_for_network_changes": "https://github.com/SHORiN-KiWATA/we-proton/pull/1"
+}

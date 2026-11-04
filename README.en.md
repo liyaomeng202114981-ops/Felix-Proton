@@ -1,35 +1,36 @@
-# WE-Proton: UU / native Steam network integration and fixes
+# Felix-Proton: UU / native Steam integration and connection protection
 
-**Maintained by Felix Li, with OpenAI Codex assistance for the added implementation, investigation and validation documentation, on top of SHORiN-KiWATA’s WE-Proton and proton-wrapper.**
+**Maintained by Felix Li, with OpenAI Codex assistance, on top of SHORiN-KiWATA's WE-Proton and proton-wrapper, plus passt / pasta. Upstream authorship, licenses and Git history are preserved.**
 
-This fork adds a common entrypoint for native Linux Steam to join UU’s network, so games in the standard Steam process tree inherit that network. It also fixes stale interface lookups in Wine and repairs a performance regression introduced by the additional validation.
+Updated **2026-11-05**. This fork joins native Linux Steam and Windows UU to one network through their ordinary desktop icons. Standard Steam child processes usually inherit that network; the user selects the game, region, routing mode and node in UU.
 
-**[My contributions and implementation details (Chinese)](we/network-integration/CONTRIBUTIONS.md)** · [Code branch](https://github.com/liyaomeng202114981-ops/we-proton/tree/uu-network-integration) · [Portable entrypoints (English)](we/integration/uu-network/README.md) · [Validation](we/network-integration/VALIDATION.md) · [Provenance](we/network-integration/PROVENANCE.md)
+**[Latest work report (Chinese)](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/WORK_REPORT.md)** · [Current results and limits](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/CURRENT_STATE.md) · [Ordinary-icon setup](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/src/native-ux/README.md) · [Source layout](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/README.md) · [Validation](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/TESTING.md) · [Provenance](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/PROVENANCE.md)
 
-## What I added
+## Contributions
 
-| Contribution | Implementation | Practical result |
-| --- | --- | --- |
-| Common native Steam network entrypoint | Separate UU, Steam and generic-command launchers; check the network of an existing Steam instance; keep UU-only launch defaults out of native entrypoints | Avoid repeating wrapper parameters for each standard Steam child process and detect reuse of a client in the wrong network |
-| Stale interface filtering | Validate the current Linux name-to-index mapping before using a cached interface record | Exclude deleted interfaces and same-name replacements with a different index from affected Windows API queries |
-| Route-enumeration regression repair | Reuse successful interface translations within one enumeration, then discard them | Retain validation while avoiding repeated checks for routes using the same interface; restore performance near the original baseline |
-| Reusable integration and evidence | Parameterized paths and runner selection, configuration guards, 45 launcher tests, network probes and controlled comparisons | Make the additions reviewable and configurable without presenting historical tests as universal compatibility |
+| Work | Implementation and result |
+| --- | --- |
+| Interface lifecycle fix 0062 | Filter stale Wine interface records after deletion or same-name recreation |
+| Route-enumeration fix 0063 | Reuse successful translations within one enumeration, removing the regression introduced by 0062 and restoring performance near the historical baseline |
+| Ordinary Steam / UU icons | Arrange shared networking, validate an existing Steam instance, preserve URI/arguments, and raise an existing window on repeated clicks |
+| Steam CM protection | Keep discovered exact IPv4/TCP control endpoints on the pasta path; the local user confirmed the original Steam disconnect issue during acceleration switching was resolved |
+| Installation, rollback and diagnostics | Back up/restore desktop entries, query status, provide bounded passive diagnostics and accompanying tests |
 
-## How the shared network works
+The upstream wrapper supplies namespace/session management, WE-Proton supplies the Wintun foundation, and pasta supplies the host connection. The new Python guard installs precise endpoint rules only inside the shared private network. Host routes remain unchanged. It does not claim to protect every game connection.
 
-The upstream wrapper manages a network namespace with its own interfaces and routes; pasta connects it to the outside network. Upstream WE-Proton provides Wintun compatibility for UU to create its virtual interface and routes. **This fork starts native Steam in that same network, allowing its standard child processes to inherit it.** Steam continues to manage each game’s Proton version, prefix and launch options.
+## Validation and publication scope
 
-To change the acceleration target, select the game, region, routing mode and node in UU. UU installs the corresponding routes; the launcher does not detect games or invent acceleration policies. Selecting Steam Store is not a policy for every game. An existing Steam client in another network must exit normally and restart through the new entrypoint; the launcher detects that conflict.
+The publication checks reran **64 integration tests and 16 collector tests, with zero failures, errors or skips**. Isolated tests, route selection and user retesting are separate evidence. Shared networking does not establish acceleration for every game or node. The previous 45 portable-launcher tests are a separate historical suite.
 
-Wintun, the namespace/session architecture and wrapper integration are upstream work; [pasta](https://passt.top/) is also an external dependency. This fork does not modify the wrapper. See [contribution boundaries](we/network-integration/PROVENANCE.md) and [the detailed design](we/network-integration/CONTRIBUTIONS.md).
+Latest source is under **`we/felix-proton/` on `uu-network-integration`**. This update publishes source and documentation, without runner/client binaries or a rebuilt test.1 Wine/Proton. A fresh installation requires a separately prepared, checksum-pinned historical runner absent from a repository clone.
 
-## Publication status
+Kernel timer panic/workqueue warnings remain unexplained. Acceleration startup can take 10–30 seconds, which the user accepted; free resizing of UU is deferred. Cross-machine acceptance remains pending. IPv6, undiscovered endpoints, game connections and external network faults are outside the CM guard's guarantee. Historical Fossilize CPU activity was diagnosed and its settings retained at the user's request.
 
-The additions are on **`uu-network-integration`**, based on upstream `4617d991`, as a source-only publication. All 45 portable-launcher isolated tests passed. Historical API and Steam inheritance checks are documented separately. Startup can still take 10–30 seconds, and an earlier same-version target-switch hang remains in the record; successful retesting does not establish a complete cure. Network probes do not establish real-game compatibility. Window-resizing changes are outside this publication. See [validation and remaining limits](we/network-integration/VALIDATION.md).
+[Earlier network work and validation](https://github.com/liyaomeng202114981-ops/we-proton/tree/uu-network-integration/we/network-integration) · [Upstream PR #1](https://github.com/SHORiN-KiWATA/we-proton/pull/1), checked open and unmerged on 2026-11-05. The Python additions are separate from that PR.
 
 ---
 
-The upstream introduction is preserved below. Its demonstrations, compatibility claims, release packages and install commands belong to upstream. Use the branch and entrypoint links above for this fork’s additions.
+The upstream introduction follows unchanged. Its demonstrations, compatibility table, releases and installation commands belong to upstream; use the links above for this fork's additions.
 
 # WE-Proton
 
