@@ -1,39 +1,36 @@
-# WE-Proton：UU / Steam 网络集成与修复
+# Felix-Proton：UU / Steam 集成与连接保护
 
-**维护者：Felix Li。在 SHORiN-KiWATA 的 WE-Proton 和 proton-wrapper 基础上，借助 OpenAI Codex 完成新增实现、排查与验证整理。**
+**维护者：Felix Li，with OpenAI Codex assistance。基于 SHORiN-KiWATA 的 WE-Proton、proton-wrapper 及 passt / pasta，保留上游作者、许可和 Git 历史。**
 
-本 fork 的工作是让原生 Linux Steam 从统一入口接入 UU 的加速网络，使标准启动链中的游戏继承网络环境，并修复反复创建/删除虚拟网卡时发现的 Wine 接口查询问题及修复过程中引入的性能退化。
+更新于 **2026-11-05**。本 fork 让原生 Linux Steam 与 Windows 网易 UU 共享网络，并通过原来的 Steam / UU 图标接入；由 Steam 启动的游戏通常继承该网络，具体游戏、区服、路由模式和节点由用户在 UU 中选择。
 
-**[我的具体工作与实现原理](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/CONTRIBUTIONS.md)** · [代码分支](https://github.com/liyaomeng202114981-ops/we-proton/tree/uu-network-integration) · [配置与使用](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/README.md) · [验证结果](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/VALIDATION.md) · [上游与署名](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/PROVENANCE.md)
+**[最新工作说明](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/WORK_REPORT.md)** · [当前结果与未解决事项](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/CURRENT_STATE.md) · [普通图标使用说明](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/src/native-ux/README.md) · [代码与目录](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/README.md) · [验证](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/TESTING.md) · [来源与署名](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/PROVENANCE.md)
 
-## 我新增了哪些工作
+## 本 fork 的工作
 
-| 工作 | 具体做了什么 | 对使用者的作用 |
-| --- | --- | --- |
-| 统一 Steam 网络入口 | 新增 UU、原生 Steam 和通用命令三种入口；检查已运行 Steam 的网络归属，隔离 UU 专用启动选项 | 标准 Steam 启动链无需逐游戏重复填写网络包装参数；避免 UU 在加速而 Steam 仍在另一个网络 |
-| 修复旧接口记录被继续使用 | 查询时核对接口名称与 Linux 当前索引的对应关系，过滤已删除或同名换索引后的旧缓存记录 | Windows 程序查询虚拟网卡时不再采用这类已失效记录 |
-| 修复实时校验引入的性能退化 | 在一次路由表枚举内复用同一接口的有效转换结果，调用结束即清空 | 保留上述校验，同时避免对大量路由反复查询同一网卡；恢复接近原基底的处理速度 |
-| 整理可复用代码与证据 | 路径和运行器参数化，加入误配置检查，提供 45 项入口测试、网络探针和对照数据 | 他人可以审查和配置使用，也能区分已验证结果与仍存在的问题 |
+| 工作 | 实现与结果 |
+| --- | --- |
+| 接口生命周期修复 0062 | 过滤删除、同名重建后的失效 Wine 接口映射 |
+| 路由枚举修复 0063 | 在一次枚举内复用成功转换，消除 0062 引入的性能回退；恢复接近历史原基底的性能 |
+| 普通 Steam / UU 图标集成 | 自动安排共享网络，检查已有 Steam 网络归属，保留 URI 和参数，重复点击唤出已有窗口 |
+| Steam CM 控制连接保护 | 为已发现的精确 IPv4/TCP 控制端点保留 pasta 出口；本机用户确认切换加速时原有 Steam 掉线问题解决 |
+| 安装、回退与诊断 | 提供入口备份/恢复、状态查询、有边界的被动观察与配套测试 |
 
-## 原理：为什么不必给每款 Steam 游戏重复设置入口
+网络命名空间与会话管理来自原作者 wrapper，Wintun 基础来自 WE-Proton，pasta 连接宿主网络。新增 Python 保护只在共享私有网络内操作精确端点规则，宿主路由保持原状。它不接管全部 TCP/443、下载 CDN 或游戏流量。
 
-Linux 的网络命名空间有自己的网卡和路由表。上游 wrapper 管理这个独立网络，并通过 pasta 连接外部网络；WE-Proton 已有的 Wintun 兼容让 UU 在其中建立虚拟网卡和路由。本分支调用这些能力，**先把原生 Steam 放进同一网络，再利用标准子进程继承把它启动的游戏带进去**。游戏自己的 Proton 版本、prefix 和启动参数仍由 Steam 管理。
+## 当前验证与发布范围
 
-换游戏时，在 UU 里选择对应游戏、区服、路由模式和节点，由 UU 更新目标路由。共享网络本身不识别游戏，也不代表选择“Steam 商店”就能加速所有游戏。已经在其他网络运行的 Steam 需要正常退出并从新入口重开；入口会检查并提示这种单实例冲突。
+本轮重新运行 **64 项集成测试与 16 项采集器测试，失败、错误和跳过均为 0**。隔离测试、路由检查与用户实际复测分别记录；不将共享网络或路由命中写成所有游戏均已加速。此前公开的 45 项显式入口测试属于另一套历史验证。
 
-完整的数据路径、代码对应位置、接口修复示例和优化前后数据见[贡献与原理](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/CONTRIBUTIONS.md)。
+代码位于 **`uu-network-integration` 分支的 `we/felix-proton/`**。本轮公开源码和说明，未发布运行器或客户端二进制，也未重新编译 test.1 Wine/Proton。全新安装所需的固定历史运行器不包含在仓库克隆内容中。
 
-## 哪些能力来自原作者
+内核定时器 panic / workqueue 警告仍未归因；启动加速约 10～30 秒已获用户接受；UU 自由缩放窗口暂缓。尚无异机全面验收。CM 保护范围之外的 IPv6、新端点、游戏自身连接及真实外网故障仍可能断线。Steam Fossilize 的历史 CPU 占用已完成归因，按用户要求保留设置。
 
-Windows 加速器兼容、Wintun、独立网络会话以及 wrapper 与 pasta 的衔接来自 [SHORiN-KiWATA/we-proton](https://github.com/SHORiN-KiWATA/we-proton) 和 [proton-wrapper](https://github.com/SHORiN-KiWATA/proton-wrapper)；pasta 来自 [passt 项目](https://passt.top/)。本分支没有改写 wrapper，也没有新实现加速协议、节点服务或整套 Wine。新增代码与继承代码的边界见[来源说明](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/PROVENANCE.md)。
-
-## 当前发布状态
-
-网络集成代码基于上游 `4617d991`，位于 **`uu-network-integration` 分支**，目前仅发布源码和说明。45 项公开入口隔离测试已通过；历史网络 API 和 Steam 网络继承验证另有明确记录。启动加速仍可能等待 10–30 秒，也保留同版本偶发切换卡住的记录；没有把一次成功复测写成完全根治，没有以网络探针代替实际游戏兼容性测试。本次不包含窗口缩放改动。详见[验证与未解决项](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/network-integration/VALIDATION.md)。
+[原有网络补丁与历史验证](https://github.com/liyaomeng202114981-ops/we-proton/tree/uu-network-integration/we/network-integration) · [上游 PR #1](https://github.com/SHORiN-KiWATA/we-proton/pull/1)（2026-11-05 核对仍 open、未合并；本轮 Python 集成不属于该 PR）。
 
 ---
 
-以下保留上游项目介绍；演示、游戏兼容表、发布包和安装命令属于上游。使用本 fork 的新增网络工作，请从上方代码分支和配置说明进入。
+以下保留上游项目介绍；演示、游戏兼容表、发布包和安装命令属于上游。使用本 fork 的新增工作，请从上方源码和说明进入。
 
 # WE-Proton
 
