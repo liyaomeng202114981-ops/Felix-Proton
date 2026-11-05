@@ -26,7 +26,7 @@ Previously recorded checks passed **64 integration tests and 16 collector tests 
 
 Latest source is under **`we/felix-proton/` on `uu-network-integration`**. This update publishes source and documentation, without runner/client binaries or a rebuilt test.1 Wine/Proton. A fresh installation requires a separately prepared, checksum-pinned historical runner absent from a repository clone.
 
-Kernel timer panic/workqueue warnings remain unexplained. Acceleration startup can take 10–30 seconds, which the user accepted; free resizing of UU is deferred. Cross-machine acceptance remains pending. IPv6, undiscovered endpoints, game connections and external network faults are outside the CM guard's guarantee. Historical Fossilize CPU activity was diagnosed and its settings retained at the user's request.
+Acceleration startup can take 10–30 seconds, which the user accepted; free resizing of UU is deferred. Cross-machine acceptance remains pending. IPv6, undiscovered endpoints, game connections and external network faults are outside the CM guard's guarantee. Historical Fossilize CPU activity was diagnosed and its settings retained at the user's request.
 
 [Earlier network work and validation](https://github.com/liyaomeng202114981-ops/we-proton/tree/uu-network-integration/we/network-integration) · [Upstream PR #1](https://github.com/SHORiN-KiWATA/we-proton/pull/1), checked open and unmerged on 2026-11-05. The Python additions are separate from that PR.
 
