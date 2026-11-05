@@ -26,7 +26,7 @@
 
 代码位于 **`uu-network-integration` 分支的 `we/felix-proton/`**。本轮公开源码和说明，未发布运行器或客户端二进制，也未重新编译 test.1 Wine/Proton。全新安装所需的固定历史运行器不包含在仓库克隆内容中。
 
-内核定时器 panic / workqueue 警告仍未归因；启动加速约 10～30 秒已获用户接受；UU 自由缩放窗口暂缓。尚无异机全面验收。CM 保护范围之外的 IPv6、新端点、游戏自身连接及真实外网故障仍可能断线。Steam Fossilize 的历史 CPU 占用已完成归因，按用户要求保留设置。
+启动加速约 10～30 秒已获用户接受；UU 自由缩放窗口暂缓。尚无异机全面验收。CM 保护范围之外的 IPv6、新端点、游戏自身连接及真实外网故障仍可能断线。Steam Fossilize 的历史 CPU 占用已完成归因，按用户要求保留设置。
 
 [原有网络补丁与历史验证](https://github.com/liyaomeng202114981-ops/we-proton/tree/uu-network-integration/we/network-integration) · [上游 PR #1](https://github.com/SHORiN-KiWATA/we-proton/pull/1)（2026-11-05 核对仍 open、未合并；本轮 Python 集成不属于该 PR）。
 

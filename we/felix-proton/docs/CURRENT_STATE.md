@@ -12,6 +12,8 @@
 - test.1 仍是历史 netfix2 运行器的本地打包版本，本轮没有重新编译或公开二进制。
 - 上游 PR #1 核对时仍 open、未合并；后续 Python CM 保护不属于该 PR。
 
-内核定时器 panic/workqueue 警告根因仍未确定；启动加速等待约 10～30 秒已获用户接受；UU 窗口自由缩放暂缓。异机及全面端到端兼容尚未验收。Steam Fossilize 的历史 CPU 占用已经完成归因，按用户要求保留设置。
+据本机用户排查，先前内核崩溃由 Snap 版 Office 引起。此事已从 Felix-Proton 待排查清单移除。
+
+启动加速等待约 10～30 秒已获用户接受；UU 窗口自由缩放暂缓。异机及全面端到端兼容尚未验收。Steam Fossilize 的历史 CPU 占用已经完成归因，按用户要求保留设置。
 
 具体实现、验证边界与回退见 [工作说明](WORK_REPORT.md)、[测试](TESTING.md) 和 [诊断](DIAGNOSTICS.md)。

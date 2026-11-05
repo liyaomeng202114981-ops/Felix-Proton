@@ -28,7 +28,7 @@
 | 分类 | 当前结论 |
 | --- | --- |
 | 已有修复及本机结果 | 0062/0063 修复接口身份与新增查询回退；普通图标接入已实现；用户已确认本机原有 Steam 切换掉线问题解决 |
-| 尚未解决 | 内核定时器 panic/workqueue 警告根因未确定；不能把近期没复现写成修复 |
+| 已移出项目排查范围 | 用户排查将先前内核崩溃归因于 Snap 版 Office，见 [当前状态](CURRENT_STATE.md) |
 | 已接受或暂缓 | 加速启动约 10～30 秒尚未全面归因，用户可接受；UU 自由缩放暂缓 |
 | 尚未覆盖或验收 | 异机和全部游戏/节点兼容、IPv6/新 CM 端点/游戏自身连接稳定性；当前没有对应运行器的公开下载资产 |
 | 已归因并按要求保留 | Steam Fossilize 的历史 CPU 占用，不调整其设置 |
@@ -328,4 +328,4 @@ python3 -B enable.py restore
 
 因此目前能完成的是“材料备齐后的完整功能部署”和代码/机制审阅；第三方仅靠 GitHub 下载就能构建并安装同等完整运行器仍是待完成事项。不得以删除校验、套用旧版本哈希或把普通上游运行器改名来代替。
 
-内核定时器 panic/workqueue 警告仍未确定原因，UU 自由缩放暂缓；Steam Fossilize 历史 CPU 占用已归因并按用户要求保留设置。完整状态、验收与来源见 [CURRENT_STATE.md](CURRENT_STATE.md)、[TESTING.md](TESTING.md)、[PROVENANCE.md](PROVENANCE.md)。
+UU 自由缩放暂缓；Steam Fossilize 历史 CPU 占用已归因并按用户要求保留设置。完整状态、验收与来源见 [CURRENT_STATE.md](CURRENT_STATE.md)、[TESTING.md](TESTING.md)、[PROVENANCE.md](PROVENANCE.md)。

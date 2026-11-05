@@ -26,7 +26,7 @@ Felix Li 在 OpenAI Codex 协助下，基于 [SHORiN-KiWATA 的 WE-Proton](https
 
 仓库克隆内容不包含 `felix-proton-uu-test-0.1.0-test.1.tar.zst`、客户端安装包或现成 Wine 前缀。`src/native-ux/enable.py` 可以复用本机已验证的 test.1 配置；全新安装和 `scripts/pack_native_preview.py` 需要另行准备固定 SHA-256 的历史运行器，不能仅凭本源码快照完成。构建、打包和安装应分开进行，具体依赖见使用说明及 `packaging/test.1/BUILD.md`。
 
-当前验证主要来自一台 Linux 机器，尚无异机端到端验收。没有以代码测试或路由命中代替所有游戏、节点的加速效果验证。内核定时器 panic 原因仍未确定；加速启动等待约 10～30 秒、UU 固定窗口尺寸的状态见当前结果。
+当前验证主要来自一台 Linux 机器，尚无异机端到端验收。没有以代码测试或路由命中代替所有游戏、节点的加速效果验证。加速启动等待约 10～30 秒、UU 固定窗口尺寸的状态见当前结果。
 
 ## 署名与许可
 

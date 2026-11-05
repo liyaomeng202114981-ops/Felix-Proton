@@ -20,7 +20,7 @@ python3 -B ~/.local/share/felix-native-ux/v1/cm_guard.py status
 
 被动采集器的四小时历史观察已经结束；本源码发布不启动新的后台监控。不要直接执行或导入 `src/live-watch/watch.py` 做语法检查：它在顶层启动采集。运行现有测试或使用 AST 解析即可。
 
-内核 panic 原因仍待查。日志缺失、空 pstore 或单次没有报警不能证明修复。历史 Fossilize CPU 归因不表示当前仍有相同负载，用户已决定保留设置。
+先前内核崩溃的用户排查结论见 [当前状态](CURRENT_STATE.md)。历史 Fossilize CPU 归因不表示当前仍有相同负载，用户已决定保留设置。
 
 原始 Steam/UU 日志、账号、完整命令行、远端端点集合与配置只留本机；对外只整理固定事件、计数、错误分类和脱敏时间范围。
 
