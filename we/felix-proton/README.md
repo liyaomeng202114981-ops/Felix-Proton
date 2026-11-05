@@ -4,7 +4,9 @@ Felix Li 在 OpenAI Codex 协助下，基于 [SHORiN-KiWATA 的 WE-Proton](https
 
 本轮公开的是最新 Python 启动层、安装与回退、诊断工具、配套测试及工作说明。Wine 网络补丁 0062/0063 仍位于本仓库原有的 `patches/wine/` 和 `we/fixes/` 中；这里没有重新编译或发布 Proton 二进制。
 
-- [从零部署当前完整功能：材料、步骤、手动分解、验证与回退](docs/FROM_ZERO.md)
+当前以开发中的具体流程和实现说明为主，暂不构建发行版、发布固定运行器或创建 Release。仍有问题需排查和跨机验证，详见下面的完整流程与当前状态。
+
+- [从零配置完整流程说明（开发记录）：材料、步骤、手动分解、验证与回退](docs/FROM_ZERO.md)
 - [实现逻辑与代码导航：无感启动、网卡切换和 CM 保护](docs/IMPLEMENTATION.md)
 - [本轮工作与验证结果](docs/WORK_REPORT.md)
 - [当前结果与未解决事项](docs/CURRENT_STATE.md)
