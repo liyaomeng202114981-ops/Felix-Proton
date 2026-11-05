@@ -4,7 +4,7 @@
 
 更新于 **2026-11-05**。本 fork 让原生 Linux Steam 与 Windows 网易 UU 共享网络，并通过原来的 Steam / UU 图标接入；由 Steam 启动的游戏通常继承该网络，具体游戏、区服、路由模式和节点由用户在 UU 中选择。
 
-**[从零完整部署](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/FROM_ZERO.md)** · **[实现逻辑与代码导航](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/IMPLEMENTATION.md)** · **[最新工作说明](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/WORK_REPORT.md)** · [当前结果与未解决事项](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/CURRENT_STATE.md) · [普通图标使用说明](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/src/native-ux/README.md) · [代码与目录](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/README.md) · [验证](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/TESTING.md) · [来源与署名](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/PROVENANCE.md)
+**[从零配置完整流程说明（开发中）](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/FROM_ZERO.md)** · **[实现逻辑与代码导航](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/IMPLEMENTATION.md)** · **[最新工作说明](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/WORK_REPORT.md)** · [当前结果与未解决事项](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/CURRENT_STATE.md) · [普通图标使用说明](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/src/native-ux/README.md) · [代码与目录](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/README.md) · [验证](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/TESTING.md) · [来源与署名](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/PROVENANCE.md)
 
 ## 本 fork 的工作
 
@@ -20,7 +20,9 @@
 
 ## 当前验证与发布范围
 
-本轮重新运行 **64 项集成测试与 16 项采集器测试，失败、错误和跳过均为 0**。隔离测试、路由检查与用户实际复测分别记录；不将共享网络或路由命中写成所有游戏均已加速。此前公开的 45 项显式入口测试属于另一套历史验证。
+当前以开发中的完整配置流程、实现细节和已知问题记录为主；暂不构建发行版、发布固定运行器或创建 GitHub Release。仍需继续修复和验证。
+
+此前记录的 **64 项集成测试与 16 项采集器测试均无失败、错误或跳过**；此次只同步文档，没有重跑代码测试。隔离测试、路由检查与用户实际复测分别记录；不将共享网络或路由命中写成所有游戏均已加速。此前公开的 45 项显式入口测试属于另一套历史验证。
 
 代码位于 **`uu-network-integration` 分支的 `we/felix-proton/`**。本轮公开源码和说明，未发布运行器或客户端二进制，也未重新编译 test.1 Wine/Proton。全新安装所需的固定历史运行器不包含在仓库克隆内容中。
 
