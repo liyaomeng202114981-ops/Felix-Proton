@@ -1,5 +1,7 @@
 # 用原来的 Steam 和网易 UU 图标
 
+首次从零配置及手动步骤见 [完整部署指南](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/FROM_ZERO.md)，包含固定运行器前提、共享网络、CM 保护、图标接入与回退。
+
 安装后，照常打开 Steam 或网易 UU。先开 Steam 也可以。需要加速时，在 UU 里选择游戏、区服和支持路由模式的节点，点击加速。日常不需要使用组合启动器或设置单个游戏的启动参数。
 
 Steam 已运行时再点普通 Steam 图标，会尝试把已有的 Steam 主窗口或登录窗口带到前台。此功能适用于可识别的 X11/XWayland 窗口，需要 wmctrl 与 xprop。没有可验证的窗口时，会通过原来的 Steam 网络入口发送“打开游戏库”命令。登录操作在 Steam 自己的窗口完成。
