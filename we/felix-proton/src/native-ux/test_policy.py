@@ -87,18 +87,38 @@ class IsolatedPolicyTests(unittest.TestCase):
 
     def test_failed_add_restores_working_set(self):
         p=self.p;p.capture_baseline();p.reconcile([(A,443)])
-        real=p._ip
-        def fail(*args,**kw):
-            if args[:3]==("-4","rule","add") and B+"/32" in args:
-                raise PolicyError("netlink_change_failed")
-            return real(*args,**kw)
-        with mock.patch.object(p,"_ip",side_effect=fail):
+        real=p._ip_batch
+        def fail(commands,**kw):
+            commands=list(commands)
+            for i,command in enumerate(commands):
+                if command[:2]==("rule","add") and B+"/32" in command:
+                    # Fail the real batch after adding B's route. Later
+                    # deletions in this batch must not run.
+                    commands[i]=("invalid-cm-test-command",)
+                    try:
+                        return real(commands,**kw)
+                    except PolicyError:
+                        state=json.loads(self.ledger.read_bytes())
+                        self.assertEqual(p._inspect(state),({(A,443)},{A,B}))
+                        raise
+            return real(commands,**kw)
+        with mock.patch.object(p,"_ip_batch",side_effect=fail):
             with self.assertRaisesRegex(PolicyError,"netlink_change_failed"):
                 p.reconcile([(B,444)])
         self.assertFalse(p.reconcile([(A,443)])["changed"])
         state=json.loads(self.ledger.read_bytes())
         self.assertEqual(state["owned"],[[A,443]])
         self.assertNotIn(B,{r["dst"] for r in p._ip("-4","route","show","table",state["table"],read=True)})
+
+    def test_earlier_rule_override_in_batched_queries_restores_working_set(self):
+        p=self.p;p.capture_baseline();p.reconcile([(A,443)])
+        p._ip("-4","route","add","table",44000,B+"/32","dev","p0")
+        p._ip("-4","rule","add","pref",100,"to",B+"/32","ipproto","tcp","dport",443,"lookup",44000)
+        with self.assertRaisesRegex(PolicyError,"earlier_rule_overrides"):
+            p.reconcile([(A,443),(C,443),(B,443)])
+        state=json.loads(self.ledger.read_bytes())
+        self.assertEqual(p._inspect(state),({(A,443)},{A}))
+        self.assertTrue(any(r.get("priority")==100 for r in p._ip("-4","rule","show",read=True)))
 
     def test_foreign_conflict_rejected_and_never_deleted(self):
         p=self.p;p.capture_baseline();p.reconcile([(A,443)])
@@ -136,6 +156,15 @@ class IsolatedPolicyTests(unittest.TestCase):
         self.assertEqual(result["rules"],1)
         self.assertEqual(p._inspect(json.loads(self.ledger.read_bytes())),({(C,442)},{C}))
         p.rollback()
+
+
+class BatchTests(unittest.TestCase):
+    def test_uncommon_interface_name_uses_individual_commands(self):
+        p=Policy(0,0,"unused")
+        commands=[("addr","show","dev","p#0"),("route","show","dev","p#0")]
+        with mock.patch.object(p,"_ip",return_value=[]) as ip:
+            self.assertEqual(p._ip_batch(commands,read=True),[[],[]])
+        self.assertEqual(ip.call_args_list,[mock.call("-4",*command,read=True) for command in commands])
 
 
 if __name__=="__main__":unittest.main()

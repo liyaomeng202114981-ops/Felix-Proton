@@ -22,6 +22,7 @@ Thanks also to the contributors to Proton, Wine, GE-Proton, DW-Proton and passt 
 | Steam CM protection | Keep discovered exact IPv4/TCP control endpoints on the pasta path; the local user confirmed the original Steam disconnect issue during acceleration switching was resolved |
 | CM directory proxy | Query the Valve CM directory through a manually configured GNOME loopback proxy when available, and try a direct connection if the proxy connection fails |
 | Steam protection notification | Show one notification per guard session when the rules are ready, including after recovery from a startup warning |
+| Python CM performance | Wake the guard during startup as queries complete, batch rule changes and route checks, and reduce repeated status writes |
 | Installation, rollback and diagnostics | Back up/restore desktop entries, query status, provide bounded passive diagnostics and accompanying tests |
 
 The upstream wrapper supplies namespace/session management, WE-Proton supplies the Wintun foundation, and pasta supplies the host connection. The new Python guard installs precise endpoint rules only inside the shared private network. Host routes remain unchanged. It does not claim to protect every game connection.
@@ -30,7 +31,7 @@ The upstream wrapper supplies namespace/session management, WE-Proton supplies t
 
 This update covers development source, the complete configuration process, implementation details and known issues. Release builds, runner distribution and GitHub Releases are deferred.
 
-All **66 isolated integration tests passed**, including directory proxy fallback and readiness notification checks. The earlier 64 integration tests, 16 collector tests and 45 portable-launcher tests remain historical results. The user separately confirmed that the latest CM update passed on their machine.
+All **69 isolated integration tests passed**. For 27 synthetic endpoints, median initial policy reconciliation fell from 343 ms to 52 ms and subprocess calls fell from 87 to 8. Across three isolated runs using the live Valve directory and DNS, median guard readiness was 0.896 s. Full Steam startup time and in-game latency were outside the test scope. [Test methods and scope](we/felix-proton/docs/TESTING.md#cm-性能复测)
 
 The project is maintained on `main` in this standalone repository. The launch integration and its documentation are under [`we/felix-proton/`](we/felix-proton/). A fresh installation requires a separately prepared, checksum-pinned historical test.1 runner.
 

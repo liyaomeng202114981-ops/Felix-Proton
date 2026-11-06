@@ -6,6 +6,7 @@ import ipaddress
 import json
 import os
 from pathlib import Path
+import re
 import stat
 import struct
 import subprocess
@@ -21,6 +22,7 @@ METRIC = 42420
 MAX_ENDPOINTS = 64
 TABLES = range(41200, 41328)
 PREFERENCES = range(14300, 14428)
+_BATCH_WORD = re.compile(r"[A-Za-z0-9_./:+-]+")
 
 
 def _key(addr, port):
@@ -98,7 +100,7 @@ class Policy:
         self.stack.close()
         self.handles = None
 
-    def _ip(self,*args, read=False):
+    def _ip(self,*args, read=False, batch=None):
         if self.handles is None:
             raise PolicyError("namespace_not_open")
         u,n = self.handles
@@ -107,17 +109,35 @@ class Policy:
         if read:
             cmd += ["-N","-j","-details"]
         try:
-            p = subprocess.run([*cmd,*map(str,args)],pass_fds=(u,n),stdin=subprocess.DEVNULL,
+            p = subprocess.run([*cmd,*map(str,args)],pass_fds=(u,n),input=batch,
+                               stdin=subprocess.DEVNULL if batch is None else None,
                                stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,timeout=3,env={"LC_ALL":"C","PATH":"/usr/bin:/usr/sbin"})
             if p.returncode or len(p.stdout)>8*1024*1024:
                 raise PolicyError("netlink_query_failed" if read else "netlink_change_failed")
             if read:
+                if batch is not None:
+                    # Each batch query emits its own compact JSON array.
+                    rows = [json.loads(line) for line in p.stdout.splitlines() if line.strip()]
+                    if not all(isinstance(row,list) for row in rows):
+                        raise PolicyError("invalid_netlink_reply")
+                    return rows
                 rows = json.loads(p.stdout)
                 if not isinstance(rows,list):
                     raise PolicyError("invalid_netlink_reply")
                 return rows
         except (OSError,ValueError,subprocess.SubprocessError):
             raise PolicyError("netlink_query_failed" if read else "netlink_change_failed") from None
+
+    def _ip_batch(self,commands, *, read=False):
+        commands = [tuple(map(str,command)) for command in commands]
+        if len(commands) < 2 or not all(_BATCH_WORD.fullmatch(word) for command in commands for word in command):
+            # Preserve argv semantics for uncommon interface names.
+            return [self._ip("-4",*command,read=read) for command in commands]
+        batch = "".join(" ".join(command)+"\n" for command in commands).encode("ascii")
+        rows = self._ip("-4","-batch","-",read=read,batch=batch)
+        if read and len(rows)!=len(commands):
+            raise PolicyError("invalid_netlink_reply")
+        return rows
 
     @contextlib.contextmanager
     def _lock(self):
@@ -281,17 +301,19 @@ class Policy:
         rules,routes=actual
         ips={ip for ip,_ in wanted}
         b=s["baseline"]
+        commands=[]
         def route(action,addr):
-            self._ip("-4","route",action,"table",s["table"],addr+"/32","via",b["gateway"],"dev",b["dev"],
-                     "onlink","src",b["source"],"proto",PROTOCOL,"metric",METRIC)
+            commands.append(("route",action,"table",s["table"],addr+"/32","via",b["gateway"],"dev",b["dev"],
+                             "onlink","src",b["source"],"proto",PROTOCOL,"metric",METRIC))
         def rule(action,item):
             ip,port=item
-            self._ip("-4","rule",action,"pref",s["pref"],"to",ip+"/32","ipproto","tcp","dport",port,
-                     "lookup",s["table"],"protocol",PROTOCOL)
+            commands.append(("rule",action,"pref",s["pref"],"to",ip+"/32","ipproto","tcp","dport",port,
+                             "lookup",s["table"],"protocol",PROTOCOL))
         for ip in sorted(ips-routes): route("add",ip)
         for key in sorted(wanted-rules): rule("add",key)
         for key in sorted(rules-wanted): rule("del",key)
         for ip in sorted(routes-ips): route("del",ip)
+        self._ip_batch(commands)
 
     def _reconcile(self,s,wanted):
         # A pre-existing unowned row never authorizes an addition or a delete.
@@ -319,9 +341,11 @@ class Policy:
             if self._inspect(s)!=target:
                 raise PolicyError("policy_verification_failed")
             # A higher-priority VPN rule could have superseded the exception.
-            for addr,port in sorted(wanted-actual[0]):
-                r=self._ip("-4","route","get",addr,"ipproto","tcp","dport",port,read=True)
-                if len(r)!=1 or str(r[0].get("table"))!=str(s["table"]) or r[0].get("dev")!=s["baseline"]["dev"]:
+            checks=sorted(wanted-actual[0])
+            queries=(("route","get",addr,"ipproto","tcp","dport",port) for addr,port in checks)
+            for (addr,_),r in zip(checks,self._ip_batch(queries,read=True)):
+                if (len(r)!=1 or not isinstance(r[0],dict) or r[0].get("dst") not in (addr,addr+"/32")
+                        or str(r[0].get("table"))!=str(s["table"]) or r[0].get("dev")!=s["baseline"]["dev"]):
                     raise PolicyError("earlier_rule_overrides")
         except PolicyError as original:
             try:

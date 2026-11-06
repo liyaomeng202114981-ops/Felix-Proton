@@ -206,6 +206,7 @@ class CMEndpoints:
         self.offset, self.identity, self.partial, self.discard = 0, None, b'', False
         self.next_fetch = self.next_read = 0
         self.results = queue.Queue()
+        self._results_ready = threading.Event()
         self.pending = set()
         self.closed = False
         self.directory_state = 'waiting'
@@ -219,6 +220,7 @@ class CMEndpoints:
             except Exception:
                 value = None  # Untrusted/server exception text can contain the request or hostname.
             self.results.put((key,value))
+            self._results_ready.set()
         threading.Thread(target=run,daemon=True,name='steam-cm-'+key[0]).start()
 
     def _receive(self, now):
@@ -295,6 +297,8 @@ class CMEndpoints:
         if self.closed:
             return set()
         now = time.monotonic()
+        # Clear before draining so a worker completing during the poll can wake the owner.
+        self._results_ready.clear()
         self._receive(now)
         if now>=self.next_read:
             self._read_log(now,time.time())
@@ -336,6 +340,10 @@ class CMEndpoints:
 
     def status(self):
         return dict(self.report)
+
+    def wait_for_results(self, timeout):
+        """Wait up to timeout seconds for a worker to queue a result."""
+        return self._results_ready.wait(timeout)
 
     def close(self):
         # Outstanding bounded network requests are daemon workers; their results

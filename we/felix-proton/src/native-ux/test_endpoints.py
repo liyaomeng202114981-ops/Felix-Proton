@@ -76,6 +76,21 @@ class DirectoryProxy(unittest.TestCase):
             self.assertEqual(read.call_args_list, [mock.call((4,), {'https': proxy}), mock.call((4,), {})])
 
 
+class WorkerWake(unittest.TestCase):
+    def test_directory_and_dns_results_wake_poll(self):
+        with tempfile.TemporaryDirectory() as root:
+            cm = e.CMEndpoints(Path(root)/'connection_log.txt')
+            self.addCleanup(cm.close)
+            with mock.patch.object(e, '_fetch', return_value=[(B,443)]), \
+                    mock.patch.object(e, '_resolve', return_value=[IP]):
+                self.assertEqual(cm.poll(), set())
+                self.assertTrue(cm.wait_for_results(2))
+                self.assertEqual(cm.poll(), set())
+                self.assertTrue(cm.wait_for_results(2))
+                self.assertEqual(cm.poll(), {(IP,443)})
+                self.assertFalse(cm.wait_for_results(0))
+
+
 class Lookup(unittest.TestCase):
     def setUp(self):
         self.root=Path(self.enterContext(tempfile.TemporaryDirectory()))

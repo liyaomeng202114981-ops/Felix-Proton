@@ -18,6 +18,7 @@ import threading
 
 sys.dont_write_bytecode=True
 STOP=False
+STATUS_HEARTBEAT=5
 
 
 def _stop(*_):
@@ -187,8 +188,17 @@ def serve(config):
     storage.mkdir(mode=0o700,parents=True,exist_ok=True)
     pid=os.getpid();start=(Path('/proc/self/stat').read_bytes().rsplit(b') ',1)[1].split()[19].decode())
     base={'pid':pid,'start':start}
+    last_status=None
+    last_published=0
     def status(state,**kw):
-        _private_file(rt/'status.json',{**base,'state':state,'updated':time.time(),**kw})
+        nonlocal last_status,last_published
+        snapshot={**base,'state':state,**kw}
+        now=time.monotonic()
+        # Keep the launcher's snapshot fresh without rewriting it every poll.
+        if snapshot==last_status and now-last_published<STATUS_HEARTBEAT:
+            return
+        _private_file(rt/'status.json',{**snapshot,'updated':time.time()})
+        last_status,last_published=snapshot,now
     def event(kind,**kw):
         p=storage/'events.jsonl'
         if p.exists() and p.stat().st_size>1024*1024:p.replace(storage/'events.previous.jsonl')
@@ -240,7 +250,12 @@ def serve(config):
                                     pass
                         elif time.monotonic()-primed>5:
                             status('error',error='cm_endpoints_unavailable')
-                        time.sleep(.4 if time.monotonic()-primed<6 else 2)
+                        elapsed=time.monotonic()-primed
+                        if not ready_notified and elapsed<6:
+                            # Consume early lookups promptly, then keep the normal polling cadence.
+                            resolver.wait_for_results(.4)
+                        else:
+                            time.sleep(.4 if elapsed<6 else 2)
                 finally:
                     try:
                         policy.rollback()
