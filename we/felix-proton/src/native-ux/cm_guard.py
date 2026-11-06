@@ -215,6 +215,7 @@ def serve(config):
                     policy.capture_baseline()
                     baseline=json.loads(ledger.read_text())['baseline']
                     last=None;last_at=0;primed=time.monotonic()
+                    ready_notified=False
                     status('preparing')
                     while not STOP:
                         if _keeper(ctx)!=identity:break
@@ -229,6 +230,14 @@ def serve(config):
                         if last and ((resolver.status()['directory']=='ok' and len(last)>=4)
                                      or time.monotonic()-primed>=5):
                             status('ready',rules=len(last),directory=resolver.status()['directory'],deferred=len(unsafe))
+                            if not ready_notified:
+                                ready_notified=True
+                                try:
+                                    subprocess.run(['notify-send','Steam 连接保护','连接保护已就绪。'],
+                                                   stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,
+                                                   timeout=2,check=False)
+                                except (OSError,subprocess.TimeoutExpired):
+                                    pass
                         elif time.monotonic()-primed>5:
                             status('error',error='cm_endpoints_unavailable')
                         time.sleep(.4 if time.monotonic()-primed<6 else 2)

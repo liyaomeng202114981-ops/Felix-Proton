@@ -24,8 +24,13 @@ import setup_config
 
 SOURCES=('policy.py','endpoints.py','cm_guard.py','steam_window.py','desktop.py','setup_config.py','bootstrap.py','routes.py','enable.py')
 # Only replace exact files from the previous local preview. Keep personal edits.
-PREVIOUS={'routes.py':('31fa095afe768d4f2e8670942c11309e164bfbb9c4b0dabd5eed902a54954926','a2c1679270c1eaebb0d735438889c69a1f02ea02f5be0a2c1d337283ef08d464'),
-          'enable.py':('615ee2dfaf94a91d2e3353b2bafdb9125c925435fb425429d7fd17044328bf19','bb8adf6245a99bea9b58ec1bc630c8f147d5585301b0d03bafdb193c2a55e270')}
+PREVIOUS={'cm_guard.py':'dec8722bdcbe5567d6db88b9e5c74742622e6fa104a3ecbe5170a0e43b47e050',
+          'endpoints.py':'d5633720a18c798ccf6a70f360d6734359b1ab5b375721541e539392f1d60615',
+          'routes.py':('31fa095afe768d4f2e8670942c11309e164bfbb9c4b0dabd5eed902a54954926','a2c1679270c1eaebb0d735438889c69a1f02ea02f5be0a2c1d337283ef08d464'),
+          'enable.py':('615ee2dfaf94a91d2e3353b2bafdb9125c925435fb425429d7fd17044328bf19',
+                       'bb8adf6245a99bea9b58ec1bc630c8f147d5585301b0d03bafdb193c2a55e270',
+                       '61f60e3774cf9efb98ea043ce261ac446c8ed488d4cdbfa348ae33f88ed9e850',
+                       '99e47205f6a3cb2f6ff56ebc45b19c386105307fb74a70b8efca2f5f22b81d41')}
 
 
 def xdg(key, fallback):

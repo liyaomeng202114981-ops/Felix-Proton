@@ -21,7 +21,8 @@ import threading
 import time
 import urllib.request
 
-URL = 'https://api.steampowered.com/ISteamDirectory/GetCMListForConnect/v1/?cellid=0&cmtype=websockets&maxcount=40'
+DIRECTORY_HOST = 'api.steampowered.com'
+URL = f'https://{DIRECTORY_HOST}/ISteamDirectory/GetCMListForConnect/v1/?cellid=0&cmtype=websockets&maxcount=40'
 DIRECTORY_TTL = 20 * 60
 HINT_TTL = 30 * 60
 COMPLETED_TTL = 2 * 60 * 60
@@ -96,9 +97,63 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
         return None
 
 
+def _desktop_proxy():
+    """Read the optional GNOME manual loopback proxy for this directory only."""
+    try:
+        from gi.repository import Gio
+    except ImportError:
+        return None
+
+    schemas = Gio.SettingsSchemaSource.get_default()
+    if schemas is None:
+        return None
+    schema = schemas.lookup('org.gnome.system.proxy', True)
+    if schema is None:
+        return None
+    settings = Gio.Settings.new_full(schema, None, None)
+    if settings.get_string('mode') != 'manual':
+        return None
+    ignored = settings.get_strv('ignore-hosts')
+    if '*' in ignored:
+        return None
+
+    server = settings.get_child('https')
+    if not server.get_string('host'):
+        server = settings.get_child('http')
+    host = server.get_string('host')
+    port = server.get_int('port')
+    try:
+        address = ipaddress.ip_address('127.0.0.1' if host.lower() == 'localhost' else host)
+    except ValueError:
+        return None
+    if not address.is_loopback or not 0 < port < 65536:
+        return None
+    authority = f'[{address}]' if address.version == 6 else str(address)
+    proxy = f'http://{authority}:{port}'
+    resolver = Gio.SimpleProxyResolver.new(proxy, ignored)
+    if resolver.lookup(f'https://{DIRECTORY_HOST}:443/', None)[0] == proxy:
+        return proxy
+    return None
+
+
 def _fetch(families):
+    proxies = urllib.request.getproxies()
+    proxy = None
+    if not proxies.get('https') and not urllib.request.proxy_bypass(DIRECTORY_HOST):
+        proxy = _desktop_proxy()
+    if proxy:
+        try:
+            return _read_directory(families, {'https': proxy})
+        except OSError:
+            # A stopped local proxy must not prevent a working direct lookup.
+            pass
+    return _read_directory(families, proxies)
+
+
+def _read_directory(families, proxies):
     req = urllib.request.Request(URL,headers={'Accept':'application/json','User-Agent':'Felix-Steam-CM/1.0'})
-    with urllib.request.build_opener(_NoRedirect()).open(req,timeout=4) as res:
+    handler = urllib.request.ProxyHandler(proxies)
+    with urllib.request.build_opener(_NoRedirect(), handler).open(req,timeout=4) as res:
         if res.status != 200 or res.geturl() != URL or res.headers.get_content_type() != 'application/json':
             raise ValueError('directory_response')
         return directory_rows(res.read(128*1024+1),families)

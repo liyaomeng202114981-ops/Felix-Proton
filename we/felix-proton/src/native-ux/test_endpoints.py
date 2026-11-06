@@ -57,6 +57,25 @@ class Parser(unittest.TestCase):
             self.assertIsNone(e._pair(text,(4,6)),text)
 
 
+class DirectoryProxy(unittest.TestCase):
+    def test_explicit_proxy_and_bypass_keep_standard_urllib_behavior(self):
+        for env in ({'https_proxy': 'http://127.0.0.1:1234'}, {'no_proxy': e.DIRECTORY_HOST}):
+            with self.subTest(env=env), mock.patch.dict(os.environ, env, clear=True), \
+                    mock.patch.object(e, '_desktop_proxy') as desktop, \
+                    mock.patch.object(e, '_read_directory') as read:
+                e._fetch((4,))
+                desktop.assert_not_called()
+                read.assert_called_once_with((4,), e.urllib.request.getproxies())
+
+    def test_desktop_proxy_is_scoped_and_transport_failure_retries_direct(self):
+        proxy = 'http://127.0.0.1:1234'
+        with mock.patch.dict(os.environ, {}, clear=True), \
+                mock.patch.object(e, '_desktop_proxy', return_value=proxy), \
+                mock.patch.object(e, '_read_directory', side_effect=[ConnectionRefusedError, [(A, 443)]]) as read:
+            self.assertEqual(e._fetch((4,)), [(A, 443)])
+            self.assertEqual(read.call_args_list, [mock.call((4,), {'https': proxy}), mock.call((4,), {})])
+
+
 class Lookup(unittest.TestCase):
     def setUp(self):
         self.root=Path(self.enterContext(tempfile.TemporaryDirectory()))

@@ -13,7 +13,7 @@ import routes
 
 
 class ControllerTests(unittest.TestCase):
-    def test_removes_expired_set_and_rolls_back_on_exit(self):
+    def test_notifies_once_after_recovery_and_removes_expired_rules(self):
         with tempfile.TemporaryDirectory() as t:
             d=Path(t);runtime=d/'rt';state=d/'state'
             ctx=SimpleNamespace(prefix=d/'prefix',config=d/'config',root=d)
@@ -27,26 +27,35 @@ class ControllerTests(unittest.TestCase):
                 def reconcile(self,targets):
                     calls.append(set(targets));return {'rules':len(targets)}
                 def rollback(self):calls.append('rollback')
+            peer={('1.1.1.1',443)}
+            polls=iter([set(),set(),peer,peer,set(),peer])
             class Resolver:
-                def __init__(self,*a,**kw):self.i=0
-                def poll(self,**kw):
-                    self.i+=1
-                    return {('1.1.1.1',443)} if self.i==1 else set()
+                def __init__(self,*a,**kw):pass
+                def poll(self,**kw):return next(polls)
                 def status(self):return {'directory':'ok'}
                 def close(self):pass
-            count=0
+            states=[]
             def sleep(_):
-                nonlocal count
-                count+=1
-                if count>=2:cm_guard.STOP=True
+                states.append(json.loads((runtime/'status.json').read_text())['state'])
+                if len(states)==6:cm_guard.STOP=True
+            def notify(*args,**kwargs):
+                meta=json.loads((runtime/'status.json').read_text())
+                self.assertEqual((meta['state'],meta['rules']),('ready',1))
+                raise cm_guard.subprocess.TimeoutExpired(args[0],kwargs['timeout'])
             with patch.object(routes,'load',return_value=ctx), \
                  patch.object(cm_guard,'_paths',return_value=(runtime,state)), \
                  patch.object(cm_guard,'_keeper',return_value=(Path('/proc')/str(os.getpid()),123,'net:[42]')), \
                  patch.object(cm_guard,'_live',return_value=[]), \
                  patch.object(policy,'Policy',FakePolicy),patch.object(endpoints,'CMEndpoints',Resolver), \
+                 patch.object(cm_guard.time,'monotonic',side_effect=lambda:6*len(states)), \
+                 patch.object(cm_guard.subprocess,'run',side_effect=notify) as send, \
                  patch.object(cm_guard.time,'sleep',side_effect=sleep),patch.object(cm_guard,'STOP',False):
                 cm_guard.serve(ctx.config)
-            self.assertEqual(calls,[{('1.1.1.1',443)},set(),'rollback'])
+            send.assert_called_once_with(['notify-send','Steam 连接保护','连接保护已就绪。'],
+                                         stdout=cm_guard.subprocess.DEVNULL,stderr=cm_guard.subprocess.DEVNULL,
+                                         timeout=2,check=False)
+            self.assertEqual(states,['preparing','error','ready','ready','error','ready'])
+            self.assertEqual(calls,[peer,set(),peer,'rollback'])
             meta=json.loads((runtime/'status.json').read_text())
             self.assertEqual(meta['namespace'],'net:[42]')
             self.assertEqual(meta['state'],'stopped')

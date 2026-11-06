@@ -1,6 +1,6 @@
 # 无感启动与加速切换：实现逻辑和代码导航
 
-更新于 **2026-11-05**。维护者：**Felix Li，with OpenAI Codex assistance**。本页解释普通图标接入、共享网络、Wine 网卡修复与 Steam CM 连接保护如何配合，便于从使用行为定位到具体代码。
+更新于 **2026-11-06**。维护者：**Felix Li，with OpenAI Codex assistance**。本页解释普通图标接入、共享网络、Wine 网卡修复与 Steam CM 连接保护如何配合，便于从使用行为定位到具体代码。
 
 需要从下载材料开始逐步部署全部功能，请先读 [从零完整部署](FROM_ZERO.md)，其中包括固定运行器前提、完整 CLI、手动分解、首次 CM 准备、原图标接入、验收和回退。
 
@@ -23,7 +23,7 @@
 
 ## 一次普通图标点击怎样启动
 
-首次设置由 [enable.py](../src/native-ux/enable.py#L121) 检查运行器、配置和必要的 UU 初始化，安装 Python 辅助文件，然后调用 [desktop.py](../src/native-ux/desktop.py#L72) 备份并修改用户级桌面入口的启动命令。原来的 desktop ID、图标、名称、Steam URI 参数及已识别的右键动作保留。
+首次设置由 [enable.py](../src/native-ux/enable.py#L126) 检查运行器、配置和必要的 UU 初始化，安装 Python 辅助文件，然后调用 [desktop.py](../src/native-ux/desktop.py#L72) 备份并修改用户级桌面入口的启动命令。原来的 desktop ID、图标、名称、Steam URI 参数及已识别的右键动作保留。
 
 之后每次启动按以下流程执行：
 
@@ -84,9 +84,13 @@ if_nametoindex(记录中的名称) == 记录中的索引
 
 1. **确认目标网络。** 校验 keeper 的用户、启动时间及命名空间，持有相应 user/net namespace 文件描述符。守护主进程留在宿主，通过固定 FD 进入已验证的私有网络执行规则操作。
 2. **记录原出口。** UU 加速网卡尚未建立时，保存 pasta 出口的设备、接口索引、网关和源 IPv4 地址。存在 UU 网卡、出口不唯一或身份不明时不猜测基线。
-3. **发现合格 CM 端点。** [endpoints.py](../src/native-ux/endpoints.py#L238) 使用 Valve CM 目录和严格匹配的 Steam CM 日志；原生 Steam 自有活跃 TCP socket 用来交叉确认并优先保护合格的活跃端点。目录中的合格候选也可提前保护，不要求每个目标先建立连接。任意 Steam socket 不自动取得 CM 资格。
+3. **发现合格 CM 端点。** [endpoints.py](../src/native-ux/endpoints.py#L293) 使用 Valve CM 目录和严格匹配的 Steam CM 日志；原生 Steam 自有活跃 TCP socket 用来交叉确认并优先保护合格的活跃端点。目录中的合格候选也可提前保护，不要求每个目标先建立连接。任意 Steam socket 不自动取得 CM 资格。
 4. **建立精确策略。** [policy.py](../src/native-ux/policy.py#L280) 在独立路由表中为目标放置 `/32` 原出口路由，再按“目的 IPv4＋TCP＋目的端口”添加优先于普通主路由表的选择规则。
 5. **维护和回收。** [cm_guard.py](../src/native-ux/cm_guard.py#L205) 定期更新目标、检查网络身份及协调规则，按本程序账本清理。已使用不同源地址的活跃连接先暂缓接管，避免中途硬迁。
+
+普通图标启动的进程可能没有终端的代理环境。[目录查询](../src/native-ux/endpoints.py#L139) 保留显式 HTTPS 代理及 `NO_PROXY` 的处理。如果没有显式代理、目标也未被排除，查询可通过 Gio 读取 GNOME 手动配置的本机回环 HTTP 代理，同时遵守桌面的代理排除列表。设置不可用或本机代理连接失败时，查询沿用原有路径。这项设置只用于 Valve CM 目录的 HTTPS 请求。
+
+[守护程序](../src/native-ux/cm_guard.py#L232) 在规则生效并首次写入 `ready` 后尝试发出“连接保护已就绪”通知。启动时若超时，应用照常启动，守护继续尝试并在首次恢复后通知。同一守护会话只尝试通知一次。这个提示对应 Steam 控制连接保护状态，UU 加速结果仍由客户端和实际连接单独验证。
 
 ```mermaid
 flowchart TD
@@ -122,14 +126,14 @@ CM 保护位于 Python 启动层，本次没有重编 Wine/Proton。此前上游
 
 | 需要审阅的行为 | 代码入口 |
 | --- | --- |
-| 安装和桌面入口备份/改写 | [enable.py](../src/native-ux/enable.py#L121)、[desktop.py](../src/native-ux/desktop.py#L224) |
+| 安装和桌面入口备份/改写 | [enable.py](../src/native-ux/enable.py#L126)、[desktop.py](../src/native-ux/desktop.py#L224) |
 | 普通图标调度、参数和已有实例检查 | [routes.py](../src/native-ux/routes.py#L44) |
 | 调用 wrapper 启动原生 Steam 或 Windows UU | [uu_network.py](../src/test-runtime-felix/launchers/uu_network.py#L137) |
 | 已有 Steam 窗口唤出 | [steam_window.py](../src/native-ux/steam_window.py#L99) |
-| CM 保护准备、连接核对及后台维护 | [cm_guard.py](../src/native-ux/cm_guard.py#L81) |
-| CM 目录、日志候选和活跃端点资格 | [endpoints.py](../src/native-ux/endpoints.py#L238) |
+| CM 保护准备、连接核对及后台维护 | [cm_guard.py](../src/native-ux/cm_guard.py#L123) |
+| CM 目录代理、日志候选和活跃端点资格 | [目录请求](../src/native-ux/endpoints.py#L139)、[端点维护](../src/native-ux/endpoints.py#L293) |
 | 基线、精确规则、冲突检查和回退 | [policy.py](../src/native-ux/policy.py#L192) |
 
-此前源码发布时，在原工作区与导出副本分别通过 **64 项集成测试和 16 项采集器测试**，无失败、错误或跳过。本次只增加说明与阅读链接，没有修改运行代码，也没有重新执行客户端切换或代码测试。
+本次代理查询和通知更新通过 **66 项隔离集成测试**。此前的 **64 项集成测试和 16 项采集器测试** 属于首次源码同步时的验证。
 
 用户已确认本机原有切换掉线问题得到解决；没有与后续复测同步的整夜逐次断线时长记录，也没有异机全面验收。隔离测试、路由命中、客户端界面和游戏实际效果分别作为证据。运行器仍是本地预览，本仓库源码不附带固定历史运行器或客户端安装包。进一步阅读：[工作说明](WORK_REPORT.md)、[测试范围](TESTING.md)、[诊断和回退](DIAGNOSTICS.md)。
