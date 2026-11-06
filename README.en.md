@@ -2,7 +2,7 @@
 
 **Maintained by Felix Li, with OpenAI Codex assistance, on top of SHORiN-KiWATA's WE-Proton and proton-wrapper, plus passt / pasta. Upstream authorship, licenses and Git history are preserved.**
 
-Updated **2026-11-05**. This fork joins native Linux Steam and Windows UU to one network through their ordinary desktop icons. Standard Steam child processes usually inherit that network; the user selects the game, region, routing mode and node in UU.
+Updated **2026-11-06**. This fork joins native Linux Steam and Windows UU to one network through their ordinary desktop icons. Standard Steam child processes usually inherit that network; the user selects the game, region, routing mode and node in UU.
 
 **[Complete setup process — development notes (Chinese)](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/FROM_ZERO.md)** · **[Implementation and code guide (Chinese)](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/IMPLEMENTATION.md)** · **[Latest work report (Chinese)](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/WORK_REPORT.md)** · [Current results and limits](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/CURRENT_STATE.md) · [Ordinary-icon setup](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/src/native-ux/README.md) · [Source layout](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/README.md) · [Validation](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/TESTING.md) · [Provenance](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/PROVENANCE.md)
 
@@ -14,15 +14,17 @@ Updated **2026-11-05**. This fork joins native Linux Steam and Windows UU to one
 | Route-enumeration fix 0063 | Reuse successful translations within one enumeration, removing the regression introduced by 0062 and restoring performance near the historical baseline |
 | Ordinary Steam / UU icons | Arrange shared networking, validate an existing Steam instance, preserve URI/arguments, and raise an existing window on repeated clicks |
 | Steam CM protection | Keep discovered exact IPv4/TCP control endpoints on the pasta path; the local user confirmed the original Steam disconnect issue during acceleration switching was resolved |
+| CM directory proxy | Query the Valve CM directory through a manually configured GNOME loopback proxy when available, and try a direct connection if the proxy connection fails |
+| Steam protection notification | Show one notification per guard session when the rules are ready, including after recovery from a startup warning |
 | Installation, rollback and diagnostics | Back up/restore desktop entries, query status, provide bounded passive diagnostics and accompanying tests |
 
 The upstream wrapper supplies namespace/session management, WE-Proton supplies the Wintun foundation, and pasta supplies the host connection. The new Python guard installs precise endpoint rules only inside the shared private network. Host routes remain unchanged. It does not claim to protect every game connection.
 
 ## Validation and publication scope
 
-The current scope is development documentation: the complete configuration process, implementation details and known issues. Runner distribution and GitHub Releases are deferred while fixes and validation continue.
+This update covers development source, the complete configuration process, implementation details and known issues. Release builds, runner distribution and GitHub Releases are deferred.
 
-Previously recorded checks passed **64 integration tests and 16 collector tests with zero failures, errors or skips**. This update changes documentation only; code tests were not rerun. Isolated tests, route selection and user retesting are separate evidence. Shared networking does not establish acceleration for every game or node. The previous 45 portable-launcher tests are a separate historical suite.
+All **66 isolated integration tests passed**, including directory proxy fallback and readiness notification checks. The earlier 64 integration tests, 16 collector tests and 45 portable-launcher tests remain historical results. Route selection and user retesting are recorded separately.
 
 Latest source is under **`we/felix-proton/` on `uu-network-integration`**. This update publishes source and documentation, without runner/client binaries or a rebuilt test.1 Wine/Proton. A fresh installation requires a separately prepared, checksum-pinned historical runner absent from a repository clone.
 

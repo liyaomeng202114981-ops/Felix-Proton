@@ -2,7 +2,7 @@
 
 **维护者：Felix Li，with OpenAI Codex assistance。基于 SHORiN-KiWATA 的 WE-Proton、proton-wrapper 及 passt / pasta，保留上游作者、许可和 Git 历史。**
 
-更新于 **2026-11-05**。本 fork 让原生 Linux Steam 与 Windows 网易 UU 共享网络，并通过原来的 Steam / UU 图标接入；由 Steam 启动的游戏通常继承该网络，具体游戏、区服、路由模式和节点由用户在 UU 中选择。
+更新于 **2026-11-06**。本 fork 让原生 Linux Steam 与 Windows 网易 UU 共享网络，并通过原来的 Steam / UU 图标接入；由 Steam 启动的游戏通常继承该网络，具体游戏、区服、路由模式和节点由用户在 UU 中选择。
 
 **[从零配置完整流程说明（开发中）](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/FROM_ZERO.md)** · **[实现逻辑与代码导航](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/IMPLEMENTATION.md)** · **[最新工作说明](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/WORK_REPORT.md)** · [当前结果与未解决事项](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/CURRENT_STATE.md) · [普通图标使用说明](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/src/native-ux/README.md) · [代码与目录](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/README.md) · [验证](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/TESTING.md) · [来源与署名](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/PROVENANCE.md)
 
@@ -14,15 +14,17 @@
 | 路由枚举修复 0063 | 在一次枚举内复用成功转换，消除 0062 引入的性能回退；恢复接近历史原基底的性能 |
 | 普通 Steam / UU 图标集成 | 自动安排共享网络，检查已有 Steam 网络归属，保留 URI 和参数，重复点击唤出已有窗口 |
 | Steam CM 控制连接保护 | 为已发现的精确 IPv4/TCP 控制端点保留 pasta 出口；本机用户确认切换加速时原有 Steam 掉线问题解决 |
+| CM 目录代理 | Valve CM 目录查询可使用 GNOME 手动配置的本机代理，代理连接失败时尝试直连 |
+| Steam 连接保护通知 | 规则就绪后每个守护会话提示一次，启动时暂未就绪且随后恢复也会提示 |
 | 安装、回退与诊断 | 提供入口备份/恢复、状态查询、有边界的被动观察与配套测试 |
 
 网络命名空间与会话管理来自原作者 wrapper，Wintun 基础来自 WE-Proton，pasta 连接宿主网络。新增 Python 保护只在共享私有网络内操作精确端点规则，宿主路由保持原状。它不接管全部 TCP/443、下载 CDN 或游戏流量。
 
 ## 当前验证与发布范围
 
-当前以开发中的完整配置流程、实现细节和已知问题记录为主；暂不构建发行版、发布固定运行器或创建 GitHub Release。仍需继续修复和验证。
+当前同步开发中的源码、配置流程、实现细节和已知问题。发行版构建、固定运行器分发和 GitHub Release 暂缓。
 
-此前记录的 **64 项集成测试与 16 项采集器测试均无失败、错误或跳过**；此次只同步文档，没有重跑代码测试。隔离测试、路由检查与用户实际复测分别记录；不将共享网络或路由命中写成所有游戏均已加速。此前公开的 45 项显式入口测试属于另一套历史验证。
+本次 **66 项隔离集成测试通过**，覆盖目录代理回退和就绪通知。此前的 64 项集成测试、16 项采集器测试及 45 项显式入口测试保留为历史验证。路由检查和用户实际复测另行记录。
 
 代码位于 **`uu-network-integration` 分支的 `we/felix-proton/`**。本轮公开源码和说明，未发布运行器或客户端二进制，也未重新编译 test.1 Wine/Proton。全新安装所需的固定历史运行器不包含在仓库克隆内容中。
 
