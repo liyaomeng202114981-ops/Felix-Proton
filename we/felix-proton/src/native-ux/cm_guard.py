@@ -228,7 +228,12 @@ def serve(config):
                     ready_notified=False
                     status('preparing')
                     while not STOP:
-                        if _keeper(ctx)!=identity:break
+                        try:
+                            current=_keeper(ctx)
+                        except FileNotFoundError:
+                            # The wrapper can remove its markers before the keeper exits.
+                            break
+                        if current!=identity:break
                         live=_live(ctx,namespace)
                         found=resolver.poll(live_tcp=[p for _,p in live])
                         unsafe={p for source,p in live if source!=baseline['source']}

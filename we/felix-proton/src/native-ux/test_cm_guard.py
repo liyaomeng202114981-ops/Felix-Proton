@@ -13,7 +13,7 @@ import routes
 
 
 class ControllerTests(unittest.TestCase):
-    def test_notifies_once_after_recovery_and_removes_expired_rules(self):
+    def test_notifies_once_and_stops_when_keeper_disappears(self):
         with tempfile.TemporaryDirectory() as t:
             d=Path(t);runtime=d/'rt';state=d/'state'
             ctx=SimpleNamespace(prefix=d/'prefix',config=d/'config',root=d)
@@ -47,14 +47,17 @@ class ControllerTests(unittest.TestCase):
                 meta=json.loads((runtime/'status.json').read_text())
                 states.append(meta['state'])
                 updated.append(meta['updated'])
-                if len(states)==8:cm_guard.STOP=True
+            def keeper(_):
+                if len(states)==8:
+                    raise FileNotFoundError('keeper fixture')
+                return Path('/proc')/str(os.getpid()),123,'net:[42]'
             def notify(*args,**kwargs):
                 meta=json.loads((runtime/'status.json').read_text())
                 self.assertEqual((meta['state'],meta['rules']),('ready',1))
                 raise cm_guard.subprocess.TimeoutExpired(args[0],kwargs['timeout'])
             with patch.object(routes,'load',return_value=ctx), \
                  patch.object(cm_guard,'_paths',return_value=(runtime,state)), \
-                 patch.object(cm_guard,'_keeper',return_value=(Path('/proc')/str(os.getpid()),123,'net:[42]')), \
+                 patch.object(cm_guard,'_keeper',side_effect=keeper), \
                  patch.object(cm_guard,'_live',return_value=[]), \
                  patch.object(policy,'Policy',FakePolicy),patch.object(endpoints,'CMEndpoints',Resolver), \
                  patch.object(cm_guard.time,'monotonic',side_effect=now), \
@@ -72,6 +75,9 @@ class ControllerTests(unittest.TestCase):
             meta=json.loads((runtime/'status.json').read_text())
             self.assertEqual(meta['namespace'],'net:[42]')
             self.assertEqual(meta['state'],'stopped')
+            events=[json.loads(line)['type'] for line in (state/'events.jsonl').read_text().splitlines()]
+            self.assertNotIn('guard_error',events)
+            self.assertEqual(events[-2:],['rules_removed','guard_stopped'])
 
     def test_rolls_back_on_lookup_failure(self):
         with tempfile.TemporaryDirectory() as t:
@@ -85,7 +91,7 @@ class ControllerTests(unittest.TestCase):
                 def rollback(self):done.append(True)
             class Resolver:
                 def __init__(self,*a,**kw):pass
-                def poll(self,**kw):raise OSError('fixture')
+                def poll(self,**kw):raise FileNotFoundError('resolver fixture')
                 def close(self):pass
             with patch.object(routes,'load',return_value=ctx), \
                  patch.object(cm_guard,'_paths',return_value=(d/'rt',d/'state')), \
@@ -95,7 +101,20 @@ class ControllerTests(unittest.TestCase):
                  patch.object(cm_guard,'STOP',False):
                 cm_guard.serve(ctx.config)
             self.assertEqual(done,[True])
-            self.assertEqual(json.loads((d/'rt/status.json').read_text())['state'],'error')
+            meta=json.loads((d/'rt/status.json').read_text())
+            self.assertEqual((meta['state'],meta['error']),('error','FileNotFoundError'))
+
+    def test_missing_keeper_at_start_is_an_error(self):
+        with tempfile.TemporaryDirectory() as t:
+            d=Path(t);ctx=SimpleNamespace(prefix=d,config=d/'config',root=d)
+            with patch.object(routes,'load',return_value=ctx), \
+                 patch.object(cm_guard,'_paths',return_value=(d/'rt',d/'state')), \
+                 patch.object(cm_guard,'_keeper',side_effect=FileNotFoundError('keeper fixture')), \
+                 patch.object(policy,'Policy') as open_policy:
+                cm_guard.serve(ctx.config)
+            open_policy.assert_not_called()
+            meta=json.loads((d/'rt/status.json').read_text())
+            self.assertEqual((meta['state'],meta['error']),('error','FileNotFoundError'))
 
     def test_default_preparation_and_explicit_optout(self):
         with patch.dict(os.environ,{},clear=True),patch.object(cm_guard,'ensure') as prepare:

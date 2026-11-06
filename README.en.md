@@ -31,7 +31,7 @@ The upstream wrapper supplies namespace/session management, WE-Proton supplies t
 
 This update covers development source, the complete configuration process, implementation details and known issues. Release builds, runner distribution and GitHub Releases are deferred.
 
-All **69 isolated integration tests passed**. For 27 synthetic endpoints, median initial policy reconciliation fell from 343 ms to 52 ms and subprocess calls fell from 87 to 8. Across three isolated runs using the live Valve directory and DNS, median guard readiness was 0.896 s. Full Steam startup time and in-game latency were outside the test scope. [Test methods and scope](we/felix-proton/docs/TESTING.md#cm-性能复测)
+All **70 integration tests passed**, including CM shutdown regression coverage. In the earlier performance comparison with 27 synthetic endpoints, median initial policy reconciliation fell from 343 ms to 52 ms and subprocess calls fell from 87 to 8. Across three isolated runs using the live Valve directory and DNS, median guard readiness was 0.896 s. Full Steam startup time and in-game latency were outside the test scope. [Shutdown verification](we/felix-proton/docs/TESTING.md#cm-退出状态复测) · [Performance test scope](we/felix-proton/docs/TESTING.md#cm-性能复测)
 
 The project is maintained on `main` in this standalone repository. The launch integration and its documentation are under [`we/felix-proton/`](we/felix-proton/). A fresh installation requires a separately prepared, checksum-pinned historical test.1 runner.
 
