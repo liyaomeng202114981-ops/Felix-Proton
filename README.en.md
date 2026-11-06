@@ -1,12 +1,18 @@
 # Felix-Proton: UU / native Steam integration and connection protection
 
-**Maintained by Felix Li, with OpenAI Codex assistance, on top of SHORiN-KiWATA's WE-Proton and proton-wrapper, plus passt / pasta. Upstream authorship, licenses and Git history are preserved.**
+**Maintained by Felix Li, with OpenAI Codex assistance.** [中文](README.md)
 
-Updated **2026-11-06**. This fork joins native Linux Steam and Windows UU to one network through their ordinary desktop icons. Standard Steam child processes usually inherit that network; the user selects the game, region, routing mode and node in UU.
+Felix-Proton is an independently maintained Proton project based on WE-Proton source. It joins native Linux Steam and Windows UU to one network through their ordinary desktop icons. Standard Steam child processes usually inherit that network. The user selects the game, region, routing mode and node in UU.
 
-**[Complete setup process — development notes (Chinese)](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/FROM_ZERO.md)** · **[Implementation and code guide (Chinese)](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/IMPLEMENTATION.md)** · **[Latest work report (Chinese)](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/WORK_REPORT.md)** · [Current results and limits](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/CURRENT_STATE.md) · [Ordinary-icon setup](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/src/native-ux/README.md) · [Source layout](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/README.md) · [Validation](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/TESTING.md) · [Provenance](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/PROVENANCE.md)
+**[Complete setup process — development notes (Chinese)](we/felix-proton/docs/FROM_ZERO.md)** · **[Implementation and code guide (Chinese)](we/felix-proton/docs/IMPLEMENTATION.md)** · **[Latest work report (Chinese)](we/felix-proton/docs/WORK_REPORT.md)** · [Current results and limits](we/felix-proton/docs/CURRENT_STATE.md) · [Ordinary-icon setup](we/felix-proton/src/native-ux/README.md) · [Source layout](we/felix-proton/README.md) · [Validation](we/felix-proton/docs/TESTING.md) · [Provenance](we/felix-proton/docs/PROVENANCE.md)
 
-## Contributions
+## Acknowledgments
+
+Special thanks to **SHORiN-KiWATA** for developing and sharing WE-Proton and proton-wrapper. WE-Proton supplies the Wine Wintun and network interface support, while proton-wrapper manages the shared network session. Felix-Proton builds on their work and preserves upstream authorship, copyright notices, licenses and Git history. [WE-Proton](https://github.com/SHORiN-KiWATA/we-proton) · [proton-wrapper](https://github.com/SHORiN-KiWATA/proton-wrapper)
+
+Thanks also to the contributors to Proton, Wine, GE-Proton, DW-Proton and passt / pasta for the compatibility, build and networking foundations. [Provenance and attribution](we/felix-proton/docs/PROVENANCE.md)
+
+## Felix-Proton contributions
 
 | Work | Implementation and result |
 | --- | --- |
@@ -24,17 +30,17 @@ The upstream wrapper supplies namespace/session management, WE-Proton supplies t
 
 This update covers development source, the complete configuration process, implementation details and known issues. Release builds, runner distribution and GitHub Releases are deferred.
 
-All **66 isolated integration tests passed**, including directory proxy fallback and readiness notification checks. The earlier 64 integration tests, 16 collector tests and 45 portable-launcher tests remain historical results. Route selection and user retesting are recorded separately.
+All **66 isolated integration tests passed**, including directory proxy fallback and readiness notification checks. The earlier 64 integration tests, 16 collector tests and 45 portable-launcher tests remain historical results. The user separately confirmed that the latest CM update passed on their machine.
 
-Latest source is under **`we/felix-proton/` on `uu-network-integration`**. This update publishes source and documentation, without runner/client binaries or a rebuilt test.1 Wine/Proton. A fresh installation requires a separately prepared, checksum-pinned historical runner absent from a repository clone.
+The project is maintained on `main` in this standalone repository. The launch integration and its documentation are under [`we/felix-proton/`](we/felix-proton/). A fresh installation requires a separately prepared, checksum-pinned historical test.1 runner.
 
 Acceleration startup can take 10–30 seconds, which the user accepted; free resizing of UU is deferred. Cross-machine acceptance remains pending. IPv6, undiscovered endpoints, game connections and external network faults are outside the CM guard's guarantee. Historical Fossilize CPU activity was diagnosed and its settings retained at the user's request.
 
-[Earlier network work and validation](https://github.com/liyaomeng202114981-ops/we-proton/tree/uu-network-integration/we/network-integration) · [Upstream PR #1](https://github.com/SHORiN-KiWATA/we-proton/pull/1), checked open and unmerged on 2026-11-05. The Python additions are separate from that PR.
+[Earlier network work and validation](we/network-integration) · [Upstream PR #1](https://github.com/SHORiN-KiWATA/we-proton/pull/1), checked open and unmerged on 2026-11-05. The Python additions are separate from that PR.
 
 ---
 
-The upstream introduction follows unchanged. Its demonstrations, compatibility table, releases and installation commands belong to upstream; use the links above for this fork's additions.
+The upstream introduction follows unchanged. Its demonstrations, compatibility table, releases and installation commands belong to upstream; use the links above for Felix-Proton's additions.
 
 # WE-Proton
 
@@ -63,22 +69,20 @@ https://github.com/user-attachments/assets/42438b93-5a36-4557-8a0f-4b65b53d5e07
 ## Installation
 
 1. Download `we-proton-<version>.tar.xz` from [Releases](https://github.com/SHORiN-KiWATA/we-proton/releases)
-2. Extract it with `tar` into your launcher's Proton directory, e.g. for Steam:
-
-   ```
-   mkdir -p ~/.local/share/Steam/compatibilitytools.d
-   tar -xf we-proton-<version>.tar.xz -C ~/.local/share/Steam/compatibilitytools.d/
-   ```
-
-   Lutris and Heroic also pick up Proton builds from Steam's directory, so the command above works for them as well; you can also point `-C` at their own Proton directory.
-
-   > Do not extract with 7-Zip. Many DLLs in the package are symlinks, and recent 7-Zip versions skip them as "dangerous" and leave empty files behind, which breaks the prefix in confusing ways. If you saw `Dangerous link path was ignored` while extracting, delete the extracted directory, extract again with the command above, and recreate any prefix that was created with it.
-
+2. Extract it into your launcher's Proton directory:
+   - wegame-launcher: `~/.local/share/proton/runners/`
+   - Steam: `~/.local/share/Steam/compatibilitytools.d/`
+   - Lutris, Heroic and others: their own Proton / runner directory
 3. Select `we-proton-<version>` in the launcher. wegame-launcher uses the newest WE-Proton it finds by default; to pick one by hand, use Settings → Runner in the GUI, or run
 
    ```
    wegame-launcher runner we-proton-<version>
    ```
+
+Notes:
+
+- The prefix version is the same as that of the GE-Proton release it is based on (`GE-Proton11-11`). Coming from an older WE-Proton based on DW-Proton (`we-proton-11.0-14-*`), the prefix is upgraded once. The log then says `Prefix has an invalid version?!`: GE-Proton's script doesn't understand versions starting with `dwproton-`, skips its own upgrade steps and leaves the update to Wine, which is fine
+- 0005 needs userfaultfd asynchronous write-protection, available in Linux 6.7 and later; on older kernels that fix is inactive and everything else works as usual
 
 ## Building from source
 
@@ -119,4 +123,3 @@ The script fetches the submodules, patches them with `patches/protonprep-valve-s
 - [GE-Proton](https://github.com/GloriousEggroll/proton-ge-custom) by GloriousEggroll
 - [DW-Proton](https://dawn.wine/dawn-winery/dwproton) by Dawn Winery
 - [Wine](https://www.winehq.org/), [DXVK](https://github.com/doitsujin/dxvk), [vkd3d-proton](https://github.com/HansKristian-Work/vkd3d-proton) and the other projects Proton is built from
-

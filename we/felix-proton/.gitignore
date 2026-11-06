@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+/upstream/
+/releases/
+/archive/
+/evidence/
+*.local.json
+*.log
+*.jsonl
+*.tmp
+
+
+/src/test-runtime-felix/evidence/

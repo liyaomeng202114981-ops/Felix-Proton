@@ -1,12 +1,18 @@
 # Felix-Proton：UU / Steam 集成与连接保护
 
-**维护者：Felix Li，with OpenAI Codex assistance。基于 SHORiN-KiWATA 的 WE-Proton、proton-wrapper 及 passt / pasta，保留上游作者、许可和 Git 历史。**
+**维护者：Felix Li，with OpenAI Codex assistance。**　[English](README.en.md)
 
-更新于 **2026-11-06**。本 fork 让原生 Linux Steam 与 Windows 网易 UU 共享网络，并通过原来的 Steam / UU 图标接入；由 Steam 启动的游戏通常继承该网络，具体游戏、区服、路由模式和节点由用户在 UU 中选择。
+Felix-Proton 是基于 WE-Proton 源码独立维护的 Proton 项目。本项目让原生 Linux Steam 与 Windows 网易 UU 通过各自的普通图标加入同一网络。由 Steam 启动的游戏通常继承该网络，具体游戏、区服、路由模式和节点由用户在 UU 中选择。
 
-**[从零配置完整流程说明（开发中）](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/FROM_ZERO.md)** · **[实现逻辑与代码导航](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/IMPLEMENTATION.md)** · **[最新工作说明](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/WORK_REPORT.md)** · [当前结果与未解决事项](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/CURRENT_STATE.md) · [普通图标使用说明](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/src/native-ux/README.md) · [代码与目录](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/README.md) · [验证](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/TESTING.md) · [来源与署名](https://github.com/liyaomeng202114981-ops/we-proton/blob/uu-network-integration/we/felix-proton/docs/PROVENANCE.md)
+**[从零配置完整流程说明（开发中）](we/felix-proton/docs/FROM_ZERO.md)** · **[实现逻辑与代码导航](we/felix-proton/docs/IMPLEMENTATION.md)** · **[最新工作说明](we/felix-proton/docs/WORK_REPORT.md)** · [当前结果与未解决事项](we/felix-proton/docs/CURRENT_STATE.md) · [普通图标使用说明](we/felix-proton/src/native-ux/README.md) · [代码与目录](we/felix-proton/README.md) · [验证](we/felix-proton/docs/TESTING.md) · [来源与署名](we/felix-proton/docs/PROVENANCE.md)
 
-## 本 fork 的工作
+## 致谢
+
+特别感谢 **SHORiN-KiWATA** 开发并公开 WE-Proton 和 proton-wrapper。WE-Proton 的 Wine 网络适配提供了 Wintun 和接口基础，proton-wrapper 提供共享网络的会话管理。Felix-Proton 在这些成果上继续维护，保留上游作者、版权、许可证和 Git 提交历史。[WE-Proton](https://github.com/SHORiN-KiWATA/we-proton) · [proton-wrapper](https://github.com/SHORiN-KiWATA/proton-wrapper)
+
+也感谢 Proton、Wine、GE-Proton、DW-Proton、passt / pasta 及其贡献者提供的兼容层、构建和联网基础。[完整来源与贡献归属](we/felix-proton/docs/PROVENANCE.md)
+
+## Felix-Proton 的工作
 
 | 工作 | 实现与结果 |
 | --- | --- |
@@ -24,17 +30,17 @@
 
 当前同步开发中的源码、配置流程、实现细节和已知问题。发行版构建、固定运行器分发和 GitHub Release 暂缓。
 
-本次 **66 项隔离集成测试通过**，覆盖目录代理回退和就绪通知。此前的 64 项集成测试、16 项采集器测试及 45 项显式入口测试保留为历史验证。路由检查和用户实际复测另行记录。
+本次 **66 项隔离集成测试通过**，覆盖目录代理回退和就绪通知。此前的 64 项集成测试、16 项采集器测试及 45 项显式入口测试保留为历史验证。用户另行确认本轮 CM 更新在本机实测通过。
 
-代码位于 **`uu-network-integration` 分支的 `we/felix-proton/`**。本轮公开源码和说明，未发布运行器或客户端二进制，也未重新编译 test.1 Wine/Proton。全新安装所需的固定历史运行器不包含在仓库克隆内容中。
+本项目在独立仓库的 `main` 分支维护。启动层和文档位于 [`we/felix-proton/`](we/felix-proton/)。全新安装还需要另外准备固定校验值的历史 test.1 运行器。
 
 启动加速约 10～30 秒已获用户接受；UU 自由缩放窗口暂缓。尚无异机全面验收。CM 保护范围之外的 IPv6、新端点、游戏自身连接及真实外网故障仍可能断线。Steam Fossilize 的历史 CPU 占用已完成归因，按用户要求保留设置。
 
-[原有网络补丁与历史验证](https://github.com/liyaomeng202114981-ops/we-proton/tree/uu-network-integration/we/network-integration) · [上游 PR #1](https://github.com/SHORiN-KiWATA/we-proton/pull/1)（2026-11-05 核对仍 open、未合并；本轮 Python 集成不属于该 PR）。
+[原有网络补丁与历史验证](we/network-integration) · [上游 PR #1](https://github.com/SHORiN-KiWATA/we-proton/pull/1)（2026-11-05 核对仍 open、未合并；本轮 Python 集成不属于该 PR）。
 
 ---
 
-以下保留上游项目介绍；演示、游戏兼容表、发布包和安装命令属于上游。使用本 fork 的新增工作，请从上方源码和说明进入。
+以下保留上游项目介绍；演示、游戏兼容表、发布包和安装命令属于上游。使用 Felix-Proton 的新增工作，请从上方源码和说明进入。
 
 # WE-Proton
 
@@ -100,17 +106,9 @@ https://github.com/user-attachments/assets/42438b93-5a36-4557-8a0f-4b65b53d5e07
 ## 安装
 
 1. 从 [Releases](https://github.com/SHORiN-KiWATA/we-proton/releases) 下载 `we-proton-<版本>.tar.xz`
-2. 用 `tar` 解压到启动器的 Proton 目录，以 Steam 为例：
-
-   ```
-   mkdir -p ~/.local/share/Steam/compatibilitytools.d
-   tar -xf we-proton-<版本>.tar.xz -C ~/.local/share/Steam/compatibilitytools.d/
-   ```
-
-   Lutris、Heroic 也能识别 Steam 目录里的 Proton，直接用上面的命令即可；也可以把 `-C` 后面换成它们自己的 Proton 目录。
-
-   > 不要用 7-Zip 解压。包里很多 DLL 是符号链接，新版 7-Zip 会把它们当成危险路径跳过，解出来是空文件，前缀会坏掉，各种程序莫名报错。如果解压时出现过 `Dangerous link path was ignored`，请删掉解压出的目录，用上面的命令重新解压，再把用它建过的前缀也删掉重建。
-
+2. 解压到启动器的 Proton 目录：
+   - Steam：`~/.local/share/Steam/compatibilitytools.d/`
+   - Lutris、Heroic 等：Steam 的或者以及各自的 Proton / runner 目录
 3. 在启动器里选 `we-proton-<版本>`。wegame-launcher 默认自动使用找到的最新 WE-Proton，也可以手动选择：在图形界面的「设置 → 运行器」里选，或者运行
 
    ```
@@ -156,4 +154,3 @@ we/build.sh --name we-proton-<版本> --install   # 同时安装到「~/.local/s
 - GloriousEggroll 的 [GE-Proton](https://github.com/GloriousEggroll/proton-ge-custom)
 - Dawn Winery 的 [DW-Proton](https://dawn.wine/dawn-winery/dwproton)
 - [Wine](https://www.winehq.org/)、[DXVK](https://github.com/doitsujin/dxvk)、[vkd3d-proton](https://github.com/HansKristian-Work/vkd3d-proton) 等项目
-
