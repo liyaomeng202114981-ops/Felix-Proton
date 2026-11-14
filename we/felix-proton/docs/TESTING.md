@@ -4,6 +4,10 @@
 
 新工具套件32项全部通过（26配对功能+6构建），解压后独立复跑通过。源码allowlist、纯几何SVG、BSD许可、vendored desktop.py、tar/deb布局和依赖、全附件校验、解包后可重复构建均已核验。空HOME/XDG中的用户安装与真实后端缺配置界面通过，没有创建配对记录或操作真实客户端。GTK模拟后台三次配对回调通过。
 
+[远端发布流程 #43607677918](https://github.com/liyaomeng202114981-ops/Felix-Proton/actions/runs/43607677918) 已全部通过，重新执行源码/解包目录各32项、GTK模拟与空环境真实后端检查，然后下载草稿附件校验后公开。[0.1.0-preview.1 发行页](https://github.com/liyaomeng202114981-ops/Felix-Proton/releases/tag/felix-pairing-v0.1.0-preview.1) 的标签指向 `72bd6e4eba988207a92674764a429894b06d8538`。公开后再次独立下载四文件，均与本机构建逐字节一致，SHA256SUMS 和17份源码清单通过。
+
+首次流程的 job.env 上下文位置错误和后续草稿上传的 `~` 文件名归一化均已修正；Actions语义通过actionlint。失败草稿经准确ID/标签/旧目标/作者/未公开及无标签检查后清理，没有覆盖已公开版本。最终 .deb 文件名为 `felix-pairing_0.1.0-preview.1_all.deb`，内部版本仍为 `0.1.0~preview1`，两者均纳入构建断言。
+
 详见 [完整报告](../src/pairing-tool/TEST_RESULTS.md) 与 [使用说明](../src/pairing-tool/README.md)。Debian包仅解包检查，没有安装到开发主机；实际跨应用鼠标拖放、Dock最终纹理、异机完整安装和游戏端到端效果不作为本轮验收。历史85项原集成套件及CM验证仍是各自阶段结果。
 
 更新于 2026-11-14。代码测试、路由检查和用户实际使用结果分别记录。
