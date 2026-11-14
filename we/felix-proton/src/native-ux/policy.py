@@ -232,8 +232,8 @@ class Policy:
         return {"dev":dev,"ifindex":link["ifindex"],"source":src,"gateway":row["gateway"]}
 
     def _verify_anchor(self,b):
-        rows=self._ip("-4","addr","show","dev",b["dev"],read=True)
-        if not any(r["ifindex"]==b["ifindex"] and "UP" in r["flags"] and
+        rows=self._ip("-4","addr","show",read=True)
+        if not any(r.get("ifname")==b["dev"] and r["ifindex"]==b["ifindex"] and "UP" in r["flags"] and
                    any(a.get("local")==b["source"] for a in r.get("addr_info",[])) for r in rows):
             raise PolicyError("uplink_changed")
         defaults = self._ip("-4","route","show","table","main","default",read=True)
@@ -289,7 +289,8 @@ class Policy:
             if str(r.get("table","254"))!=table: continue
             addr=r.get("dst","").removesuffix("/32")
             if (set(r)-{"type","dst","gateway","dev","table","protocol","scope","prefsrc","metric","flags"}
-                    or str(r.get("type","1"))!="1" or str(r.get("scope","0"))!="0" or r.get("flags")!=["onlink"]
+                    or str(r.get("type","1"))!="1" or str(r.get("scope","0"))!="0"
+                    or r.get("flags") not in (["onlink"],["onlink","linkdown"],["linkdown","onlink"])
                     or str(r.get("protocol"))!=str(PROTOCOL) or r.get("metric")!=METRIC
                     or (r.get("dev"),r.get("gateway"),r.get("prefsrc"))!=(b["dev"],b["gateway"],b["source"])
                     or addr not in ips or addr in rt):
@@ -315,6 +316,16 @@ class Policy:
         for ip in sorted(routes-ips): route("del",ip)
         self._ip_batch(commands)
 
+    def _verify_paths(self,s,wanted):
+        # Verify every protected peer, including unchanged rules that another
+        # routing policy may have superseded since the previous check.
+        checks=sorted(wanted)
+        queries=(("route","get",addr,"ipproto","tcp","dport",port) for addr,port in checks)
+        for (addr,_),r in zip(checks,self._ip_batch(queries,read=True)):
+            if (len(r)!=1 or not isinstance(r[0],dict) or r[0].get("dst") not in (addr,addr+"/32")
+                    or str(r[0].get("table"))!=str(s["table"]) or r[0].get("dev")!=s["baseline"]["dev"]):
+                raise PolicyError("earlier_rule_overrides")
+
     def _reconcile(self,s,wanted):
         # A pre-existing unowned row never authorizes an addition or a delete.
         actual=self._inspect(s)
@@ -323,6 +334,7 @@ class Policy:
             self._verify_anchor(s["baseline"])
         target=(wanted,{ip for ip,_ in wanted})
         if actual==target and old==wanted and set(map(tuple,s["owned"]))==wanted:
+            self._verify_paths(s,wanted)
             return self._report(s,False)
         allowed=set(map(tuple,s["owned"]))
         if allowed!=old and wanted:
@@ -340,13 +352,7 @@ class Policy:
             self._apply(s,wanted,actual)
             if self._inspect(s)!=target:
                 raise PolicyError("policy_verification_failed")
-            # A higher-priority VPN rule could have superseded the exception.
-            checks=sorted(wanted-actual[0])
-            queries=(("route","get",addr,"ipproto","tcp","dport",port) for addr,port in checks)
-            for (addr,_),r in zip(checks,self._ip_batch(queries,read=True)):
-                if (len(r)!=1 or not isinstance(r[0],dict) or r[0].get("dst") not in (addr,addr+"/32")
-                        or str(r[0].get("table"))!=str(s["table"]) or r[0].get("dev")!=s["baseline"]["dev"]):
-                    raise PolicyError("earlier_rule_overrides")
+            self._verify_paths(s,wanted)
         except PolicyError as original:
             try:
                 self._apply(s,old,self._inspect(s))
@@ -374,6 +380,19 @@ class Policy:
             s=self._load()
             if not s:
                 return self._report(None,False)
-            self._reconcile(s,set())
+            actual=self._inspect(s)
+            for attempt in range(3):
+                if not any(actual):
+                    break
+                try:
+                    # Cleanup only removes owned objects. A disappearing uplink
+                    # can remove routes while a deletion batch is in flight.
+                    self._apply(s,set(),actual)
+                except PolicyError as error:
+                    if str(error)!="netlink_change_failed":
+                        raise
+                actual=self._inspect(s)
+            if any(actual):
+                raise PolicyError("recovery_pending")
             self.file.unlink()
             return self._report(None,True)

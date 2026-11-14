@@ -90,6 +90,37 @@ class WorkerWake(unittest.TestCase):
                 self.assertEqual(cm.poll(), {(IP,443)})
                 self.assertFalse(cm.wait_for_results(0))
 
+    def test_dns_timeout_frees_worker_and_retries(self):
+        with tempfile.TemporaryDirectory() as root:
+            cm = e.CMEndpoints(Path(root)/'connection_log.txt')
+            self.addCleanup(cm.close)
+            now = [10000.]
+            with mock.patch.object(e, '_fetch', return_value=[(B,443)]), \
+                    mock.patch.object(e.time, 'monotonic', side_effect=lambda:now[0]), \
+                    mock.patch.object(e.subprocess, 'run', side_effect=e.subprocess.TimeoutExpired('resolver', e.DNS_TIMEOUT)) as run:
+                cm.poll()
+                self.assertTrue(cm.wait_for_results(2))
+                cm.poll()
+                self.assertTrue(cm.wait_for_results(2))
+                self.assertEqual(cm.poll(), set())
+                self.assertNotIn(('dns',B),cm.pending)
+                self.assertEqual(run.call_args.kwargs['timeout'], e.DNS_TIMEOUT)
+                self.assertEqual(run.call_count,1)
+                with mock.patch.object(e.subprocess, 'run', return_value=e.subprocess.CompletedProcess([],0,json.dumps([IP]).encode())):
+                    now[0] += 21
+                    cm.poll()
+                    self.assertTrue(cm.wait_for_results(2))
+                    self.assertEqual(cm.poll(),{(IP,443)})
+
+    def test_dns_reply_stays_bounded_and_uses_system_resolver(self):
+        # Numeric addresses exercise the actual child without external DNS.
+        self.assertEqual(e._resolve(IP,(4,)),[IP])
+        for reply in (b'{}',b'["1.1.1.1",2]',json.dumps([IP]*9).encode(),b'x'*4097):
+            with self.subTest(reply=reply[:20]), mock.patch.object(
+                    e.subprocess,'run',return_value=e.subprocess.CompletedProcess([],0,reply)):
+                with self.assertRaises(ValueError):
+                    e._resolve(B,(4,))
+
 
 class Lookup(unittest.TestCase):
     def setUp(self):

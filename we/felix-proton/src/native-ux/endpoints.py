@@ -17,6 +17,8 @@ import queue
 import re
 import socket
 import stat
+import subprocess
+import sys
 import threading
 import time
 import urllib.request
@@ -27,6 +29,7 @@ DIRECTORY_TTL = 20 * 60
 HINT_TTL = 30 * 60
 COMPLETED_TTL = 2 * 60 * 60
 DNS_TTL = 180
+DNS_TIMEOUT = 4
 LIVE_TTL = 120
 READ_LIMIT = 128 * 1024
 LINE_LIMIT = 2048
@@ -190,7 +193,22 @@ def parse_cm_line(line, families=(4,)):
 
 def _resolve(host, families):
     af = socket.AF_INET if families == (4,) else socket.AF_INET6 if families == (6,) else socket.AF_UNSPEC
-    return [row[4][0] for row in socket.getaddrinfo(host,None,af,socket.SOCK_STREAM,socket.IPPROTO_TCP)]
+    # libc/NSS lookups cannot be cancelled in a Python thread. Keep them in a
+    # short-lived child so a stalled resolver cannot occupy every worker slot.
+    script = """import json, socket, sys
+rows = socket.getaddrinfo(sys.argv[1], None, int(sys.argv[2]), socket.SOCK_STREAM, socket.IPPROTO_TCP)
+print(json.dumps(list(dict.fromkeys(row[4][0] for row in rows))[:8]))
+"""
+    result = subprocess.run([sys.executable, '-I', '-S', '-c', script, host, str(int(af))],
+                            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+                            stderr=subprocess.DEVNULL, timeout=DNS_TIMEOUT, check=True)
+    if len(result.stdout) > 4096:
+        raise ValueError('dns_response')
+    addresses = json.loads(result.stdout)
+    if (not isinstance(addresses, list) or len(addresses) > 8
+            or any(not isinstance(value, str) or len(value) > 128 for value in addresses)):
+        raise ValueError('dns_response')
+    return addresses
 
 
 class CMEndpoints:

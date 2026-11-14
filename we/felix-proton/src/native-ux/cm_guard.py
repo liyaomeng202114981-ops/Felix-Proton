@@ -19,11 +19,23 @@ import threading
 sys.dont_write_bytecode=True
 STOP=False
 STATUS_HEARTBEAT=5
+RECHECK_INTERVAL=15
+RETRY_INITIAL=1
+RETRY_MAX=15
 
 
 def _stop(*_):
     global STOP
     STOP=True
+
+
+def _notify(message):
+    try:
+        subprocess.run(['notify-send','Steam 连接保护',message],
+                       stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,
+                       timeout=2,check=False)
+    except (OSError,subprocess.TimeoutExpired):
+        pass
 
 
 def _private_file(path, data):
@@ -222,10 +234,13 @@ def serve(config):
                 ledger=storage/(Path('/proc/sys/kernel/random/boot_id').read_text().strip()+'-'+namespace[5:-1]+'.json')
                 policy=stack.enter_context(Policy(*handles,ledger))
                 try:
-                    policy.capture_baseline()
-                    baseline=json.loads(ledger.read_text())['baseline']
+                    baseline=None
+                    reset_baseline=False
                     last=None;last_at=0;primed=time.monotonic()
                     ready_notified=False
+                    recovering=None
+                    next_attempt=0
+                    retry_delay=RETRY_INITIAL
                     status('preparing')
                     while not STOP:
                         try:
@@ -234,27 +249,57 @@ def serve(config):
                             # The wrapper can remove its markers before the keeper exits.
                             break
                         if current!=identity:break
-                        live=_live(ctx,namespace)
-                        found=resolver.poll(live_tcp=[p for _,p in live])
-                        unsafe={p for source,p in live if source!=baseline['source']}
-                        wanted=found-unsafe
-                        if (wanted or last is not None) and (wanted!=last or time.monotonic()-last_at>15):
-                            report=policy.reconcile(wanted)
-                            if wanted!=last:event('rules_ready',rules=report['rules'],deferred=len(unsafe))
-                            last=wanted;last_at=time.monotonic()
-                        if last and ((resolver.status()['directory']=='ok' and len(last)>=4)
-                                     or time.monotonic()-primed>=5):
-                            status('ready',rules=len(last),directory=resolver.status()['directory'],deferred=len(unsafe))
-                            if not ready_notified:
+                        now=time.monotonic()
+                        if now<next_attempt:
+                            status('recovering',error=recovering)
+                            time.sleep(min(2,next_attempt-now))
+                            continue
+                        try:
+                            if reset_baseline:
+                                policy.rollback()
+                                event('rules_removed')
+                                baseline=None
+                                last=None
+                                reset_baseline=False
+                            if baseline is None:
+                                # capture_baseline refuses an active UU tunnel or ambiguous uplink.
+                                policy.capture_baseline()
+                                baseline=json.loads(ledger.read_text())['baseline']
+                            live=_live(ctx,namespace)
+                            found=resolver.poll(live_tcp=[p for _,p in live])
+                            unsafe={p for source,p in live if source!=baseline['source']}
+                            wanted=found-unsafe
+                            if (wanted or last is not None) and (wanted!=last or recovering
+                                                               or now-last_at>=RECHECK_INTERVAL):
+                                report=policy.reconcile(wanted)
+                                if wanted!=last:event('rules_ready',rules=report['rules'],deferred=len(unsafe))
+                                last=wanted;last_at=time.monotonic()
+                            if last and ((resolver.status()['directory']=='ok' and len(last)>=4)
+                                         or time.monotonic()-primed>=5):
+                                status('ready',rules=len(last),directory=resolver.status()['directory'],deferred=len(unsafe))
+                                if recovering:
+                                    event('recovery_succeeded')
+                                    _notify('连接保护已恢复。' if ready_notified else '连接保护已就绪。')
+                                elif not ready_notified:
+                                    _notify('连接保护已就绪。')
                                 ready_notified=True
-                                try:
-                                    subprocess.run(['notify-send','Steam 连接保护','连接保护已就绪。'],
-                                                   stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,
-                                                   timeout=2,check=False)
-                                except (OSError,subprocess.TimeoutExpired):
-                                    pass
-                        elif time.monotonic()-primed>5:
-                            status('error',error='cm_endpoints_unavailable')
+                                recovering=None
+                                retry_delay=RETRY_INITIAL
+                            elif time.monotonic()-primed>5:
+                                status('error',error='cm_endpoints_unavailable')
+                        except PolicyError as err:
+                            code=str(err)
+                            if code in ('uplink_changed','uplink_default_changed'):
+                                reset_baseline=True
+                            if recovering!=code:
+                                event('recovery_wait',error=code)
+                                if ready_notified and recovering is None:
+                                    _notify('连接保护暂不可用，正在自动重试。')
+                            recovering=code
+                            status('recovering',error=code)
+                            next_attempt=time.monotonic()+retry_delay
+                            retry_delay=min(RETRY_MAX,retry_delay*2)
+                            continue
                         elapsed=time.monotonic()-primed
                         if not ready_notified and elapsed<6:
                             # Consume early lookups promptly, then keep the normal polling cadence.

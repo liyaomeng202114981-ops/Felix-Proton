@@ -1,6 +1,6 @@
 # 无感启动与加速切换：实现逻辑和代码导航
 
-更新于 **2026-11-06**。维护者：**Felix Li，with OpenAI Codex assistance**。本页解释普通图标接入、共享网络、Wine 网卡修复与 Steam CM 连接保护如何配合，便于从使用行为定位到具体代码。
+更新于 **2026-11-14**。维护者：**Felix Li，with OpenAI Codex assistance**。本页解释普通图标接入、共享网络、Wine 网卡修复与 Steam CM 连接保护如何配合，便于从使用行为定位到具体代码。
 
 需要从下载材料开始逐步部署全部功能，请先读 [从零完整部署](FROM_ZERO.md)，其中包括固定运行器前提、完整 CLI、手动分解、首次 CM 准备、原图标接入、验收和回退。
 
@@ -23,7 +23,7 @@
 
 ## 一次普通图标点击怎样启动
 
-首次设置由 [enable.py](../src/native-ux/enable.py#L132) 检查运行器、配置和必要的 UU 初始化，安装 Python 辅助文件，然后调用 [desktop.py](../src/native-ux/desktop.py#L72) 备份并修改用户级桌面入口的启动命令。原来的 desktop ID、图标、名称、Steam URI 参数及已识别的右键动作保留。
+首次设置由 [enable.py](../src/native-ux/enable.py#L136) 检查运行器、配置和必要的 UU 初始化，安装 Python 辅助文件，然后调用 [desktop.py](../src/native-ux/desktop.py#L72) 备份并修改用户级桌面入口的启动命令。原来的 desktop ID、图标、名称、Steam URI 参数及已识别的右键动作保留。
 
 之后每次启动按以下流程执行：
 
@@ -84,17 +84,19 @@ if_nametoindex(记录中的名称) == 记录中的索引
 
 1. **确认目标网络。** 校验 keeper 的用户、启动时间及命名空间，持有相应 user/net namespace 文件描述符。守护主进程留在宿主，通过固定 FD 进入已验证的私有网络执行规则操作。
 2. **记录原出口。** UU 加速网卡尚未建立时，保存 pasta 出口的设备、接口索引、网关和源 IPv4 地址。存在 UU 网卡、出口不唯一或身份不明时不猜测基线。
-3. **发现合格 CM 端点。** [endpoints.py](../src/native-ux/endpoints.py#L295) 使用 Valve CM 目录和严格匹配的 Steam CM 日志；原生 Steam 自有活跃 TCP socket 用来交叉确认并优先保护合格的活跃端点。目录中的合格候选也可提前保护，不要求每个目标先建立连接。任意 Steam socket 不自动取得 CM 资格。
-4. **建立精确策略。** [policy.py](../src/native-ux/policy.py#L300) 在独立路由表中为目标放置 `/32` 原出口路由，再按“目的 IPv4＋TCP＋目的端口”添加优先于普通主路由表的选择规则。
-5. **维护和回收。** [cm_guard.py](../src/native-ux/cm_guard.py#L230) 定期更新目标、检查网络身份及协调规则，按本程序账本清理。已使用不同源地址的活跃连接先暂缓接管，避免中途硬迁。
+3. **发现合格 CM 端点。** [endpoints.py](../src/native-ux/endpoints.py#L313) 使用 Valve CM 目录和严格匹配的 Steam CM 日志；原生 Steam 自有活跃 TCP socket 用来交叉确认并优先保护合格的活跃端点。目录中的合格候选也可提前保护，不要求每个目标先建立连接。任意 Steam socket 不自动取得 CM 资格。
+4. **建立精确策略。** [policy.py](../src/native-ux/policy.py#L301) 在独立路由表中为目标放置 `/32` 原出口路由，再按“目的 IPv4＋TCP＋目的端口”添加优先于普通主路由表的选择规则。
+5. **维护和回收。** [cm_guard.py](../src/native-ux/cm_guard.py#L245) 定期更新目标、检查网络身份及协调规则，按本程序账本清理。已使用不同源地址的活跃连接先暂缓接管，避免中途硬迁。
 
-普通图标启动的进程可能没有终端的代理环境。[目录查询](../src/native-ux/endpoints.py#L139) 保留显式 HTTPS 代理及 `NO_PROXY` 的处理。如果没有显式代理、目标也未被排除，查询可通过 Gio 读取 GNOME 手动配置的本机回环 HTTP 代理，同时遵守桌面的代理排除列表。设置不可用或本机代理连接失败时，查询沿用原有路径。这项设置只用于 Valve CM 目录的 HTTPS 请求。
+普通图标启动的进程可能没有终端的代理环境。[目录查询](../src/native-ux/endpoints.py#L142) 保留显式 HTTPS 代理及 `NO_PROXY` 的处理。如果没有显式代理、目标也未被排除，查询可通过 Gio 读取 GNOME 手动配置的本机回环 HTTP 代理，同时遵守桌面的代理排除列表。设置不可用或本机代理连接失败时，查询沿用原有路径。这项设置只用于 Valve CM 目录的 HTTPS 请求。
 
-[守护程序](../src/native-ux/cm_guard.py#L247) 在规则生效并首次写入 `ready` 后尝试发出“连接保护已就绪”通知。启动时若超时，应用照常启动，守护继续尝试并在首次恢复后通知。同一守护会话只尝试通知一次。这个提示对应 Steam 控制连接保护状态，UU 加速结果仍由客户端和实际连接单独验证。
+[守护程序](../src/native-ux/cm_guard.py#L279) 在规则生效并首次写入 `ready` 后尝试发出“连接保护已就绪”通知。运行中的策略故障进入 `recovering`，故障和恢复时按状态变化通知。这个提示对应 Steam 控制连接保护状态，UU 加速结果仍由客户端和实际连接单独验证。
 
-CM 保护继续由 Python 编排，数据包的选路由 Linux 内核执行。准备阶段可在目录或 DNS 查询完成时唤醒守护，后续仍按周期检查。[查询完成事件](../src/native-ux/endpoints.py#L215) · [准备阶段等待](../src/native-ux/cm_guard.py#L261)
+CM 保护继续由 Python 编排，数据包的选路由 Linux 内核执行。准备阶段可在目录或 DNS 查询完成时唤醒守护，后续仍按周期检查。[查询完成事件](../src/native-ux/endpoints.py#L233) · [准备阶段等待](../src/native-ux/cm_guard.py#L304)
 
-规则变更和路由核验分别通过 `ip -batch` 减少进程启动次数，每个新目标仍逐条验证。无法安全编码成批处理参数时，继续逐条调用。写前记录、冲突检查和失败回退仍在。状态变化立即写入，稳定时按心跳刷新，减少重复写入。[批处理](../src/native-ux/policy.py#L131) · [路由核验与回退](../src/native-ux/policy.py#L318) · [状态发布](../src/native-ux/cm_guard.py#L193)
+规则变更和路由核验分别通过 `ip -batch` 减少进程启动次数。全部已保护的精确目标按配置的 15 秒间隔复核实际选路，能发现后来加入的高优先级策略覆盖。实际间隔还受轮询调度和命令耗时影响。无法安全编码成批处理参数时，继续逐条调用。写前记录、冲突检查和失败回退仍在。状态变化立即写入，稳定时按心跳刷新，减少重复写入。[批处理](../src/native-ux/policy.py#L131) · [有效路径核验](../src/native-ux/policy.py#L319) · [状态发布](../src/native-ux/cm_guard.py#L205)
+
+策略故障按 1、2、4、8、15 秒退避重试并封顶。若原出口地址、接口或网关改变，先回收旧规则，再通过原有安全检查取得新基线。UU 网卡仍存在或出口不明确时继续等待；已有不同源地址的活跃连接仍延后接管。DNS 系统解析在短期子进程中运行，4 秒超时后终止和回收，随后按原有查询重试规则处理。[恢复流程](../src/native-ux/cm_guard.py#L258) · [有界 DNS 解析](../src/native-ux/endpoints.py#L194)
 
 ```mermaid
 flowchart TD
@@ -115,7 +117,9 @@ pasta 服务于整个共享网络会话。即使 UU 已退出，只要 Steam、�
 
 CM 保护主进程留在宿主，只持有 namespace FD，不被 keeper 计为共享网络内成员。首次建网的短期桥接命令只是暂时保活；所有应用确已退出但网络长期不回收时，应按当时实际进程归属排查。
 
-wrapper 关闭共享会话时可以先删除 keeper 标记。守护已进入维护循环后，若检查 keeper 身份遇到 `FileNotFoundError`，便用已持有的命名空间 FD 回收规则。在回收成功且没有既有错误时，最终状态为 `stopped`。启动阶段缺少 keeper、其他文件读取失败和回收失败仍报告错误。[身份检查](../src/native-ux/cm_guard.py#L231) · [规则回收](../src/native-ux/cm_guard.py#L264)
+wrapper 关闭共享会话时可以先删除 keeper 标记。守护已进入维护循环后，若检查 keeper 身份遇到 `FileNotFoundError`，便用已持有的命名空间 FD 回收规则。在回收成功且没有既有错误时，最终状态为 `stopped`。启动阶段缺少 keeper、其他文件读取失败和回收失败仍报告错误。[身份检查](../src/native-ux/cm_guard.py#L246) · [规则回收](../src/native-ux/cm_guard.py#L309)
+
+退出清理只删除核验过归属的对象，最多三轮并在每轮后重新检查。出口消失时可能已有路由被内核移除，清理直接验证剩余对象；载波断开产生的 `linkdown` 标记按自有路由的状态处理。持续失败时保留账本，等待后续恢复或诊断。[清理实现](../src/native-ux/policy.py#L378)
 
 ## 哪些工作属于本项目
 
@@ -132,14 +136,14 @@ CM 保护位于 Python 启动层，本次没有重编 Wine/Proton。此前上游
 
 | 需要审阅的行为 | 代码入口 |
 | --- | --- |
-| 安装和桌面入口备份/改写 | [enable.py](../src/native-ux/enable.py#L132)、[desktop.py](../src/native-ux/desktop.py#L224) |
+| 安装和桌面入口备份/改写 | [enable.py](../src/native-ux/enable.py#L136)、[desktop.py](../src/native-ux/desktop.py#L224) |
 | 普通图标调度、参数和已有实例检查 | [routes.py](../src/native-ux/routes.py#L44) |
 | 调用 wrapper 启动原生 Steam 或 Windows UU | [uu_network.py](../src/test-runtime-felix/launchers/uu_network.py#L137) |
 | 已有 Steam 窗口唤出 | [steam_window.py](../src/native-ux/steam_window.py#L99) |
-| CM 保护准备、连接核对及后台维护 | [cm_guard.py](../src/native-ux/cm_guard.py#L124) |
-| CM 目录代理、日志候选和活跃端点资格 | [目录请求](../src/native-ux/endpoints.py#L139)、[端点维护](../src/native-ux/endpoints.py#L295) |
-| 基线、精确规则、冲突检查和回退 | [基线采集](../src/native-ux/policy.py#L249)、[规则协调](../src/native-ux/policy.py#L318) |
+| CM 保护准备、连接核对及后台维护 | [cm_guard.py](../src/native-ux/cm_guard.py#L136) |
+| CM 目录代理、日志候选和活跃端点资格 | [目录请求](../src/native-ux/endpoints.py#L142)、[端点维护](../src/native-ux/endpoints.py#L313) |
+| 基线、精确规则、冲突检查和回退 | [基线采集](../src/native-ux/policy.py#L249)、[规则协调](../src/native-ux/policy.py#L329) |
 
-本次退出状态修复通过 **70 项集成测试**。规则协调、启动和实际会话记录的计量范围见 [性能复测](TESTING.md#cm-性能复测) 和 [退出状态复测](TESTING.md#cm-退出状态复测)。
+本次公开集成套件通过 **85 项测试**，其中 CM 定向 48 项。五种隔离网络故障场景验证了恢复和清理。[本轮验证](TESTING.md#cm-清理选路与恢复复测) · [历史性能复测](TESTING.md#cm-性能复测) · [此前退出状态复测](TESTING.md#cm-退出状态复测)
 
 用户已确认本机原有切换掉线问题得到解决；没有与后续复测同步的整夜逐次断线时长记录，也没有异机全面验收。隔离测试、路由命中、客户端界面和游戏实际效果分别作为证据。运行器仍是本地预览，本仓库源码不附带固定历史运行器或客户端安装包。进一步阅读：[工作说明](WORK_REPORT.md)、[测试范围](TESTING.md)、[诊断和回退](DIAGNOSTICS.md)。

@@ -120,6 +120,23 @@ class IsolatedPolicyTests(unittest.TestCase):
         self.assertEqual(p._inspect(state),({(A,443)},{A}))
         self.assertTrue(any(r.get("priority")==100 for r in p._ip("-4","rule","show",read=True)))
 
+    def test_later_override_of_existing_peer_is_detected_and_can_recover(self):
+        p=self.p;p.capture_baseline();p.reconcile([(A,443)])
+        p._ip("-4","route","add","table",44000,A+"/32","dev","p0")
+        p._ip("-4","rule","add","pref",100,"to",A+"/32","ipproto","tcp","dport",443,"lookup",44000)
+        ledger=self.ledger.read_bytes()
+        for wanted in ([(A,443)],[(A,443),(B,443)]):
+            with self.subTest(wanted=wanted), self.assertRaisesRegex(PolicyError,"earlier_rule_overrides"):
+                p.reconcile(wanted)
+            state=json.loads(self.ledger.read_bytes())
+            self.assertEqual(p._inspect(state),({(A,443)},{A}))
+        # Failed verification preserves the foreign policy and old owned set.
+        self.assertEqual(self.ledger.read_bytes(),ledger)
+        self.assertTrue(any(r.get("priority")==100 for r in p._ip("-4","rule","show",read=True)))
+        p._ip("-4","rule","del","pref",100,"to",A+"/32","ipproto","tcp","dport",443,"lookup",44000)
+        self.assertFalse(p.reconcile([(A,443)])["changed"])
+        self.assertTrue(p.rollback()["changed"])
+
     def test_foreign_conflict_rejected_and_never_deleted(self):
         p=self.p;p.capture_baseline();p.reconcile([(A,443)])
         state=json.loads(self.ledger.read_bytes())
@@ -128,6 +145,108 @@ class IsolatedPolicyTests(unittest.TestCase):
         self.assertTrue(self.ledger.exists())
         self.assertTrue(any(r.get("dst")==C for r in p._ip("-4","rule","show",read=True)))
         p._ip("-4","rule","del","pref",state["pref"],"to",C+"/32","ipproto","tcp","dport",80,"lookup","main")
+        p.rollback()
+
+    def test_rollback_handles_uplink_disappearing_during_delete(self):
+        p=self.p;p.capture_baseline();p.reconcile([(A,443),(B,443)])
+        real=p._ip_batch
+        removed=False
+        def disconnect(commands,**kw):
+            nonlocal removed
+            commands=list(commands)
+            self.assertTrue(all(command[1]=="del" for command in commands))
+            if not removed:
+                removed=True
+                p._ip("link","del","p0")
+            return real(commands,**kw)
+        with mock.patch.object(p,"_ip_batch",side_effect=disconnect):
+            self.assertTrue(p.rollback()["changed"])
+        self.assertFalse(self.ledger.exists())
+        self.assertFalse(any(str(row.get("protocol"))==str(PROTOCOL)
+                             for row in p._ip("-4","rule","show",read=True)))
+        self.assertFalse(p.rollback()["changed"])
+
+    def test_missing_uplink_is_classified_for_baseline_recovery(self):
+        p=self.p;p.capture_baseline();p.reconcile([(A,443)])
+        p._ip("link","del","p0")
+        p._ip("link","add","p1","type","dummy")
+        p._ip("-4","addr","add","192.0.2.3/24","dev","p1")
+        p._ip("link","set","p1","up")
+        p._ip("-4","route","add","default","via","192.0.2.1","dev","p1")
+        with self.assertRaisesRegex(PolicyError,"uplink_changed"):
+            p.reconcile([(A,443)])
+        p.rollback()
+        p.capture_baseline("p1")
+        p.reconcile([(A,443)])
+        self.assertEqual(self.dev(A),("p1","192.0.2.3"))
+        p.rollback()
+
+    def test_rollback_handles_administratively_down_uplink(self):
+        p=self.p;p.capture_baseline();p.reconcile([(A,443)])
+        state=json.loads(self.ledger.read_text())
+        p._ip("link","set","p0","down")
+        self.assertTrue(p.rollback()["changed"])
+        self.assertEqual(p._inspect(state),(set(),set()))
+        self.assertFalse(self.ledger.exists())
+
+    def test_rollback_handles_kernel_linkdown_flag(self):
+        p=self.p
+        p._ip("link","del","p0")
+        p._ip("link","add","p0","type","veth","peer","name","peer0")
+        p._ip("-4","addr","add","192.0.2.2/24","dev","p0")
+        p._ip("link","set","p0","up")
+        p._ip("link","set","peer0","up")
+        p._ip("-4","route","add","default","via","192.0.2.1","dev","p0")
+        p.capture_baseline();p.reconcile([(A,443)])
+        state=json.loads(self.ledger.read_text())
+        p._ip("link","set","peer0","down")
+        owned=[row for row in p._ip("-4","route","show","table","all",read=True)
+               if str(row.get("table"))==str(state["table"])]
+        self.assertEqual(len(owned),1)
+        self.assertEqual(set(owned[0]["flags"]),{"onlink","linkdown"})
+        self.assertTrue(p.rollback()["changed"])
+        self.assertEqual(p._inspect(state),(set(),set()))
+        self.assertFalse(self.ledger.exists())
+
+    def test_rollback_retries_partial_batch_without_restoring_retired_rules(self):
+        p=self.p;p.capture_baseline();p.reconcile([(A,443),(B,443)])
+        state=json.loads(self.ledger.read_text())
+        real=p._ip_batch
+        attempts=[]
+        def partial(commands,**kw):
+            commands=list(commands)
+            self.assertTrue(all(command[1]=="del" for command in commands))
+            attempts.append(commands)
+            if len(attempts)==1:
+                commands[1]=("invalid-cm-test-command",)
+            return real(commands,**kw)
+        with mock.patch.object(p,"_ip_batch",side_effect=partial):
+            self.assertTrue(p.rollback()["changed"])
+        self.assertEqual(len(attempts),2)
+        self.assertEqual(p._inspect(state),(set(),set()))
+        self.assertFalse(self.ledger.exists())
+
+    def test_rollback_failure_keeps_ledger_and_has_bounded_retries(self):
+        p=self.p;p.capture_baseline();p.reconcile([(A,443)])
+        ledger=self.ledger.read_bytes()
+        state=json.loads(ledger)
+        with mock.patch.object(p,"_ip_batch",side_effect=PolicyError("netlink_change_failed")) as delete:
+            with self.assertRaisesRegex(PolicyError,"recovery_pending"):
+                p.rollback()
+        self.assertEqual(delete.call_count,3)
+        self.assertEqual(self.ledger.read_bytes(),ledger)
+        self.assertEqual(p._inspect(state),({(A,443)},{A}))
+        p.rollback()
+
+    def test_rollback_query_failure_keeps_state_without_deleting(self):
+        p=self.p;p.capture_baseline();p.reconcile([(A,443)])
+        ledger=self.ledger.read_bytes()
+        with mock.patch.object(p,"_inspect",side_effect=PolicyError("netlink_query_failed")), \
+             mock.patch.object(p,"_apply") as delete:
+            with self.assertRaisesRegex(PolicyError,"netlink_query_failed"):
+                p.rollback()
+        delete.assert_not_called()
+        self.assertEqual(self.ledger.read_bytes(),ledger)
         p.rollback()
 
     def test_no_host_permission_and_input_errors_preserve_state(self):

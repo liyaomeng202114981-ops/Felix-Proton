@@ -21,8 +21,9 @@ Thanks also to the contributors to Proton, Wine, GE-Proton, DW-Proton and passt 
 | Ordinary Steam / UU icons | Arrange shared networking, validate an existing Steam instance, preserve URI/arguments, and raise an existing window on repeated clicks |
 | Steam CM protection | Keep discovered exact IPv4/TCP control endpoints on the pasta path; the local user confirmed the original Steam disconnect issue during acceleration switching was resolved |
 | CM directory proxy | Query the Valve CM directory through a manually configured GNOME loopback proxy when available, and try a direct connection if the proxy connection fails |
-| Steam protection notification | Show one notification per guard session when the rules are ready, including after recovery from a startup warning |
+| Steam protection notification | Notify on initial readiness, then on failure and recovery transitions |
 | Python CM performance | Wake the guard during startup as queries complete, batch rule changes and route checks, and reduce repeated status writes |
+| CM cleanup, verification and recovery | Delete owned objects during shutdown, periodically verify every exact target's effective route, and retry faults with backoff before safely recapturing the baseline |
 | Installation, rollback and diagnostics | Back up/restore desktop entries, query status, provide bounded passive diagnostics and accompanying tests |
 
 The upstream wrapper supplies namespace/session management, WE-Proton supplies the Wintun foundation, and pasta supplies the host connection. The new Python guard installs precise endpoint rules only inside the shared private network. Host routes remain unchanged. It does not claim to protect every game connection.
@@ -31,7 +32,7 @@ The upstream wrapper supplies namespace/session management, WE-Proton supplies t
 
 This update covers development source, the complete configuration process, implementation details and known issues. Release builds, runner distribution and GitHub Releases are deferred.
 
-All **70 integration tests passed**, including CM shutdown regression coverage. In the earlier performance comparison with 27 synthetic endpoints, median initial policy reconciliation fell from 343 ms to 52 ms and subprocess calls fell from 87 to 8. Across three isolated runs using the live Valve directory and DNS, median guard readiness was 0.896 s. Full Steam startup time and in-game latency were outside the test scope. [Shutdown verification](we/felix-proton/docs/TESTING.md#cm-退出状态复测) · [Performance test scope](we/felix-proton/docs/TESTING.md#cm-性能复测)
+All **85 tests in the public integration suite passed**, including 48 focused CM cases. Five isolated network fault scenarios verified recovery and cleanup. Effective routes are rechecked on a roughly 15-second cycle, with recovery retries backing off from 1 to 15 seconds. Earlier policy and live-directory timings remain historical results. [Cleanup, route and recovery verification](we/felix-proton/docs/TESTING.md#cm-清理选路与恢复复测) · [Performance test scope](we/felix-proton/docs/TESTING.md#cm-性能复测)
 
 The project is maintained on `main` in this standalone repository. The launch integration and its documentation are under [`we/felix-proton/`](we/felix-proton/). A fresh installation requires a separately prepared, checksum-pinned historical test.1 runner.
 
