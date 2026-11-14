@@ -28,6 +28,10 @@ sha256sum --check --ignore-missing SHA256SUMS
 
 本次 **32 项隔离测试通过**（26 项配对功能、6 项发行构建），解压包内复跑通过；重复构建、Debian 内容与依赖、空配置环境用户安装及缺配置界面检查通过。详情见[该版本测试报告](https://github.com/liyaomeng202114981-ops/Felix-Proton/blob/felix-pairing-v0.1.0-preview.1/we/felix-proton/src/pairing-tool/TEST_RESULTS.md)。GTK 检查使用模拟后台和空配置环境，不代表实体鼠标跨应用拖拽、实际 Dock 纹理或真实游戏加速验收。
 
+## 对应源码与重建
+
+便携包同时是本版的完整工具源码分发，`BUILDINFO.json` 列出每份源码的 SHA-256。解压后运行 `python3 -B build_release.py --output-dir ./rebuilt` 可重建工具附件；测试套件需要 Python 3.11+，构建 .deb 还需要 `dpkg-deb`。默认固定 SOURCE_DATE_EPOCH=0，同一受测环境中的完整重建结果已逐字节核对。源码与附件共同保留许可和版权信息。
+
 预览版仅适配 Steam + 网易 UU，尚无异机全面验收；入口配对就绪与 UU 开始加速、游戏连接改善分别判断。
 
 感谢 **SHORiN-KiWATA** 的 WE-Proton 与 proton-wrapper，及 passt/pasta、Proton、Wine、GE-Proton、DW-Proton 的贡献者。由 **Felix Li 在 OpenAI Codex 协助下**开发；BSD-3-Clause 源码、原作者和许可随包保留。
