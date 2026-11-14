@@ -77,6 +77,35 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # One-time recovery of this preview's failed filename-normalization upload.
+          # Never delete a published release or a tag, or a draft from another target.
+          /usr/bin/python3 - <<'PY'
+          import json, os, urllib.error, urllib.request
+          if os.environ['TAG']=='felix-pairing-v0.1.0-preview.1':
+              base='https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']
+              def request(path, method='GET'):
+                  req=urllib.request.Request(base+path, method=method, headers={
+                      'Authorization':'Bearer '+os.environ['GH_TOKEN'],
+                      'Accept':'application/vnd.github+json',
+                      'X-GitHub-Api-Version':'2022-11-28'})
+                  try:
+                      with urllib.request.urlopen(req, timeout=30) as response:
+                          raw=response.read()
+                          return json.loads(raw) if raw else None
+                  except urllib.error.HTTPError as error:
+                      if error.code==404:
+                          return None
+                      raise
+              path='/releases/445370303'
+              draft=request(path)
+              if draft is not None:
+                  assert draft['id']==445370303 and draft['draft'] is True
+                  assert draft['tag_name']==os.environ['TAG']
+                  assert draft['target_commitish']=='0e8b0c0bc2ede0e9d3513397408882cb7043f8df'
+                  assert draft['author']['login']=='github-actions[bot]'
+                  assert request('/git/ref/tags/'+os.environ['TAG']) is None, 'A tag exists; retain the draft'
+                  request(path, 'DELETE')
+          PY
           if ! gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             gh release create "$TAG" "$DIST"/* \
               --repo "$GITHUB_REPOSITORY" \
