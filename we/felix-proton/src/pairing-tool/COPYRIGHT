@@ -1,0 +1,22 @@
+Felix Pairing
+
+Copyright (c) 2026 Felix Li, with OpenAI Codex assistance.
+Pairing application code and its hand-written SVG are distributed under BSD-3-Clause.
+
+The vendored lib/desktop.py is copied byte-for-byte from Felix-Proton's
+src/native-ux/desktop.py. It retains its SPDX-License-Identifier: BSD-3-Clause.
+Its canonical source in the public repository is
+we/felix-proton/src/native-ux/desktop.py.
+
+LICENSE retains Valve Corporation's Proton BSD-3-Clause notice and terms.
+Original upstream authorship and repository history are preserved.
+
+WE-Proton and shorin-proton-wrapper were developed by SHORiN-KiWATA.
+They provide the underlying Wine networking and shared-network session support.
+passt/pasta provides the host connection. These components are separate
+dependencies and are not bundled by this tool release.
+
+Steam and NetEase UU names, application icons and trademarks belong to their
+respective owners. Their artwork, programs, prefixes, accounts and runtime
+binaries are not redistributed in this release. The tool reads application
+icons from the user's installed desktop metadata.

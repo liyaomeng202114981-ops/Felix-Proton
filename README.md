@@ -6,6 +6,12 @@ Felix-Proton 是基于 WE-Proton 源码独立维护的 Proton 项目。本项目
 
 **[从零配置完整流程说明（开发中）](we/felix-proton/docs/FROM_ZERO.md)** · **[实现逻辑与代码导航](we/felix-proton/docs/IMPLEMENTATION.md)** · **[最新工作说明](we/felix-proton/docs/WORK_REPORT.md)** · [当前结果与未解决事项](we/felix-proton/docs/CURRENT_STATE.md) · [普通图标使用说明](we/felix-proton/src/native-ux/README.md) · [代码与目录](we/felix-proton/README.md) · [验证](we/felix-proton/docs/TESTING.md) · [来源与署名](we/felix-proton/docs/PROVENANCE.md)
 
+## Felix 配对工具预览发行
+
+[下载 Felix 配对 0.1.0-preview.1](https://github.com/liyaomeng202114981-ops/Felix-Proton/releases/tag/felix-pairing-v0.1.0-preview.1) · [使用说明](we/felix-proton/src/pairing-tool/README.md) · [测试报告](we/felix-proton/src/pairing-tool/TEST_RESULTS.md)
+
+把 Steam 与网易 UU 图标拖到一起，一次配对后继续使用两个原图标。工具提供圆形原生 SVG 和可回退的入口管理。便携包及 Debian 包包含对应源码、测试、许可、构建清单和校验值，适用于已配置好 Felix-Proton 网络集成的环境；运行器、客户端和前缀仍需另行准备。
+
 ## 致谢
 
 特别感谢 **SHORiN-KiWATA** 开发并公开 WE-Proton 和 proton-wrapper。WE-Proton 的 Wine 网络适配提供了 Wintun 和接口基础，proton-wrapper 提供共享网络的会话管理。Felix-Proton 在这些成果上继续维护，保留上游作者、版权、许可证和 Git 提交历史。[WE-Proton](https://github.com/SHORiN-KiWATA/we-proton) · [proton-wrapper](https://github.com/SHORiN-KiWATA/proton-wrapper)
@@ -30,7 +36,7 @@ Felix-Proton 是基于 WE-Proton 源码独立维护的 Proton 项目。本项目
 
 ## 当前验证与发布范围
 
-当前同步开发中的源码、配置流程、实现细节和已知问题。发行版构建、固定运行器分发和 GitHub Release 暂缓。
+本仓库继续维护开发源码、配置流程、实现细节和已知问题。配对工具现提供独立的 0.1.0-preview.1 便携包与 Debian 预览包；完整 Proton 运行器的分发属于另行准备的范围。
 
 当前公开集成套件 **85 项测试通过**，其中 CM 定向用例 48 项。五种隔离网络故障场景验证了恢复和清理。已有目标按约 15 秒周期复核实际选路，恢复按 1～15 秒退避重试。此前性能对照与真实目录查询的计时保留为历史结果。[清理、选路与恢复验证](we/felix-proton/docs/TESTING.md#cm-清理选路与恢复复测) · [性能测试范围](we/felix-proton/docs/TESTING.md#cm-性能复测)
 

@@ -6,6 +6,12 @@ Felix-Proton is an independently maintained Proton project based on WE-Proton so
 
 **[Complete setup process — development notes (Chinese)](we/felix-proton/docs/FROM_ZERO.md)** · **[Implementation and code guide (Chinese)](we/felix-proton/docs/IMPLEMENTATION.md)** · **[Latest work report (Chinese)](we/felix-proton/docs/WORK_REPORT.md)** · [Current results and limits](we/felix-proton/docs/CURRENT_STATE.md) · [Ordinary-icon setup](we/felix-proton/src/native-ux/README.md) · [Source layout](we/felix-proton/README.md) · [Validation](we/felix-proton/docs/TESTING.md) · [Provenance](we/felix-proton/docs/PROVENANCE.md)
 
+## Felix Pairing preview release
+
+[Download Felix Pairing 0.1.0-preview.1](https://github.com/liyaomeng202114981-ops/Felix-Proton/releases/tag/felix-pairing-v0.1.0-preview.1) · [Usage](we/felix-proton/src/pairing-tool/README.md) · [Test report](we/felix-proton/src/pairing-tool/TEST_RESULTS.md)
+
+Pair Steam and UU once by dragging their icons together, then keep using the original application icons. The small tool includes a native circular SVG and reversible entry management. Portable and Debian packages contain matching source, tests, licenses, build metadata and checksums. They require an already configured Felix-Proton network integration; the runner, clients and prefixes are separate dependencies.
+
 ## Acknowledgments
 
 Special thanks to **SHORiN-KiWATA** for developing and sharing WE-Proton and proton-wrapper. WE-Proton supplies the Wine Wintun and network interface support, while proton-wrapper manages the shared network session. Felix-Proton builds on their work and preserves upstream authorship, copyright notices, licenses and Git history. [WE-Proton](https://github.com/SHORiN-KiWATA/we-proton) · [proton-wrapper](https://github.com/SHORiN-KiWATA/proton-wrapper)
@@ -30,7 +36,7 @@ The upstream wrapper supplies namespace/session management, WE-Proton supplies t
 
 ## Validation and publication scope
 
-This update covers development source, the complete configuration process, implementation details and known issues. Release builds, runner distribution and GitHub Releases are deferred.
+Development source, setup procedures and known limits remain documented. Felix Pairing now has a separate 0.1.0-preview.1 release with a portable archive and Debian package; complete Proton runner distribution remains a separate scope.
 
 All **85 tests in the public integration suite passed**, including 48 focused CM cases. Five isolated network fault scenarios verified recovery and cleanup. Effective routes are rechecked on a roughly 15-second cycle, with recovery retries backing off from 1 to 15 seconds. Earlier policy and live-directory timings remain historical results. [Cleanup, route and recovery verification](we/felix-proton/docs/TESTING.md#cm-清理选路与恢复复测) · [Performance test scope](we/felix-proton/docs/TESTING.md#cm-性能复测)
 

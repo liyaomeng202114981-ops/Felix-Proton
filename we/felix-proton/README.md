@@ -1,5 +1,7 @@
 # Felix-Proton：普通图标集成与 Steam 连接保护
 
+[Felix 配对工具使用说明](src/pairing-tool/README.md) · [0.1.0-preview.1 测试报告](src/pairing-tool/TEST_RESULTS.md) · [预览发行](https://github.com/liyaomeng202114981-ops/Felix-Proton/releases/tag/felix-pairing-v0.1.0-preview.1)
+
 这是由 Felix Li 在 OpenAI Codex 协助下独立维护的 Felix-Proton 启动集成。感谢 SHORiN-KiWATA 为 Wine 网络适配和共享网络会话提供的基础，也感谢 passt / pasta 的贡献者。仓库保留各组件的作者、版权、许可与提交历史。[WE-Proton](https://github.com/SHORiN-KiWATA/we-proton) · [proton-wrapper](https://github.com/SHORiN-KiWATA/proton-wrapper) · [passt / pasta](https://passt.top/)
 
 本轮公开的是最新 Python 启动层、安装与回退、诊断工具、配套测试及工作说明。Wine 网络补丁 0062/0063 仍位于本仓库原有的 `patches/wine/` 和 `we/fixes/` 中；这里没有重新编译或发布 Proton 二进制。
