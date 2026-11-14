@@ -1,0 +1,111 @@
+name: Felix Pairing preview release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'we/felix-proton/src/pairing-tool/VERSION'
+  workflow_dispatch:
+
+concurrency:
+  group: felix-pairing-preview-release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    if: github.repository == 'liyaomeng202114981-ops/Felix-Proton' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    env:
+      TOOL: we/felix-proton/src/pairing-tool
+      DIST: ${{ runner.temp }}/felix-pairing-dist
+      SOURCE_DATE_EPOCH: '0'
+    steps:
+      - uses: actions/checkout@v6
+      - name: Validate preview version
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+          version=$(tr -d '\r\n' < "$TOOL/VERSION")
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+-preview\.[0-9]+$ ]]
+          printf 'version=%s\ntag=felix-pairing-v%s\n' "$version" "$version" >> "$GITHUB_OUTPUT"
+      - name: Install GUI test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-gi python3-cairo gir1.2-gtk-4.0 gir1.2-adw-1 xvfb dbus-x11
+      - name: Verify bundled desktop source
+        run: cmp "$TOOL/lib/desktop.py" we/felix-proton/src/native-ux/desktop.py
+      - name: Run isolated regression tests
+        working-directory: we/felix-proton/src/pairing-tool
+        run: /usr/bin/python3 -B -m unittest discover -q
+      - name: Build portable and Debian packages
+        run: /usr/bin/python3 -B "$TOOL/build_release.py" --output-dir "$DIST"
+      - name: Verify archive checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$DIST"
+          sha256sum --check SHA256SUMS
+      - name: Check extracted package and user installation
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          extracted="$RUNNER_TEMP/pairing-extracted"
+          mkdir -p "$extracted"
+          tar -xzf "$DIST/felix-pairing-${VERSION}-linux.tar.gz" -C "$extracted"
+          package="$extracted/felix-pairing-${VERSION}"
+          (cd "$package" && /usr/bin/python3 -B -m unittest discover -q)
+          dbus-run-session -- xvfb-run -a env GSK_RENDERER=cairo /usr/bin/python3 -B "$package/smoke_ui.py" --snapshot-dir "$RUNNER_TEMP/pairing-ui"
+          clean_home="$RUNNER_TEMP/pairing-empty-home"
+          mkdir -p "$clean_home"
+          env HOME="$clean_home" XDG_DATA_HOME="$clean_home/.local/share" XDG_CONFIG_HOME="$clean_home/.config" XDG_STATE_HOME="$clean_home/.local/state" /usr/bin/python3 -B "$package/install.py"
+          env HOME="$clean_home" XDG_DATA_HOME="$clean_home/.local/share" XDG_CONFIG_HOME="$clean_home/.config" XDG_STATE_HOME="$clean_home/.local/state" dbus-run-session -- xvfb-run -a env GSK_RENDERER=cairo /usr/bin/python3 -B "$package/smoke_ui.py" --unconfigured --snapshot-dir "$RUNNER_TEMP/pairing-empty-ui"
+      - name: Stage, verify and publish immutable preview assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+          TAG: ${{ steps.version.outputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$TAG" "$DIST"/* \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" \
+              --title "Felix Pairing ${VERSION}" \
+              --draft --prerelease --latest=false \
+              --notes-file "$TOOL/RELEASE_NOTES.md"
+          fi
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json targetCommitish,tagName > "$RUNNER_TEMP/pairing-release.json"
+          /usr/bin/python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          data=json.loads((Path(os.environ['RUNNER_TEMP'])/'pairing-release.json').read_text())
+          assert data['targetCommitish']==os.environ['GITHUB_SHA'], 'Release target differs; do not overwrite an existing version'
+          assert data['tagName']==os.environ['TAG']
+          PY
+          if gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$TAG" > "$RUNNER_TEMP/pairing-tag.json" 2>/dev/null; then
+            /usr/bin/python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          obj=json.loads((Path(os.environ['RUNNER_TEMP'])/'pairing-tag.json').read_text())['object']
+          assert obj['type']=='commit' and obj['sha']==os.environ['GITHUB_SHA'], 'Existing tag points elsewhere'
+          PY
+          fi
+          downloaded="$RUNNER_TEMP/pairing-release-download"
+          mkdir -p "$downloaded"
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --dir "$downloaded"
+          cmp "$DIST/SHA256SUMS" "$downloaded/SHA256SUMS"
+          diff <(find "$DIST" -maxdepth 1 -type f -printf '%f\n' | sort) <(find "$downloaded" -maxdepth 1 -type f -printf '%f\n' | sort)
+          (cd "$downloaded" && sha256sum --check SHA256SUMS)
+          gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false --prerelease --latest=false
+          gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$TAG" --jq .object.sha > "$RUNNER_TEMP/pairing-tag-sha"
+          test "$(tr -d '\r\n' < "$RUNNER_TEMP/pairing-tag-sha")" = "$GITHUB_SHA"
