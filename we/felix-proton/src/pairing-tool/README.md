@@ -20,7 +20,7 @@
 | 文件 | 用途 |
 | --- | --- |
 | `felix-pairing-0.1.0-preview.1-linux.tar.gz` | 便携源码包，可直接运行或安装到当前用户目录 |
-| `felix-pairing_0.1.0~preview1_all.deb` | 兼容 Debian/Ubuntu 的系统安装包 |
+| `felix-pairing_0.1.0-preview.1_all.deb` | 兼容 Debian/Ubuntu 的系统安装包 |
 | `SHA256SUMS` | 发行附件的 SHA-256 校验值 |
 | `BUILDINFO.json` | 构建版本与文件哈希清单 |
 
@@ -53,7 +53,7 @@ python3 -B install.py
 包管理器必须能提供上面的 GTK/libadwaita 版本。`all` 表示 Python 代码与架构无关，不代表所有发行版都已验证。
 
 ```sh
-sudo apt install ./felix-pairing_0.1.0~preview1_all.deb
+sudo apt install ./felix-pairing_0.1.0-preview.1_all.deb
 ```
 
 从应用菜单打开“Felix 配对”，或运行 `felix-pairing`。系统安装不会替你配置 Steam/UU 的加速环境，升级工具也不要求重做已保存配对。

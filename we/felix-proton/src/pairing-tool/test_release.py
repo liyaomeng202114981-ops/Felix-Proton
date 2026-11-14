@@ -139,6 +139,9 @@ class ReleasePackageTests(unittest.TestCase):
     def test_deb_contents_dependencies_and_repeat_build_are_verified_without_installing(self):
         first = build_release.build(self.output, source_dir=self.source, epoch=0)
         first_deb = next(Path(item["path"]) for item in first["artifacts"] if item["name"].endswith(".deb"))
+        self.assertEqual(first_deb.name, "felix-pairing_0.1.0-preview.1_all.deb")
+        for item in first["artifacts"]:
+            self.assertRegex(item["name"], r"\A[A-Za-z0-9._-]+\Z")
         control = subprocess.check_output(["dpkg-deb", "-f", str(first_deb)], text=True)
         self.assertIn("Package: felix-pairing\n", control)
         self.assertIn("Version: 0.1.0~preview1\n", control)

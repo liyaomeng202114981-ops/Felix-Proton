@@ -20,6 +20,8 @@ sha256sum --check --ignore-missing SHA256SUMS
 
 便携包解压后进入 felix-pairing-0.1.0-preview.1，运行 `python3 -B app.py`；需要用户菜单入口时运行 `python3 -B install.py`。已有用户级安装建议沿用此方式更新，避免用户入口遮蔽系统 .deb 入口。
 
+Debian/Ubuntu 安装包名为 `felix-pairing_0.1.0-preview.1_all.deb`；文件名兼容 GitHub 附件，内部 Debian 版本为 `0.1.0~preview1`。
+
 应用需要 Python 3.10+、PyGObject、GTK 4.10+、libadwaita 1.4+。真正配对需要预先配置好的 Felix-Proton 原生 Steam/UU 共享网络环境。固定历史 test.1 运行器、Steam、UU 和前缀未随此工具分发；仅安装配对工具不能从零获得完整加速环境。
 
 “移除管理记录”只停止管理原有连接；“解除配对”只恢复本工具修改的入口。升级或卸载均应保留需要的配对恢复账本。

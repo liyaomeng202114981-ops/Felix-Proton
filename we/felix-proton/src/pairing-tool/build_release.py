@@ -208,7 +208,8 @@ def build(output_dir, *, source_dir=None, with_deb=True, epoch=None):
     if with_deb and shutil.which("dpkg-deb") is None:
         raise BuildError("dpkg-deb is required for .deb output; use --no-deb for the portable archive only")
     portable_name = root_name + "-linux.tar.gz"
-    deb_name = "felix-pairing_" + debian + "_all.deb"
+    # GitHub normalizes '~' in asset filenames; keep Debian ordering only in control.
+    deb_name = "felix-pairing_" + version + "_all.deb"
     _publish(output / portable_name, _portable(root_name, payload, timestamp))
     if with_deb:
         _deb(output, deb_name, payload, timestamp, debian)
