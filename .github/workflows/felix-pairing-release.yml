@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'we/felix-proton/src/pairing-tool/VERSION'
+      - 'we/felix-proton/src/pairing-tool/RELEASE_NOTES.md'
   workflow_dispatch:
 
 concurrency:
@@ -23,7 +24,6 @@ jobs:
       contents: write
     env:
       TOOL: we/felix-proton/src/pairing-tool
-      DIST: ${{ runner.temp }}/felix-pairing-dist
       SOURCE_DATE_EPOCH: '0'
     steps:
       - uses: actions/checkout@v6
@@ -35,6 +35,7 @@ jobs:
           version=$(tr -d '\r\n' < "$TOOL/VERSION")
           [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+-preview\.[0-9]+$ ]]
           printf 'version=%s\ntag=felix-pairing-v%s\n' "$version" "$version" >> "$GITHUB_OUTPUT"
+          printf 'DIST=%s/felix-pairing-dist\n' "$RUNNER_TEMP" >> "$GITHUB_ENV"
       - name: Install GUI test dependencies
         run: |
           sudo apt-get update
