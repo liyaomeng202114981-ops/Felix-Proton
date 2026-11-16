@@ -32,6 +32,9 @@ jobs:
       - name: Pairing regression
         working-directory: we/felix-proton/src/pairing-tool
         run: /usr/bin/python3 -B -m unittest discover -q
+      - name: Corresponding source boundary regression
+        working-directory: we/felix-proton/src/setup-tool/release_materials
+        run: /usr/bin/python3 -B -m unittest discover -q
       - name: Package boundary regression
         working-directory: we/felix-proton/packaging/fromzero
         run: /usr/bin/python3 -B -m unittest discover -q
