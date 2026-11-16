@@ -1,5 +1,11 @@
 # 来源、贡献与验证范围
 
+## 2026-11-16 从零安装发行来源
+
+本版安装引导和静态PE图标提取器由Felix Li在OpenAI Codex协助下新增，按BSD-3-Clause声明；图标从使用者自己的已安装UU客户端生成，本仓库不分发品牌图像、客户端、账号或prefix。固定历史test.1运行器不重编，归档SHA320d…及其两架构模块/入口重新核验；对应修改后Wine、原上游源码、基础构建树和115档依赖来源单独提供，保留逐组件许可。网络依赖的独立源档与声明见[NETWORK_NOTICES](../packaging/fromzero/NETWORK_NOTICES.md)和[NETWORK_SOURCES](../packaging/fromzero/NETWORK_SOURCES.json)。
+
+pasta的历史源码checkout HEAD/干净状态、官方snapshot的229普通文件/5链接和历史构建/已装/发布二进制均对应；未新编译或承诺字节复现。wrapper源快照内脚本逐字匹配发布脚本，固定revision的nfpm元数据声明MIT、根无独立LICENSE，按事实保留。Wine及依赖不因与Python工具同包而改为BSD。119核心档和两网络源档已检查安全成员与本机个人路径/凭据模式；原始审计日志只留本机。
+
 Felix-Proton 是基于 WE-Proton 源码独立维护的项目。特别感谢 **SHORiN-KiWATA** 提供 WE-Proton 与 proton-wrapper，并感谢各上游项目的贡献者。新增工作由 **Felix Li 在 OpenAI Codex 协助下**完成。独立仓库保留已有 Git 历史、原作者、版权和逐组件许可证。
 
 ## 上游基础

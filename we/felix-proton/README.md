@@ -6,7 +6,7 @@
 
 本轮公开的是最新 Python 启动层、安装与回退、诊断工具、配套测试及工作说明。Wine 网络补丁 0062/0063 仍位于本仓库原有的 `patches/wine/` 和 `we/fixes/` 中；这里没有重新编译或发布 Proton 二进制。
 
-配对工具已单独提供预览发行；完整 Proton 固定运行器的构建与分发仍暂缓，继续提供开发中的具体流程和实现说明。仍有问题需排查和跨机验证，详见下面的完整流程与当前状态。
+新增[从零安装预览](https://github.com/liyaomeng202114981-ops/Felix-Proton/releases/tag/felix-proton-setup-v0.1.0-preview.1)，提供固定历史运行器、校验下载、前缀初始化和底层集成。[安装说明](packaging/fromzero/INSTALL.md) · [完整测试](docs/SETUP_TEST_RESULTS.md)。运行器未在本轮全量重编，对应修改源码、基础构建树及依赖源档和许可随发行提供；异机和全部游戏仍需验证。
 
 - [从零配置完整流程说明（开发记录）：材料、步骤、手动分解、验证与回退](docs/FROM_ZERO.md)
 - [实现逻辑与代码导航：无感启动、网卡切换和 CM 保护](docs/IMPLEMENTATION.md)

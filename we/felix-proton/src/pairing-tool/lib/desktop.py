@@ -221,7 +221,7 @@ def _locations(home, apps_dir, config_home):
     return home, xdg_data, config, targets
 
 
-def _plan(helper, paths, home, xdg_data, config, system_dirs):
+def _plan(helper, paths, home, xdg_data, config, system_dirs, uu_icon=None):
     helper = Path(helper).expanduser().absolute()
     if not helper.is_file():
         raise DesktopError("找不到用于桌面入口的启动脚本。")
@@ -240,7 +240,17 @@ def _plan(helper, paths, home, xdg_data, config, system_dirs):
             elif system:
                 data = system.read_bytes()
             elif name == "uu-accelerator.desktop":
-                data = ("[Desktop Entry]\nType=Application\nName=网易 UU 加速器\nExec=uu\nIcon=network-vpn\n"
+                icon = "network-vpn"
+                if uu_icon is not None:
+                    file = Path(uu_icon).expanduser().absolute()
+                    if (any(ord(c) < 32 or ord(c) == 127 for c in str(file)) or not file.is_file()
+                            or file.stat().st_size > 4 * 1024**2):
+                        raise DesktopError("新建 UU 入口需要已提取的有效本地 PNG 图标。")
+                    with file.open("rb") as source:
+                        if source.read(8) != b"\x89PNG\r\n\x1a\n":
+                            raise DesktopError("新建 UU 入口需要已提取的有效本地 PNG 图标。")
+                    icon = str(file).replace("\\", "\\\\")
+                data = ("[Desktop Entry]\nType=Application\nName=网易 UU 加速器\nExec=uu\nIcon=" + icon + "\n"
                         "Terminal=false\nCategories=Network;\nStartupWMClass=uu.exe\n").encode()
             else:
                 raise DesktopError("未找到 steam.desktop，请先安装原生 Linux Steam。")
@@ -323,7 +333,7 @@ def _report_io_errors(function):
 
 
 @_report_io_errors
-def install(helper, state_dir, *, apps_dir=None, system_dirs=None, home=None, config_home=None):
+def install(helper, state_dir, *, apps_dir=None, system_dirs=None, home=None, config_home=None, uu_icon=None):
     """Switch supported user entrypoints. system_dirs contains applications directories."""
     home, data, config, paths = _locations(home, apps_dir, config_home)
     if system_dirs is None:
@@ -334,7 +344,7 @@ def install(helper, state_dir, *, apps_dir=None, system_dirs=None, home=None, co
     with _store(state_dir) as state_file:
         state = _load(state_file, paths)
         if state is None or state["phase"] == "restored":
-            state = _plan(helper, paths, home, data, config, system_dirs)
+            state = _plan(helper, paths, home, data, config, system_dirs, uu_icon=uu_icon)
             _save(state_file, state)
         if state["helper"] != str(Path(helper).expanduser().absolute()) or state["phase"] == "restoring":
             raise DesktopError("已有另一启动脚本或未完成的回退，请先恢复原入口。")

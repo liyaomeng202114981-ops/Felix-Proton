@@ -40,9 +40,9 @@ class DesktopTests(unittest.TestCase):
         self.auto = self.config / "autostart/steam.desktop"
         (self.system / "steam.desktop").write_bytes(steam())
 
-    def install(self):
+    def install(self, uu_icon=None):
         return desktop.install(self.helper, self.state, apps_dir=self.apps, home=self.home,
-                               config_home=self.config, system_dirs=[self.system])
+                               config_home=self.config, system_dirs=[self.system], uu_icon=uu_icon)
 
     def restore(self):
         return desktop.restore(self.state, apps_dir=self.apps, home=self.home, config_home=self.config)
@@ -104,6 +104,32 @@ class DesktopTests(unittest.TestCase):
         self.assertFalse(self.uu.exists())
         self.assertFalse(self.steam.exists())
         self.assertEqual((self.system/"steam.desktop").read_bytes(), original)
+
+    def test_new_uu_uses_extracted_brand_icon_in_original_backup_transaction(self):
+        icon = self.home / "UU brand.png"
+        icon.write_bytes(b"\x89PNG\r\n\x1a\nfixture")
+        self.install(uu_icon=icon)
+        self.assertIn("Icon=" + str(icon) + "\n", self.uu.read_text())
+        before = self.uu.read_bytes()
+        self.assertEqual(self.install(uu_icon=self.home / "ignored.png")["changed"], [])
+        self.assertEqual(self.uu.read_bytes(), before)
+        self.restore()
+        self.assertFalse(self.uu.exists())
+        self.assertTrue(icon.exists())
+
+    def test_existing_uu_icon_is_not_replaced_by_fresh_install_icon(self):
+        self.uu.write_bytes(b"[Desktop Entry]\nType=Application\nName=UU\nExec=uu\nIcon=original-brand\n")
+        self.install(uu_icon=self.home / "not-needed.png")
+        self.assertIn("Icon=original-brand\n", self.uu.read_text())
+
+    def test_invalid_new_uu_icon_refuses_before_desktop_or_backup_publication(self):
+        icon = self.home / "invalid.png"
+        icon.write_bytes(b"not a PNG")
+        with self.assertRaises(desktop.DesktopError):
+            self.install(uu_icon=icon)
+        self.assertFalse(self.steam.exists())
+        self.assertFalse(self.uu.exists())
+        self.assertFalse((self.state / "desktop-backup-v1/state.json").exists())
 
     def test_recognized_commands_preserve_exact_argument_tail(self):
         for exe in ["steam", '"/usr/bin/steam"', "/usr/games/steam"]:

@@ -34,13 +34,15 @@ PREVIOUS={'cm_guard.py':('dec8722bdcbe5567d6db88b9e5c74742622e6fa104a3ecbe5170a0
           'policy.py':('e5ed2a1a7d94e788f68c5e0890313f65a2b8a80ecfab72725f928f6fcda543b1',
                        'f0118f4632ef813cccf9a1cc6e84dda49ce75c8c2bf96033cff3cdec116cc0cb'),
           'routes.py':('31fa095afe768d4f2e8670942c11309e164bfbb9c4b0dabd5eed902a54954926','a2c1679270c1eaebb0d735438889c69a1f02ea02f5be0a2c1d337283ef08d464'),
+          'desktop.py':('1b7ac86406882d155dbf23455a4d444f99c7d72a724ba7555c44f79ac977c6ba',),
           'enable.py':('615ee2dfaf94a91d2e3353b2bafdb9125c925435fb425429d7fd17044328bf19',
                        'bb8adf6245a99bea9b58ec1bc630c8f147d5585301b0d03bafdb193c2a55e270',
                        '61f60e3774cf9efb98ea043ce261ac446c8ed488d4cdbfa348ae33f88ed9e850',
                        '99e47205f6a3cb2f6ff56ebc45b19c386105307fb74a70b8efca2f5f22b81d41',
                        'babe8fb9e020ebd0bb98c92e12c5ce661dcfd7c5c09e96d1aaa6e835e6b8d5fc',
                        '23b29dcc09b07393a85fa09a13d5dc8ba53f2199dfd29601e68e3457043befa6',
-                       '3a25b59d2a3380219191e05f1b32a3a2fd25fa14329b731184c3164f702eb2e6')}
+                       '3a25b59d2a3380219191e05f1b32a3a2fd25fa14329b731184c3164f702eb2e6',
+                       '229387f38210a7bc113428499a069f6f85a7d5086b000936411675e209b52073')}
 
 
 def xdg(key, fallback):
@@ -137,9 +139,14 @@ def enable(args):
     source=Path(__file__).resolve().parent
     archive=args.archive or next((p/bootstrap.ARCHIVE for p in (source,source.parent,Path.home()/'Downloads')
                                  if (p/bootstrap.ARCHIVE).is_file()),None)
-    config=setup_config.ensure_config(archive,uu_installer=args.uu_installer)
+    options={key:getattr(args,key,None) for key in ('steam_root','wrapper','pasta','steam')}
+    config=setup_config.ensure_config(archive,uu_installer=args.uu_installer,**options)
     ctx=routes.load(config)
     install_uu_if_needed(ctx,args.uu_installer)
+    uu_icon=getattr(args,'uu_icon',None)
+    provider=getattr(args,'uu_icon_provider',None)
+    if provider is not None:
+        uu_icon=provider(ctx)
     d=libdir()
     d.mkdir(parents=True,mode=0o700,exist_ok=True)
     if d.is_symlink():
@@ -149,7 +156,7 @@ def enable(args):
     active=routes.active_file()
     active.parent.mkdir(mode=0o700,parents=True,exist_ok=True)
     stage_file(active,(json.dumps({'config':str(config)},ensure_ascii=False)+'\n').encode())
-    return desktop.install(d/'routes.py',statedir())
+    return desktop.install(d/'routes.py',statedir(),uu_icon=uu_icon)
 
 
 def refresh():
@@ -164,6 +171,8 @@ def main():
     parser.add_argument('action',nargs='?',default='enable',choices=['enable','restore','status'])
     parser.add_argument('--archive',type=Path)
     parser.add_argument('--uu-installer',type=Path)
+    for option in ('steam-root','wrapper','pasta','steam'):
+        parser.add_argument('--'+option,type=Path)
     args=parser.parse_args()
     try:
         if args.action=='status':

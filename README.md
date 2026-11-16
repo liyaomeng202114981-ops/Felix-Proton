@@ -6,6 +6,12 @@ Felix-Proton 是基于 WE-Proton 源码独立维护的 Proton 项目。本项目
 
 **[从零配置完整流程说明（开发中）](we/felix-proton/docs/FROM_ZERO.md)** · **[实现逻辑与代码导航](we/felix-proton/docs/IMPLEMENTATION.md)** · **[最新工作说明](we/felix-proton/docs/WORK_REPORT.md)** · [当前结果与未解决事项](we/felix-proton/docs/CURRENT_STATE.md) · [普通图标使用说明](we/felix-proton/src/native-ux/README.md) · [代码与目录](we/felix-proton/README.md) · [验证](we/felix-proton/docs/TESTING.md) · [来源与署名](we/felix-proton/docs/PROVENANCE.md)
 
+## 从零安装预览
+
+[下载完整安装引导与运行器](https://github.com/liyaomeng202114981-ops/Felix-Proton/releases/tag/felix-proton-setup-v0.1.0-preview.1) · [安装步骤](we/felix-proton/packaging/fromzero/INSTALL.md) · [从零安装测试](we/felix-proton/docs/SETUP_TEST_RESULTS.md)
+
+为原生 Steam + Windows 网易 UU 准备固定运行器、共享网络依赖、专用新前缀和两个原图标。使用者先安装并初始化原生 Steam，再下载官方 Windows UU 安装器；引导会校验和下载其余固定材料，完成 UU 安装后接入原入口。当前目标为 x86-64 Linux 图形桌面，自动 pasta 包需要 glibc 2.38+；发行版同时提供匹配源码、依赖源档和许可索引。它是历史受测运行器的安装预览，异机及全部游戏兼容仍需验证。
+
 ## Felix 配对工具预览发行
 
 [下载 Felix 配对 0.1.0-preview.1](https://github.com/liyaomeng202114981-ops/Felix-Proton/releases/tag/felix-pairing-v0.1.0-preview.1) · [使用说明](we/felix-proton/src/pairing-tool/README.md) · [测试报告](we/felix-proton/src/pairing-tool/TEST_RESULTS.md)

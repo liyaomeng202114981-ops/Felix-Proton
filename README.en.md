@@ -6,6 +6,12 @@ Felix-Proton is an independently maintained Proton project based on WE-Proton so
 
 **[Complete setup process — development notes (Chinese)](we/felix-proton/docs/FROM_ZERO.md)** · **[Implementation and code guide (Chinese)](we/felix-proton/docs/IMPLEMENTATION.md)** · **[Latest work report (Chinese)](we/felix-proton/docs/WORK_REPORT.md)** · [Current results and limits](we/felix-proton/docs/CURRENT_STATE.md) · [Ordinary-icon setup](we/felix-proton/src/native-ux/README.md) · [Source layout](we/felix-proton/README.md) · [Validation](we/felix-proton/docs/TESTING.md) · [Provenance](we/felix-proton/docs/PROVENANCE.md)
 
+## Fresh-install preview
+
+[Download setup and runner](https://github.com/liyaomeng202114981-ops/Felix-Proton/releases/tag/felix-proton-setup-v0.1.0-preview.1) · [Installation](we/felix-proton/packaging/fromzero/INSTALL.md) · [Fresh-install validation](we/felix-proton/docs/SETUP_TEST_RESULTS.md)
+
+Prepare native Linux Steam once and obtain the official Windows UU installer. The setup tool downloads and verifies the pinned runner and shared-network dependencies, initializes a dedicated prefix, and connects the original application icons after UU installation. The preview targets x86-64 graphical Linux; its automatic pasta binary needs glibc 2.38+. Matching modified source, dependency sources and license indexes accompany the historical runner. Cross-machine and all-game compatibility remain unverified.
+
 ## Felix Pairing preview release
 
 [Download Felix Pairing 0.1.0-preview.1](https://github.com/liyaomeng202114981-ops/Felix-Proton/releases/tag/felix-pairing-v0.1.0-preview.1) · [Usage](we/felix-proton/src/pairing-tool/README.md) · [Test report](we/felix-proton/src/pairing-tool/TEST_RESULTS.md)

@@ -61,3 +61,37 @@ class OrdinaryEntries(unittest.TestCase):
         enable.desktop.restore(enable.statedir())
         self.assertFalse((self.dest/'steam.desktop').exists())
         self.assertTrue(self.client.exists())
+
+    def test_explicit_dependency_and_steam_paths_reach_version_locked_setup(self):
+        self.client.parent.mkdir(parents=True); self.client.write_bytes(b'MZ')
+        (self.prefix/'pfx/system.reg').touch()
+        paths={key:self.tmp/key for key in ('steam_root','wrapper','pasta','steam')}
+        args=SimpleNamespace(archive=self.tmp/'runner.tar.zst',uu_installer=None,**paths)
+        with patch.object(enable.subprocess,'Popen',side_effect=AssertionError('no applications should start')):
+            enable.enable(args)
+        enable.setup_config.ensure_config.assert_called_once_with(args.archive,uu_installer=None,**paths)
+
+    def test_brand_icon_provider_runs_after_client_ready_before_desktop_takeover(self):
+        self.client.parent.mkdir(parents=True); self.client.write_bytes(b'MZ')
+        (self.prefix/'pfx/system.reg').touch()
+        icon=self.tmp/'brand.png';icon.write_bytes(b'\x89PNG\r\n\x1a\nfixture')
+        calls=[]
+        def provider(ctx):
+            self.assertTrue(enable.ready(ctx))
+            self.assertFalse((self.dest/'uu-accelerator.desktop').exists())
+            calls.append(ctx.client)
+            return icon
+        self.args.uu_icon_provider=provider
+        enable.enable(self.args)
+        self.assertEqual(calls,[self.client])
+        self.assertIn('Icon='+str(icon)+'\n',(self.dest/'uu-accelerator.desktop').read_text())
+
+    def test_brand_icon_failure_leaves_original_entries_and_backup_unpublished(self):
+        self.client.parent.mkdir(parents=True); self.client.write_bytes(b'MZ')
+        (self.prefix/'pfx/system.reg').touch()
+        self.args.uu_icon_provider=lambda ctx: (_ for _ in ()).throw(RuntimeError('icon unavailable'))
+        with self.assertRaisesRegex(RuntimeError,'icon unavailable'):
+            enable.enable(self.args)
+        self.assertFalse((self.dest/'steam.desktop').exists())
+        self.assertFalse(enable.routes.active_file().exists())
+        self.assertFalse((enable.statedir()/'desktop-backup-v1/state.json').exists())

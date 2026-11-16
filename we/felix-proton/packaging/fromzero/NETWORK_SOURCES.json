@@ -1,0 +1,51 @@
+{
+  "materials": [
+    {
+      "bytes": 148951,
+      "file": "shorin-proton-wrapper",
+      "purpose": "unmodified executable source",
+      "revision": "d8ca9e73bf44d14eadfb29c95e17b57990e0b7f4",
+      "sha256": "19a5ed00b0571d48bb41c7e38e6f5a254db96e06b6b6370f2680caab265d997c",
+      "url": "https://github.com/SHORiN-KiWATA/proton-wrapper"
+    },
+    {
+      "bytes": 1281641,
+      "file": "proton-wrapper-d8ca9e73-source.tar.gz",
+      "purpose": "complete upstream source snapshot",
+      "revision": "d8ca9e73bf44d14eadfb29c95e17b57990e0b7f4",
+      "sha256": "10f0b5be27185ef9913392ff981a57a2fe970c25b22a18ccfb23f45e28dd1dd8",
+      "url": "https://codeload.github.com/SHORiN-KiWATA/proton-wrapper/tar.gz/d8ca9e73bf44d14eadfb29c95e17b57990e0b7f4"
+    },
+    {
+      "bytes": 425832,
+      "file": "pasta-6aa4f88-linux-x86_64",
+      "purpose": "historical x86-64 binary; glibc>=2.38",
+      "revision": "6aa4f88bd9846411edff3ed70460475b538addca",
+      "sha256": "1dd758b40ab9a6ba4fdd5fc6792c11bb180e87fdeb1b56eab6babe4d4a4b3ddd",
+      "url": "https://passt.top/passt/"
+    },
+    {
+      "bytes": 393228,
+      "file": "passt-6aa4f88-source.tar.gz",
+      "purpose": "complete unmodified corresponding source",
+      "revision": "6aa4f88bd9846411edff3ed70460475b538addca",
+      "sha256": "515f471b3430aff25ed989978a322b25539f760a39b4ec4e9b1641fef22e79e5",
+      "url": "https://passt.top/passt/snapshot/passt-6aa4f88bd9846411edff3ed70460475b538addca.tar.gz"
+    }
+  ],
+  "newly_compiled_in_this_release": false,
+  "pasta_provenance": {
+    "binary_version_string": "unknown version",
+    "historical_build_binary_matches": true,
+    "minimum_glibc": "2.38",
+    "needed_libraries": [
+      "libc.so.6"
+    ],
+    "new_bit_for_bit_rebuild_verified": false,
+    "snapshot_regular_files_match": 229,
+    "snapshot_symlink_targets_match": 5,
+    "source_revision_basis": "Historical recorded build source revision; official unmodified snapshot supplied",
+    "source_worktree_clean": true
+  },
+  "schema": "felix-network-sources-v1"
+}
