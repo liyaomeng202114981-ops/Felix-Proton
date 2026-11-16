@@ -1,0 +1,46 @@
+name: Felix-Proton setup checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'we/felix-proton/src/setup-tool/**'
+      - 'we/felix-proton/src/native-ux/**'
+      - 'we/felix-proton/packaging/fromzero/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    if: github.repository == 'liyaomeng202114981-ops/Felix-Proton'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-gi python3-cairo gir1.2-gtk-4.0 gir1.2-adw-1 zstd xz-utils iproute2
+      - name: Native integration regression
+        working-directory: we/felix-proton/src/native-ux
+        run: /usr/bin/python3 -B -m unittest discover -q
+      - name: Setup download and orchestration regression
+        working-directory: we/felix-proton/src/setup-tool
+        run: /usr/bin/python3 -B -m unittest discover -q
+      - name: Pairing regression
+        working-directory: we/felix-proton/src/pairing-tool
+        run: /usr/bin/python3 -B -m unittest discover -q
+      - name: Package boundary regression
+        working-directory: we/felix-proton/packaging/fromzero
+        run: /usr/bin/python3 -B -m unittest discover -q
+      - name: Build the reviewed setup kit
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=we/felix-proton
+          /usr/bin/python3 -B "$base/packaging/fromzero/build_release.py" \
+            --public-tree "$base" --inventory "$base/packaging/fromzero/SOURCE_FILES.json" \
+            --output-dir "$RUNNER_TEMP/setup-kit"
+          tar -tzf "$RUNNER_TEMP/setup-kit/felix-proton-setup-0.1.0-preview.1-linux.tar.gz" >/dev/null
