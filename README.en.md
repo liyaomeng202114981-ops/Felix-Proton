@@ -42,11 +42,11 @@ The upstream wrapper supplies namespace/session management, WE-Proton supplies t
 
 ## Validation and publication scope
 
-Development source, setup procedures and known limits remain documented. Felix Pairing now has a separate 0.1.0-preview.1 release with a portable archive and Debian package; complete Proton runner distribution remains a separate scope.
+Felix Pairing has its separate portable/Debian preview. The new fresh-install preview provides the pinned historical Proton runner, initialization workflow and corresponding source; it does not claim a newly executed full runner build. Development source, procedures and known limits remain documented.
 
-All **85 tests in the public integration suite passed**, including 48 focused CM cases. Five isolated network fault scenarios verified recovery and cleanup. Effective routes are rechecked on a roughly 15-second cycle, with recovery retries backing off from 1 to 15 seconds. Earlier policy and live-directory timings remain historical results. [Cleanup, route and recovery verification](we/felix-proton/docs/TESTING.md#cm-清理选路与恢复复测) · [Performance test scope](we/felix-proton/docs/TESTING.md#cm-性能复测)
+In the earlier CM stage, **85 public integration tests passed**, including 48 focused CM cases. Five isolated network fault scenarios verified recovery and cleanup. Effective routes are rechecked on a roughly 15-second cycle, with recovery retries backing off from 1 to 15 seconds. Earlier policy and live-directory timings remain historical results. [Cleanup, route and recovery verification](we/felix-proton/docs/TESTING.md#cm-清理选路与恢复复测) · [Performance test scope](we/felix-proton/docs/TESTING.md#cm-性能复测)
 
-The project is maintained on `main` in this standalone repository. The launch integration and its documentation are under [`we/felix-proton/`](we/felix-proton/). A fresh installation requires a separately prepared, checksum-pinned historical test.1 runner.
+The project is maintained on `main` in this standalone repository. The launch integration and its documentation are under [`we/felix-proton/`](we/felix-proton/). The fresh-install setup downloads and verifies this release’s pinned historical test.1 runner.
 
 Acceleration startup can take 10–30 seconds, which the user accepted; free resizing of UU is deferred. Cross-machine acceptance remains pending. IPv6, undiscovered endpoints, game connections and external network faults are outside the CM guard's guarantee. Historical Fossilize CPU activity was diagnosed and its settings retained at the user's request.
 

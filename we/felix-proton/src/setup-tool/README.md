@@ -14,6 +14,8 @@
 
 ## 首次使用
 
+从完整安装包根目录先执行 `cd src`；本节以下 `setup-tool/setup.py` 命令均以该 `src` 目录为当前目录。根目录README的 `src/setup-tool/setup.py` 命令可直接从包根目录执行。
+
 完整安装包保留同级 `setup-tool/`、`native-ux/` 和 `pairing-tool/`，请完整解压。先按发行安装说明准备系统工具，安装原生 Linux Steam 并启动一次完成更新，然后从 Steam 菜单正常退出。当前不支持 Flatpak/Snap Steam。运行以下命令的用户应为平时登录图形桌面的普通用户，不要使用 sudo。
 
 ```sh
