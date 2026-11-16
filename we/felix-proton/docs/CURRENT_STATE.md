@@ -6,6 +6,8 @@
 
 该发行取代此前完整运行器暂缓范围。实际包含历史受测归档原字节，以及修改后Wine、原上游源码、基础构建树、115份依赖源档和独立wrapper/pasta源档；未进行新的全量运行器编译或承诺字节复现。宿主要求与实际验收/未验范围见[本版报告](SETUP_TEST_RESULTS.md)。
 
+[预览发行已公开](https://github.com/liyaomeng202114981-ops/Felix-Proton/releases/tag/felix-proton-setup-v0.1.0-preview.1)，标签为`e182c885`，17附件完整读回SHA和公开下载检查通过。普通用户只需下载约200KB的安装引导包与SHA256SUMS，再按说明准备官方Steam/UU材料，其余固定运行材料自动下载；不必下载1.3GB依赖源码包。本机日常安装、前缀、配置和原入口未自动升级。
+
 ## 配对工具预览发行：0.1.0-preview.1
 
 2026-11-14 新增 [Felix 配对](../src/pairing-tool/README.md) 与原生圆形 SVG。支持 Steam + 网易 UU 一次性拖拽配对、原图标启动、可回退的两入口管理。源码完整套件32项通过，解包/重建、空配置界面和隔离用户安装通过；本轮构建小工具便携包和Debian all预览包，附件附SHA256SUMS/BUILDINFO。[测试范围](../src/pairing-tool/TEST_RESULTS.md)
