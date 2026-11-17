@@ -67,6 +67,7 @@
 | `wine/0060-user32-Implement-ShutdownBlockReasonCreate-Query-Des` | `ShutdownBlockReasonCreate/Query/Destroy`：原因存成窗口属性，参数检查和错误码照 Windows 11 实测（只限顶层窗口、空原因 87、无效窗口 1400、桌面窗口返回 5），导出原来缺的 Query |
 | `wine/0062-nsiproxy-Ignore-stale-Unix-network-interface-entries` | 本 fork：过滤已失效的 Unix 接口缓存身份，见 [报告](fixes/0062-nsiproxy-live-interfaces/README.md) |
 | `wine/0063-nsiproxy-Reuse-interface-translations-within-a-route` | 本 fork：复用单次路由枚举内的接口转换，修复 0062 的性能回退，见 [报告](fixes/0063-route-interface-cache/README.md) |
+| `wine/0067-winex11-Preserve-opt-in-ARGB-formats-for-other-process-surfaces` | 本地候选：现有alpha开关下保留跨进程客户端visual/colormap及离屏源DC格式，避免透明像素变不透明；完整队列构建尚未验收，见[报告](fixes/0067-argb-other-process/README.md) |
 | `protonfixes/0051-protonfixes-Also-run-fixes-for-run-when-PROTONFIXES_` | 设了 `PROTONFIXES_RUN_VERB=1` 时，用 `proton run` 启动的程序也执行 protonfixes（`waitforexitandrun` 要先等 wineserver 退出，往运行中的会话里加程序只能用 `run`）；`PROTONFIXES_DISABLE` 仍然优先 |
 | `vkd3d-proton/we-0001-Iterate-frozen-loop-break-rewrites-until-no-frozen-loop` | dxil-spirv 生成非法的结构化控制流 |
 | `vkd3d-proton/0002-vkd3d-bound-present-waits-during-swapchain-drain` | （这一版没有：GE-Proton 直接带着原版）（GE）销毁交换链时等待呈现有上限，不再卡死 |

@@ -6,6 +6,10 @@ Felix-Proton 是基于 WE-Proton 源码独立维护的 Proton 项目。本项目
 
 **[从零配置完整流程说明（开发中）](we/felix-proton/docs/FROM_ZERO.md)** · **[实现逻辑与代码导航](we/felix-proton/docs/IMPLEMENTATION.md)** · **[最新工作说明](we/felix-proton/docs/WORK_REPORT.md)** · [当前结果与未解决事项](we/felix-proton/docs/CURRENT_STATE.md) · [普通图标使用说明](we/felix-proton/src/native-ux/README.md) · [代码与目录](we/felix-proton/README.md) · [验证](we/felix-proton/docs/TESTING.md) · [来源与署名](we/felix-proton/docs/PROVENANCE.md)
 
+## 透明背景与外框修复研究
+
+新增[修复里程碑](we/felix-proton/docs/WINE_TRANSPARENCY.md)、[0067技术报告](we/fixes/0067-argb-other-process/README.md)、[自有复现与验证](we/tests/argb_client_fixture/README.md)及[通用接入评估](we/felix-proton/docs/WINE_TRANSPARENCY_INTEGRATION_ASSESSMENT.md)。已验证Wine跨进程透明度修复及本机GNOME/RWC外框处理；本次公开源码与结果，通用接入尚未实施，没有发行新运行器或改动已有安装。
+
 ## 从零安装预览
 
 [下载完整安装引导与运行器](https://github.com/liyaomeng202114981-ops/Felix-Proton/releases/tag/felix-proton-setup-v0.1.0-preview.1) · [安装步骤](we/felix-proton/packaging/fromzero/INSTALL.md) · [从零安装测试](we/felix-proton/docs/SETUP_TEST_RESULTS.md)

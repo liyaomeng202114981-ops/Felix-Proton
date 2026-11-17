@@ -1,5 +1,11 @@
 # 当前公开状态
 
+## 透明黑底/外框修复与通用化评估（2026-11-17）
+
+[修复里程碑](WINE_TRANSPARENCY.md)公开0067源码、自有复现与前后结果。Wine跨进程ARGB丢失和GNOME/RWC额外外框分别定位，实际伴侣预览正常，用户分别确认黑底和透明框消失。声画设置保持、未开播；[测试范围](TRANSPARENCY_TEST_RESULTS.md)保留Wine既有失败及未验范围。
+
+[通用接入评估](WINE_TRANSPARENCY_INTEGRATION_ASSESSMENT.md)建议Wine核心、按应用开关和可选宿主适配分层推进。尚未实施或全局启用，未构建/发行新运行器、未覆盖既有Release或用户配置；[源码清单](TRANSPARENCY_SOURCE_MANIFEST.json)。
+
 ## 从零安装预览：0.1.0-preview.1（2026-11-16）
 
 新增[完整安装引导](../packaging/fromzero/INSTALL.md)，绑定原SHA固定test.1运行器、wrapper/pasta下载与自有版本目录；新建专用前缀、完成官方UU安装后才接入原Steam/UU图标，并安装配对菜单。新UU入口图标从用户自己已安装的官方客户端提取，已有Icon保留；不分发客户端、账户或用户前缀。

@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-17",
+  "maintainer": "Felix Li",
+  "assistance": "OpenAI Codex",
+  "scope": "Exact tested patch and synthetic source/results; source-only candidate, no binaries or private state",
+  "files_sha256": {
+    "patches/wine/0067-winex11-Preserve-opt-in-ARGB-formats-for-other-process-surfaces.patch": "9560d689a864b948781d4b00288970cbbfe74fee9a6926d25bf428565569fae6",
+    "we/tests/argb_client_fixture/LICENSE": "f3c904c9aaf2e3d7b69dc8e6cb1c142bb3cba1bad29d95d46686de1799ad9da4",
+    "we/tests/argb_client_fixture/README.md": "c624ce8ceae7154efd58ad2d6da629d7f57ad902e085bf7c0a7d7897d9ef7801",
+    "we/tests/argb_client_fixture/alpha_fixture.cpp": "f243cec5a1457fc2e6fdf64fc8314b4738d42f61b95489261b9bc94e5c6bf403",
+    "we/tests/argb_client_fixture/electron.wine-alpha-v2.txt": "0c33472a47609e663674d9978701e26f63a7df993d65124c9471efeb599505e1",
+    "we/tests/argb_client_fixture/electron.wine-baseline.txt": "7a41c08f3c448dd3a7395b9e15998d099ee7d9f19590c906fb0d57df723b8e0f",
+    "we/tests/argb_client_fixture/fixture.html": "e5105e8bc2506a4e64585556cfb58ec5d32aeb6c7c899c665619687bfc98f5be",
+    "we/tests/argb_client_fixture/gdi-comparison.json": "d7ba8c03348da8e04d5c4656234c3cf468502065fe8ef77b73cfd4a181b644e5",
+    "we/tests/argb_client_fixture/main.js": "fc460e293a9cf527c691c02d858999f7b9e773f632f93a130bbff7571e7f2370",
+    "we/tests/argb_client_fixture/package.json": "60c6b70d7adcf591c2bb30644ab7c3b3306fa9abd4d4703d5ba3691dd691959b",
+    "we/tests/argb_client_fixture/sample_electron.py": "70a0521a0e83cb859f85f283db34e09971a01c42da53876c1d17f141fc9c6ef4",
+    "we/tests/argb_client_fixture/user32-comparison.json": "88d501eb0bdbadad642fe109992ff5b207bd298378dbded9c8c13199bf6e101c",
+    "we/tests/argb_client_fixture/window_metadata.cpp": "8d86577e784181e8694e225a9e2218a2c2980c706370fac98a3c6004feb6c476"
+  },
+  "tested_init_sha256": "9a822340693b151636d473a60c09b3cc2da229a0cc1fef7c7719104e110a05d7",
+  "tested_module_sha256": "6c0d062d00fe5e53d2587057085c236544d61edbf2fb1318d089728f49830add",
+  "module_distributed": false,
+  "general_integration_implemented": false
+}

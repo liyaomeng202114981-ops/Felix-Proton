@@ -82,3 +82,7 @@ Python CM 策略另外经过独立临时网络命名空间测试，覆盖精确 
 新增实现、排查、测试与文档署名为 **Felix Li，with OpenAI Codex assistance**。已有 AI 协作的 `Co-Authored-By` 与上游提交作者信息一并保留。目录迁移和改名不转移其他项目的代码归属。
 
 公开源码和归档不得包含用户原始日志、账号或令牌、既有 Wine prefix、游戏内容、个人绝对路径或私有网络端点。发布时保留可复现的通用测试、脱敏结果摘要、对应源码和许可证。网易 UU、Steam 及其商标属于各自权利人，本项目没有提供这些客户端的再许可或额外服务权益。
+
+## 2026-11-17 透明修复来源与贡献
+
+0067继承Wine许可，只补齐已有GE分层覆盖与DW0106上的跨进程visual/colormap和离屏源DC格式遗漏；保留Wine、GE/DW/WE及相关作者贡献。新自有复现/文档为BSD-3-Clause，Felix Li署名并注明OpenAI Codex协助。没有复制厂商脚本或上传原始桌面/账号/前缀/配置、日志、第三方程序或运行器/测试二进制。[精确清单](TRANSPARENCY_SOURCE_MANIFEST.json)及[技术报告](../../fixes/0067-argb-other-process/README.md)说明匹配源码、SDK与部分诊断Git历史边界，通用接入尚未实施。

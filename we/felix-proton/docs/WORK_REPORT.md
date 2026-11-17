@@ -1,5 +1,11 @@
 # 2026-11-14 工作说明
 
+## 2026-11-17：透明修复里程碑与通用接入评估
+
+Wine跨进程客户端和离屏源DC丢失ARGB，导致透明辅助窗与菜单尾部变黑；0067补齐格式。像素恢复后仍有GNOME/RWC整窗外框，读取实际Meta类名修正排除项后消失，用户分别确认。公开[修复/复用记录](WINE_TRANSPARENCY.md)、[技术报告](../../fixes/0067-argb-other-process/README.md)、[自有样本](../../tests/argb_client_fixture/README.md)及[结果/边界](TRANSPARENCY_TEST_RESULTS.md)。
+
+通用接入只完成[评估](WINE_TRANSPARENCY_INTEGRATION_ASSESSMENT.md)：建议按应用启用并分开宿主策略，先解决Wine/DXVK关闭语义及相关输入/性能验证。源码上传未实施该方案，不改现有配置或旧发行附件。
+
 ## 2026-11-16：从零安装完整预览
 
 新机器此前缺少固定运行器下载和初始化引导。新增setup-tool按固定SHA下载运行器/wrapper/pasta，先检查系统、图形、locale与权限，再调用原版本锁安装器创建新前缀并运行用户提供的官方UU安装程序；安装确认后才接入原Steam/UU图标。初始新UU条目从实际客户端静态生成本机品牌图标，已有条目不改Icon。重复执行复用已核验配置，错误或外部改动保留，恢复入口不删除前缀/账号。

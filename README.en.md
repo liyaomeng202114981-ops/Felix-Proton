@@ -6,6 +6,10 @@ Felix-Proton is an independently maintained Proton project based on WE-Proton so
 
 **[Complete setup process — development notes (Chinese)](we/felix-proton/docs/FROM_ZERO.md)** · **[Implementation and code guide (Chinese)](we/felix-proton/docs/IMPLEMENTATION.md)** · **[Latest work report (Chinese)](we/felix-proton/docs/WORK_REPORT.md)** · [Current results and limits](we/felix-proton/docs/CURRENT_STATE.md) · [Ordinary-icon setup](we/felix-proton/src/native-ux/README.md) · [Source layout](we/felix-proton/README.md) · [Validation](we/felix-proton/docs/TESTING.md) · [Provenance](we/felix-proton/docs/PROVENANCE.md)
 
+## Transparent-window compatibility research
+
+The [milestone](we/felix-proton/docs/WINE_TRANSPARENCY.md), [0067 fix report](we/fixes/0067-argb-other-process/README.md), [synthetic reproducer and results](we/tests/argb_client_fixture/README.md), and [integration assessment](we/felix-proton/docs/WINE_TRANSPARENCY_INTEGRATION_ASSESSMENT.md) document the tested cross-process ARGB fix and separate GNOME/RWC handling. This update publishes source and evidence summaries. General integration remains a proposal; no new runner release or existing-installation change is included.
+
 ## Fresh-install preview
 
 [Download setup and runner](https://github.com/liyaomeng202114981-ops/Felix-Proton/releases/tag/felix-proton-setup-v0.1.0-preview.1) · [Installation](we/felix-proton/packaging/fromzero/INSTALL.md) · [Fresh-install validation](we/felix-proton/docs/SETUP_TEST_RESULTS.md)

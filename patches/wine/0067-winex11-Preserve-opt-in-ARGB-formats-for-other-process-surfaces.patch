@@ -1,0 +1,83 @@
+From de8975e8a2184838c5cef93c82729462513898b8 Mon Sep 17 00:00:00 2001
+From: Felix Li <2524369985@qq.com>
+Date: Tue, 17 Nov 2026 11:40:03 +0800
+Subject: [PATCH] winex11: Preserve opt-in ARGB formats for other-process
+ surfaces.
+
+The out-of-process client path used the default visual and colormap even
+when an ARGB format had been selected for the client surface. Its offscreen
+source DC also inherited the default RGB XRender format, making transparent
+pixels opaque when copied.
+
+Retain the selected visual and colormap for the existing alpha opt-in, and
+carry the actual drawable visual into the offscreen source DC. Leave the
+non-opt-in behavior unchanged.
+
+Co-Authored-By: OpenAI Codex <noreply@openai.com>
+---
+ dlls/winex11.drv/init.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/dlls/winex11.drv/init.c b/dlls/winex11.drv/init.c
+index 81f3a0b..f00a825 100644
+--- a/dlls/winex11.drv/init.c
++++ b/dlls/winex11.drv/init.c
+@@ -388,6 +388,7 @@ struct x11drv_client_surface
+     XWindowChanges changes;
+     Colormap colormap;
+     Window window;
++    XVisualInfo visual;       /* actual visual of the client drawable */
+     RECT rect;
+     BOOL raw;
+ 
+@@ -539,7 +540,10 @@ static void client_surface_update_offscreen( HWND hwnd, struct x11drv_client_sur
+         UNICODE_STRING device_str = RTL_CONSTANT_STRING(displayW);
+         surface->hdc_dst = NtGdiOpenDCW( &device_str, NULL, NULL, 0, TRUE, NULL, NULL, NULL );
+         surface->hdc_src = NtGdiOpenDCW( &device_str, NULL, NULL, 0, TRUE, NULL, NULL, NULL );
+-        set_dc_drawable( surface->hdc_src, surface->window, &surface->rect, IncludeInferiors, NULL );
++        /* An opt-in ARGB drawable must keep its format when read through XRender.
++         * Otherwise the default RGB source format synthesizes opaque alpha. */
++        set_dc_drawable( surface->hdc_src, surface->window, &surface->rect, IncludeInferiors,
++                         layered_overlay_alpha_enabled() ? &surface->visual : NULL );
+ #ifdef SONAME_LIBXCOMPOSITE
+         if (usexcomposite) pXCompositeRedirectWindow( gdi_display, surface->window, CompositeRedirectManual );
+ #endif
+@@ -958,12 +962,14 @@ Window x11drv_client_surface_create( HWND hwnd, BOOL raw, int format, struct cli
+     if (!(surface = client_surface_create( sizeof(*surface), &x11drv_client_surface_funcs, hwnd ))) goto failed;
+     surface->colormap = colormap;
+     surface->raw = raw;
++    surface->visual = visual;
+ 
+     if (!get_surface_rect( hwnd, &surface->rect, dpi )) goto failed;
+     hwnd_thread_id = NtUserGetWindowThread(hwnd, &hwnd_pid);
+     if (hwnd_thread_id && hwnd_pid != GetCurrentProcessId())
+     {
+         XSetWindowAttributes attr;
++        XVisualInfo other_visual = layered_overlay_alpha_enabled() ? visual : default_visual;
+         RECT rect = surface->rect;
+         unsigned int width, height;
+ 
+@@ -975,18 +981,20 @@ Window x11drv_client_surface_create( HWND hwnd, BOOL raw, int format, struct cli
+ 
+         width = max( rect.right - rect.left, 1 );
+         height = max( rect.bottom - rect.top, 1 );
+-        attr.colormap = default_colormap;
++        attr.colormap = layered_overlay_alpha_enabled() ? colormap : default_colormap;
+         attr.bit_gravity = NorthWestGravity;
+         attr.win_gravity = NorthWestGravity;
+         attr.backing_store = NotUseful;
+         attr.border_pixel = 0;
+-        surface->window = XCreateWindow( gdi_display, get_dummy_parent(), 0, 0, width, height, 0, default_visual.depth, InputOutput,
+-                                         default_visual.visual, CWBitGravity | CWWinGravity | CWBackingStore | CWColormap | CWBorderPixel, &attr );
++        /* Preserve the selected ARGB format for out-of-process GPU clients too. */
++        surface->window = XCreateWindow( gdi_display, get_dummy_parent(), 0, 0, width, height, 0, other_visual.depth, InputOutput,
++                                         other_visual.visual, CWBitGravity | CWWinGravity | CWBackingStore | CWColormap | CWBorderPixel, &attr );
+         if (surface->window)
+         {
+             XMapWindow( gdi_display, surface->window );
+             XSync( gdi_display, False );
+             surface->other_process = TRUE;
++            surface->visual = other_visual;
+         }
+         WARN( "Other process window %p / %#lx.\n", hwnd, surface->window );
+     }

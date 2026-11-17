@@ -1,0 +1,45 @@
+{
+  "time_epoch": 1794884943.1986697,
+  "gdi_and_ulw_pixels_identical_to_original": true,
+  "rgba_sha256": [
+    "6b8f70275f12f259c3f1579ccf203109f60158227d32a956cc56ee8468aff1d3",
+    "1e7d81cc79fe549908a03adf1669bc46b18d699af7e9c26a723f984838f44fcb"
+  ],
+  "samples": [
+    {
+      "xid": "0x1800002",
+      "size": [
+        392,
+        226
+      ],
+      "depth": 32,
+      "bgra_first": [
+        220,
+        160,
+        35,
+        255
+      ],
+      "alpha_histogram": {
+        "255": 88592
+      }
+    },
+    {
+      "xid": "0x1800008",
+      "size": [
+        240,
+        160
+      ],
+      "depth": 32,
+      "bgra_first": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha_histogram": {
+        "0": 14400,
+        "255": 24000
+      }
+    }
+  ]
+}

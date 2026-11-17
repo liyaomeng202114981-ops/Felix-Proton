@@ -1,0 +1,92 @@
+[
+  {
+    "xid": "0x160000a",
+    "title": "Felix opaque Electron control",
+    "size": [
+      500,
+      300
+    ],
+    "depth": 32,
+    "alpha_histogram": {
+      "255": 150000
+    },
+    "tail_rgba": [
+      34,
+      85,
+      119,
+      255
+    ],
+    "panel_rgba": [
+      51,
+      51,
+      51,
+      255
+    ],
+    "black_rgba": [
+      0,
+      0,
+      0,
+      255
+    ]
+  },
+  {
+    "xid": "0x160000c",
+    "title": "Felix transparent owned overlay",
+    "size": [
+      500,
+      300
+    ],
+    "depth": 32,
+    "alpha_histogram": {
+      "255": 150000
+    },
+    "tail_rgba": [
+      0,
+      0,
+      0,
+      255
+    ],
+    "panel_rgba": [
+      51,
+      51,
+      51,
+      255
+    ],
+    "black_rgba": [
+      0,
+      0,
+      0,
+      255
+    ]
+  },
+  {
+    "xid": "0x160000e",
+    "title": "Felix transparent popup",
+    "size": [
+      300,
+      500
+    ],
+    "depth": 32,
+    "alpha_histogram": {
+      "255": 150000
+    },
+    "tail_rgba": [
+      0,
+      0,
+      0,
+      255
+    ],
+    "panel_rgba": [
+      51,
+      51,
+      51,
+      255
+    ],
+    "black_rgba": [
+      0,
+      0,
+      0,
+      255
+    ]
+  }
+]

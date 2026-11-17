@@ -40,6 +40,7 @@ WE-Proton 是基于 GE-Proton 和 DW-Proton 的个人 Proton：以 GE-Proton（`
 | wine 0060 | `ShutdownBlockReasonCreate` 等三个函数没有实现：程序的自动更新装不上，更新后启动就退出 |
 | wine 0062 | 本 fork：过滤已删除/改名的 Unix 网络接口缓存身份 |
 | wine 0063 | 本 fork：仅在单次路由枚举内复用接口转换，修复 0062 的性能回退 |
+| wine 0067（本地候选，未发行） | 现有alpha开关下保留跨进程客户端ARGB格式，避免透明区域变黑；全队列构建未验收 |
 | protonfixes 0051 | 前缀里已有程序在运行时，启动器用 `proton run` 再启动的游戏拿不到 protonfixes 的修正（例如绕开游戏自带的启动器），窗口可能出不来；启动器设 `PROTONFIXES_RUN_VERB=1` 后照常执行 |
 | vkd3d-proton 0001 | 部分 D3D12 着色器被翻译成非法的 SPIR-V，AMD 显卡（Mesa RADV）上直接崩溃 |
 

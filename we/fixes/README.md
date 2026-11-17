@@ -42,6 +42,7 @@
 | wine 0060 | WeGame 下载完更新后每次启动都闪退：更新程序调用 `ShutdownBlockReasonCreate` 失败（Wine 里是空壳）就放弃安装、也不重新启动 WeGame；按 Windows 实测实现这三个函数 | `0060-user32-shutdown-block-reason/` |
 | wine 0062 | 本 fork：删除、改名和同名重建后的旧网络接口身份 | `0062-nsiproxy-live-interfaces/` |
 | wine 0063 | 本 fork：0062 引入的重复接口查询性能回退 | `0063-route-interface-cache/` |
+| wine 0067（本地候选） | alpha开关遗漏跨进程客户端格式，透明尾部变不透明；全队列构建未验收 | [0067-argb-other-process/](0067-argb-other-process/README.md) |
 | protonfixes 0051 | 前缀里已有程序在运行时，再用 `proton run` 加入的游戏拿不到 protonfixes 的修正：《战锤40K：暗潮》的修正是绕开启动器，没绕开时启动器把游戏隐藏启动，窗口出不来；设 `PROTONFIXES_RUN_VERB=1` 时 `run` 也执行修正 | `0051-protonfixes-run-verb/` |
 | vkd3d-proton 0001 | dxil-spirv 生成非法的结构化控制流，RADV 拒绝后崩溃 | `vkd3d-0001-dxil-spirv-loop-breaks/` |
 
