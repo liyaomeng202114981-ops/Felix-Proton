@@ -1,5 +1,9 @@
 # 测试与验收
 
+## 发行工作流YAML修复验证（2026-11-17）
+
+分类：安装发行/维护。修正Create Release步骤缩进，清除一处空白行末尾空格。[actionlint1.7.12](https://github.com/rhysd/actionlint/releases/tag/v1.7.12)检查release.yml、_job_build.yml和_job_upload.yml均返回0；三文件YAML可解析，8段run脚本经GitHub表达式占位后bash -n通过，没有运行脚本。触发条件仍为release.published和GE-Proton*-*标签推送，任务依赖/命令保持，无main分支推送或手动发行入口新增。没有执行完整构建、上传或实际发行流程。
+
 ## 透明修复源码与评估同步（2026-11-17）
 
 新增[透明修复验证范围](TRANSPARENCY_TEST_RESULTS.md)和[自有样本/前后输出](../../tests/argb_client_fixture/README.md)。隔离Electron/DXVK与GDI/ULW控制组通过；user32 win两版同38既有失败位置，无新增位置，非全部通过。实际伴侣与宿主外框由用户分别确认。通用评估仅静态核查，完整构建/跨应用/性能门槛未执行；无新安装或开播。
