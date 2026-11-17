@@ -1,5 +1,7 @@
 # 透明修复通用接入评估
 
+分类：[Proton UI兼容性改进](UI_COMPATIBILITY.md) · [项目分类目录](INDEX.md)。阶段成果与待办分别记录，供后续继续开发。
+
 2026-11-17，Felix Li，with OpenAI Codex assistance。用户要求先评估、保留现有配置，本节是建议与未来交付门槛，不是已批准实施或已交付功能。
 
 ## 结论与建议结构

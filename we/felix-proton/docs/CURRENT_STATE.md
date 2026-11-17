@@ -1,5 +1,7 @@
 # 当前公开状态
 
+[按工作领域回看](INDEX.md)。透明修复归入[Proton UI改进](UI_COMPATIBILITY.md)，画面采集/声音/编码归入[直播研究](STREAMING_COMPATIBILITY.md)，各项结果与待办分别维护。
+
 ## 透明黑底/外框修复与通用化评估（2026-11-17）
 
 [修复里程碑](WINE_TRANSPARENCY.md)公开0067源码、自有复现与前后结果。Wine跨进程ARGB丢失和GNOME/RWC额外外框分别定位，实际伴侣预览正常，用户分别确认黑底和透明框消失。声画设置保持、未开播；[测试范围](TRANSPARENCY_TEST_RESULTS.md)保留Wine既有失败及未验范围。

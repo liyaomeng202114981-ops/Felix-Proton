@@ -1,4 +1,6 @@
-# Felix-Proton：普通图标集成与 Steam 连接保护
+# Felix-Proton：集成、工具与兼容性记录
+
+[按工作领域查看分类目录](docs/INDEX.md) · [Proton UI改进](docs/UI_COMPATIBILITY.md) · [直播/采集研究](docs/STREAMING_COMPATIBILITY.md)
 
 2026-11-17新增[透明修复里程碑](docs/WINE_TRANSPARENCY.md)与[通用接入评估](docs/WINE_TRANSPARENCY_INTEGRATION_ASSESSMENT.md)，公开源码/自有样本/验证边界；本轮没有发行或部署新的运行器。
 

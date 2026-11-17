@@ -1,12 +1,16 @@
-# Felix-Proton：UU / Steam 集成与连接保护
+# Felix-Proton
 
 **维护者：Felix Li，with OpenAI Codex assistance。**　[English](README.en.md)
+
+[按工作领域查看全部记录](we/felix-proton/docs/INDEX.md)：底层修复、网络、UI、安装发行、工具、直播研究和维护验证。
 
 Felix-Proton 是基于 WE-Proton 源码独立维护的 Proton 项目。本项目让原生 Linux Steam 与 Windows 网易 UU 通过各自的普通图标加入同一网络。由 Steam 启动的游戏通常继承该网络，具体游戏、区服、路由模式和节点由用户在 UU 中选择。
 
 **[从零配置完整流程说明（开发中）](we/felix-proton/docs/FROM_ZERO.md)** · **[实现逻辑与代码导航](we/felix-proton/docs/IMPLEMENTATION.md)** · **[最新工作说明](we/felix-proton/docs/WORK_REPORT.md)** · [当前结果与未解决事项](we/felix-proton/docs/CURRENT_STATE.md) · [普通图标使用说明](we/felix-proton/src/native-ux/README.md) · [代码与目录](we/felix-proton/README.md) · [验证](we/felix-proton/docs/TESTING.md) · [来源与署名](we/felix-proton/docs/PROVENANCE.md)
 
-## 透明背景与外框修复研究
+## Proton UI兼容性改进
+
+[UI工作总览与后续待办](we/felix-proton/docs/UI_COMPATIBILITY.md)。本项按Proton UI改进维护，源码和阶段记录用于后续继续开发。
 
 新增[修复里程碑](we/felix-proton/docs/WINE_TRANSPARENCY.md)、[0067技术报告](we/fixes/0067-argb-other-process/README.md)、[自有复现与验证](we/tests/argb_client_fixture/README.md)及[通用接入评估](we/felix-proton/docs/WINE_TRANSPARENCY_INTEGRATION_ASSESSMENT.md)。已验证Wine跨进程透明度修复及本机GNOME/RWC外框处理；本次公开源码与结果，通用接入尚未实施，没有发行新运行器或改动已有安装。
 

@@ -1,5 +1,7 @@
 # 2026-11-14 工作说明
 
+[按工作领域回看](INDEX.md)。透明修复归入[Proton UI改进](UI_COMPATIBILITY.md)，画面采集/声音/编码归入[直播研究](STREAMING_COMPATIBILITY.md)，各项结果与待办分别维护。
+
 ## 2026-11-17：透明修复里程碑与通用接入评估
 
 Wine跨进程客户端和离屏源DC丢失ARGB，导致透明辅助窗与菜单尾部变黑；0067补齐格式。像素恢复后仍有GNOME/RWC整窗外框，读取实际Meta类名修正排除项后消失，用户分别确认。公开[修复/复用记录](WINE_TRANSPARENCY.md)、[技术报告](../../fixes/0067-argb-other-process/README.md)、[自有样本](../../tests/argb_client_fixture/README.md)及[结果/边界](TRANSPARENCY_TEST_RESULTS.md)。

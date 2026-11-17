@@ -1,4 +1,6 @@
-# Felix-Proton: UU / native Steam integration and connection protection
+# Felix-Proton
+
+[Browse records by work area](we/felix-proton/docs/INDEX.md): core fixes, networking, UI, installation/releases, tools, streaming research, and maintenance/validation.
 
 **Maintained by Felix Li, with OpenAI Codex assistance.** [中文](README.md)
 
@@ -6,7 +8,9 @@ Felix-Proton is an independently maintained Proton project based on WE-Proton so
 
 **[Complete setup process — development notes (Chinese)](we/felix-proton/docs/FROM_ZERO.md)** · **[Implementation and code guide (Chinese)](we/felix-proton/docs/IMPLEMENTATION.md)** · **[Latest work report (Chinese)](we/felix-proton/docs/WORK_REPORT.md)** · [Current results and limits](we/felix-proton/docs/CURRENT_STATE.md) · [Ordinary-icon setup](we/felix-proton/src/native-ux/README.md) · [Source layout](we/felix-proton/README.md) · [Validation](we/felix-proton/docs/TESTING.md) · [Provenance](we/felix-proton/docs/PROVENANCE.md)
 
-## Transparent-window compatibility research
+## Proton UI compatibility improvements
+
+[UI baseline and follow-up work](we/felix-proton/docs/UI_COMPATIBILITY.md). This work is maintained as Proton UI compatibility; the published source and records form a continuation baseline.
 
 The [milestone](we/felix-proton/docs/WINE_TRANSPARENCY.md), [0067 fix report](we/fixes/0067-argb-other-process/README.md), [synthetic reproducer and results](we/tests/argb_client_fixture/README.md), and [integration assessment](we/felix-proton/docs/WINE_TRANSPARENCY_INTEGRATION_ASSESSMENT.md) document the tested cross-process ARGB fix and separate GNOME/RWC handling. This update publishes source and evidence summaries. General integration remains a proposal; no new runner release or existing-installation change is included.
 
