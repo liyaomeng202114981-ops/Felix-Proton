@@ -12,7 +12,7 @@
 | UI窗口输入/移动/状态 | [此前问题链与通用解决方案](UI_WINDOW_COMPATIBILITY.md)：白带、最大化下拖及贴边拖出用户复测通过 | [0068输入](../../fixes/0068-composed-alpha-input/README.md) · [0069移动](../../fixes/0069-native-maximized-move/README.md) · [0070状态](../../fixes/0070-profiled-layered-csd/README.md) · [SHA清单](UI_WINDOW_SOURCE_MANIFEST.json) |
 | 安装、打包与发行 | [从零流程](FROM_ZERO.md) · [实际安装说明](../packaging/fromzero/INSTALL.md) | [安装验收](SETUP_TEST_RESULTS.md) · [现有发行](https://github.com/liyaomeng202114981-ops/Felix-Proton/releases) |
 | 工具与入口管理 | [Felix配对工具](../src/pairing-tool/README.md)：一次配对、原图标、配置持久化与恢复 | [工具测试](../src/pairing-tool/TEST_RESULTS.md) · [发行说明](../src/pairing-tool/RELEASE_NOTES.md) |
-| 直播、采集与编码研究 | [直播兼容阶段记录](STREAMING_COMPATIBILITY.md)：画面、声音、本地编码与WGC缺口，和UI工作分别验收 | 已有本机阶段结果；完整采集原型未在本次公开源码中交付，实际推流未验收 |
+| Ubuntu 直播伴侣 | [直连开播与实测总览](STREAMING_COMPATIBILITY.md) | [画面与声音](streaming/AUDIO_VIDEO.md) · [原图标重开](streaming/STARTUP_RECOVERY.md) · [代理与 DNS](streaming/PROXY_DNS.md) |
 | 维护、验证与来源 | [当前公开状态](CURRENT_STATE.md) · [工作日志](WORK_REPORT.md) · [源码目录](SOURCE_LAYOUT.md) | [验证汇总](TESTING.md) · [上游来源/许可](PROVENANCE.md) |
 
 ## 本次UI里程碑的材料位置
