@@ -1,0 +1,42 @@
+From aec614b25e0b7dca1c8851082b49f908dd896d24 Mon Sep 17 00:00:00 2001
+From: "2524369985@qq.com" <2524369985@qq.com>
+Date: Tue, 17 Nov 2026 18:13:14 +0800
+Subject: [PATCH] winex11: Opt in to native maximized caption moves.
+
+The window manager can restore a maximized managed window when starting a
+caption drag, but the X11 system-command handler rejects every maximized
+move before the EWMH request is sent.
+
+Allow only mouse caption moves with WINE_X11_NATIVE_MAXIMIZED_MOVE=1. Keep
+the default, keyboard moves, resizing, unmanaged windows and unsupported
+window managers on their existing paths.
+
+Co-Authored-By: OpenAI Codex <noreply@openai.com>
+---
+ dlls/winex11.drv/window.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/dlls/winex11.drv/window.c b/dlls/winex11.drv/window.c
+index b01cb9e..a6c7697 100644
+--- a/dlls/winex11.drv/window.c
++++ b/dlls/winex11.drv/window.c
+@@ -4311,7 +4311,15 @@ LRESULT X11DRV_SysCommand( HWND hwnd, WPARAM wparam, LPARAM lparam, const POINT
+         goto failed;
+     }
+ 
+-    if (NtUserGetWindowLongW( hwnd, GWL_STYLE ) & WS_MAXIMIZE) goto failed;
++    if (NtUserGetWindowLongW( hwnd, GWL_STYLE ) & WS_MAXIMIZE)
++    {
++        const char *option = getenv( "WINE_X11_NATIVE_MAXIMIZED_MOVE" );
++
++        /* Let the window manager restore a maximized window during a caption
++         * drag. Keep keyboard moves and all resize commands unchanged. */
++        if (dir != _NET_WM_MOVERESIZE_MOVE || hittest != HTCAPTION ||
++            !option || strcmp( option, "1" )) goto failed;
++    }
+ 
+     if (!is_net_supported( x11drv_atom(_NET_WM_MOVERESIZE) ))
+     {
+-- 
+2.53.0
+

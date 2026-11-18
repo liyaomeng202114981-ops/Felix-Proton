@@ -12,6 +12,8 @@ Felix-Proton 是基于 WE-Proton 源码独立维护的 Proton 项目。本项目
 
 [UI工作总览与后续待办](we/felix-proton/docs/UI_COMPATIBILITY.md)。本项按Proton UI改进维护，源码和阶段记录用于后续继续开发。
 
+2026-11-18：[窗口问题链与通用解决方案](we/felix-proton/docs/UI_WINDOW_COMPATIBILITY.md)续接此前UI记录，包含0068输入、0069还原交互、0070辅助窗状态和验证边界。组合版白带及两项拖动已获用户实机复测通过；本次只上传源码/记录，未发布新运行器。
+
 新增[修复里程碑](we/felix-proton/docs/WINE_TRANSPARENCY.md)、[0067技术报告](we/fixes/0067-argb-other-process/README.md)、[自有复现与验证](we/tests/argb_client_fixture/README.md)及[通用接入评估](we/felix-proton/docs/WINE_TRANSPARENCY_INTEGRATION_ASSESSMENT.md)。已验证Wine跨进程透明度修复及本机GNOME/RWC外框处理；本次公开源码与结果，通用接入尚未实施，没有发行新运行器或改动已有安装。
 
 ## 从零安装预览

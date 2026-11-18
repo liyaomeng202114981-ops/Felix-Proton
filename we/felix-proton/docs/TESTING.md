@@ -1,5 +1,13 @@
 # 测试与验收
 
+## 窗口输入、还原及全屏兼容验证（2026-11-18）
+
+分类：Proton UI。[完整验证矩阵及边界](UI_WINDOW_COMPATIBILITY.md#已有验证与用户验收)。0068自有父/子窗输入复现修复，像素和透明/真黑控制保持；0069私有GNOME输入对照验证最大化下拖，普通移动/贴边/SC_SIZE守卫保持；0070同代实机GTK hint A/B/A/B全屏采样59/61→0/61→58/61→0/61，13类×7配置及已有hint保留通过。新会话v7自动hint、首次最大化0/61全屏；用户最终确认白带消失和两项拖动正常。
+
+固定SDK单模块Werror、6229文件仅winex11.so差异、补丁重建SHA通过；Wine user32 win77978断言/149todo/2skip/38既有失败消息逐条一致，非全通过。实际音画沿用此前阶段，本轮没有新录制/PCM/编码或开播。失败候选、HIDDEN/未映射/时序不稳定样本、临时runtime配额失败和无屏阶段均保留，未计正向通过。白带独立机制、尺寸漂移、其他桌面/多屏/DPI和完整发行构建边界仍在。
+
+公开源码/合成输出：[0068](../../tests/composed_alpha_input/README.md)、[0069](../../tests/native_maximized_move/README.md)、[0070](../../tests/layered_helper_fullscreen/README.md)；[SHA清单](UI_WINDOW_SOURCE_MANIFEST.json)。源码同步只做字节一致、链接/语法/补丁重建及差异检查，不重复运行GUI/真实账户或无关网络测试。
+
 ## 发行工作流YAML修复验证（2026-11-17）
 
 分类：安装发行/维护。修正Create Release步骤缩进，清除一处空白行末尾空格。[actionlint1.7.12](https://github.com/rhysd/actionlint/releases/tag/v1.7.12)检查release.yml、_job_build.yml和_job_upload.yml均返回0；三文件YAML可解析，8段run脚本经GitHub表达式占位后bash -n通过，没有运行脚本。触发条件仍为release.published和GE-Proton*-*标签推送，任务依赖/命令保持，无main分支推送或手动发行入口新增。没有执行完整构建、上传或实际发行流程。

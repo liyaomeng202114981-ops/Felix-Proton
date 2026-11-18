@@ -68,6 +68,9 @@
 | `wine/0062-nsiproxy-Ignore-stale-Unix-network-interface-entries` | 本 fork：过滤已失效的 Unix 接口缓存身份，见 [报告](fixes/0062-nsiproxy-live-interfaces/README.md) |
 | `wine/0063-nsiproxy-Reuse-interface-translations-within-a-route` | 本 fork：复用单次路由枚举内的接口转换，修复 0062 的性能回退，见 [报告](fixes/0063-route-interface-cache/README.md) |
 | `wine/0067-winex11-Preserve-opt-in-ARGB-formats-for-other-process-surfaces` | 本地候选：现有alpha开关下保留跨进程客户端visual/colormap及离屏源DC格式，避免透明像素变不透明；完整队列构建尚未验收，见[报告](fixes/0067-argb-other-process/README.md) |
+| `wine/0068-winex11-Derive-alpha-input-shapes-from-composed-destination` | 本地候选：alpha模式按完整目标窗计算输入，避免子surface排除父窗控件；实际贴边/最大化还原尚待验收，见[报告](fixes/0068-composed-alpha-input/README.md) |
+| `wine/0069-winex11-Opt-in-to-native-maximized-caption-moves` | 默认关闭候选：只将最大化托管窗的鼠标标题栏移动交给原生WM；GNOME隔离还原/贴边/resize守卫通过，见[报告](fixes/0069-native-maximized-move/README.md) |
+| `wine/0070-winex11-Keep-profiled-layered-decoration-windows-out-of-fullscreen` | 默认关闭候选：按精确类与owned装饰角色抑制全屏误判，为Mutter补CSD元数据；组合版白带及两项拖动用户复测通过，见[报告](fixes/0070-profiled-layered-csd/README.md) |
 | `protonfixes/0051-protonfixes-Also-run-fixes-for-run-when-PROTONFIXES_` | 设了 `PROTONFIXES_RUN_VERB=1` 时，用 `proton run` 启动的程序也执行 protonfixes（`waitforexitandrun` 要先等 wineserver 退出，往运行中的会话里加程序只能用 `run`）；`PROTONFIXES_DISABLE` 仍然优先 |
 | `vkd3d-proton/we-0001-Iterate-frozen-loop-break-rewrites-until-no-frozen-loop` | dxil-spirv 生成非法的结构化控制流 |
 | `vkd3d-proton/0002-vkd3d-bound-present-waits-during-swapchain-drain` | （这一版没有：GE-Proton 直接带着原版）（GE）销毁交换链时等待呈现有上限，不再卡死 |

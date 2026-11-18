@@ -1,5 +1,11 @@
 # 来源、贡献与验证范围
 
+## 2026-11-18 窗口兼容增量来源
+
+0068/0069/0070在匹配已打补丁Wine的独立诊断副本开发，保留上游Wine/WE-Proton版权与许可。局部诊断提交分别d7a61650、aec614b2、10dc495e；header/atom原始快照不是独立修复，不随补丁导出。format-patch重建源SHA与受测输入一致，固定Steam Runtime SDK只构建x64 winex11.so；未运行会重置在用子模块的全构建脚本。
+
+[本次清单](UI_WINDOW_SOURCE_MANIFEST.json)只含Wine补丁、Felix Li在Codex协助下的自有样本、合成结果及技术报告。没有厂商程序/图标、运行器/PE测试二进制、用户前缀、原始桌面、真实账户日志或配置正文。Wine补丁继承被修改组件许可，we测试/文档为BSD-3-Clause。真实案例结果以范围明确的文字摘要记录，不伪造Windows或跨环境通过。
+
 ## 2026-11-16 从零安装发行来源
 
 本版安装引导和静态PE图标提取器由Felix Li在OpenAI Codex协助下新增，按BSD-3-Clause声明；图标从使用者自己的已安装UU客户端生成，本仓库不分发品牌图像、客户端、账号或prefix。固定历史test.1运行器不重编，归档SHA320d…及其两架构模块/入口重新核验；对应修改后Wine、原上游源码、基础构建树和115档依赖来源单独提供，保留逐组件许可。网络依赖的独立源档与声明见[NETWORK_NOTICES](../packaging/fromzero/NETWORK_NOTICES.md)和[NETWORK_SOURCES](../packaging/fromzero/NETWORK_SOURCES.json)。

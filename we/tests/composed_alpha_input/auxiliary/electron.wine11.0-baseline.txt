@@ -1,0 +1,113 @@
+[
+  {
+    "title": "Felix opaque Electron control",
+    "depth": 32,
+    "size": [
+      500,
+      300
+    ],
+    "input_rectangles": 1,
+    "caption_input": true,
+    "tail_input": true,
+    "tail_bgra": [
+      119,
+      85,
+      34,
+      255
+    ],
+    "panel_bgra": [
+      51,
+      51,
+      51,
+      255
+    ],
+    "black_bgra": [
+      0,
+      0,
+      0,
+      255
+    ]
+  },
+  {
+    "title": "Felix transparent owned overlay",
+    "depth": 32,
+    "size": [
+      500,
+      300
+    ],
+    "input_rectangles": 1,
+    "caption_input": true,
+    "tail_input": true,
+    "tail_bgra": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "panel_bgra": [
+      51,
+      51,
+      51,
+      255
+    ],
+    "black_bgra": [
+      0,
+      0,
+      0,
+      255
+    ]
+  },
+  {
+    "title": "Felix transparent popup",
+    "depth": 32,
+    "size": [
+      300,
+      500
+    ],
+    "input_rectangles": 51,
+    "caption_input": false,
+    "tail_input": false,
+    "tail_bgra": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "panel_bgra": [
+      51,
+      51,
+      51,
+      255
+    ],
+    "black_bgra": [
+      0,
+      0,
+      0,
+      255
+    ]
+  },
+  {
+    "title": "Felix empty transparent helper",
+    "depth": 32,
+    "size": [
+      200,
+      180
+    ],
+    "input_rectangles": 4,
+    "caption_input": false,
+    "tail_input": true,
+    "tail_bgra": [
+      139,
+      139,
+      139,
+      255
+    ],
+    "panel_bgra": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "black_bgra": []
+  }
+]

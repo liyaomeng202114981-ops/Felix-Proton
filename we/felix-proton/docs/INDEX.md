@@ -1,14 +1,15 @@
 # Felix-Proton 工作分类与文档目录
 
-2026-11-17。按工作领域回看和接续，保留原源码/文档路径。本次整理不安装运行器或更改使用配置。
+更新于2026-11-18。按工作领域回看和接续，保留原源码/文档路径。本次整理不安装运行器或更改使用配置。
 
 ## 按领域查找
 
 | 类别 | 内容与记录入口 | 实现/验证入口 |
 | --- | --- | --- |
-| Proton / Wine底层修复 | [补丁报告总表](../../fixes/README.md)：网络0062/0063、UI0067分别在所属领域继续维护，保留上游历史 | [Wine补丁](../../../patches/wine/) · [构建说明](../../README.md) |
+| Proton / Wine底层修复 | [补丁报告总表](../../fixes/README.md)：网络0062/0063、UI0067/0068/0069/0070分别在所属领域继续维护，保留上游历史 | [Wine补丁](../../../patches/wine/) · [构建说明](../../README.md) |
 | 网络与Steam/UU集成 | [实现逻辑](IMPLEMENTATION.md)：共享网络、原图标接入、CM连接保护；[诊断/回退](DIAGNOSTICS.md) | [native-ux](../src/native-ux/README.md) · [测试](TESTING.md) |
 | UI兼容与桌面显示 | [UI工作总览与下一步](UI_COMPATIBILITY.md)：透明像素、外框、宿主效果和按应用适配 | [0067报告](../../fixes/0067-argb-other-process/README.md) · [自有样本](../../tests/argb_client_fixture/README.md) |
+| UI窗口输入/移动/状态 | [此前问题链与通用解决方案](UI_WINDOW_COMPATIBILITY.md)：白带、最大化下拖及贴边拖出用户复测通过 | [0068输入](../../fixes/0068-composed-alpha-input/README.md) · [0069移动](../../fixes/0069-native-maximized-move/README.md) · [0070状态](../../fixes/0070-profiled-layered-csd/README.md) · [SHA清单](UI_WINDOW_SOURCE_MANIFEST.json) |
 | 安装、打包与发行 | [从零流程](FROM_ZERO.md) · [实际安装说明](../packaging/fromzero/INSTALL.md) | [安装验收](SETUP_TEST_RESULTS.md) · [现有发行](https://github.com/liyaomeng202114981-ops/Felix-Proton/releases) |
 | 工具与入口管理 | [Felix配对工具](../src/pairing-tool/README.md)：一次配对、原图标、配置持久化与恢复 | [工具测试](../src/pairing-tool/TEST_RESULTS.md) · [发行说明](../src/pairing-tool/RELEASE_NOTES.md) |
 | 直播、采集与编码研究 | [直播兼容阶段记录](STREAMING_COMPATIBILITY.md)：画面、声音、本地编码与WGC缺口，和UI工作分别验收 | 已有本机阶段结果；完整采集原型未在本次公开源码中交付，实际推流未验收 |

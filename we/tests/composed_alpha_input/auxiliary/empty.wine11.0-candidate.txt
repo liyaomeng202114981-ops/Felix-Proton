@@ -1,0 +1,10 @@
+{
+  "size": [
+    300,
+    240
+  ],
+  "alpha_histogram": {
+    "0": 72000
+  },
+  "input_rectangles": []
+}

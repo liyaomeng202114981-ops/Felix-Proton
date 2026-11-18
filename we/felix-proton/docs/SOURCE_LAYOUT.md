@@ -1,5 +1,9 @@
 # 源码范围与组件关系
 
+## 2026-11-18 UI窗口增量
+
+本轮增量仍放在原结构：根`patches/wine/0068*`–`0070*`、`we/fixes/0068*`–`0070*`、`we/tests/composed_alpha_input/`、`native_maximized_move/`、`layered_helper_fullscreen/`及`layered-helper-fullscreen.c`。本目录新增[问题链](UI_WINDOW_COMPATIBILITY.md)与[SHA清单](UI_WINDOW_SOURCE_MANIFEST.json)，不把本机运行控制器或捕获/声音原型混入通用UI源码。
+
 下列路径以 `we/felix-proton/` 为起点。这里是本机工作区经过审核的文件快照，没有引入私人工作区的 Git 历史。
 
 | 路径 | 用途 |

@@ -43,6 +43,9 @@
 | wine 0062 | 本 fork：删除、改名和同名重建后的旧网络接口身份 | `0062-nsiproxy-live-interfaces/` |
 | wine 0063 | 本 fork：0062 引入的重复接口查询性能回退 | `0063-route-interface-cache/` |
 | wine 0067（本地候选） | alpha开关遗漏跨进程客户端格式，透明尾部变不透明；全队列构建未验收 | [0067-argb-other-process/](0067-argb-other-process/README.md) |
+| wine 0068（本地候选） | alpha输入区域错误使用局部子surface；自有隔离修复通过，后续组合版两项拖动用户复测通过 | [0068-composed-alpha-input/](0068-composed-alpha-input/README.md) |
+| wine 0069（本地候选） | 最大化CSD标题栏移动被Wine拒绝，按应用允许原生WM还原 | [0069-native-maximized-move/](0069-native-maximized-move/README.md) |
+| wine 0070（本地候选） | owned透明装饰窗被Wine或Mutter按整屏尺寸误判全屏，按profile补CSD提示；组合版白带及两项拖动用户复测通过 | [0070-profiled-layered-csd/](0070-profiled-layered-csd/README.md) |
 | protonfixes 0051 | 前缀里已有程序在运行时，再用 `proton run` 加入的游戏拿不到 protonfixes 的修正：《战锤40K：暗潮》的修正是绕开启动器，没绕开时启动器把游戏隐藏启动，窗口出不来；设 `PROTONFIXES_RUN_VERB=1` 时 `run` 也执行修正 | `0051-protonfixes-run-verb/` |
 | vkd3d-proton 0001 | dxil-spirv 生成非法的结构化控制流，RADV 拒绝后崩溃 | `vkd3d-0001-dxil-spirv-loop-breaks/` |
 

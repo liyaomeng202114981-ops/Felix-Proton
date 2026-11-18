@@ -12,6 +12,8 @@ Felix-Proton is an independently maintained Proton project based on WE-Proton so
 
 [UI baseline and follow-up work](we/felix-proton/docs/UI_COMPATIBILITY.md). This work is maintained as Proton UI compatibility; the published source and records form a continuation baseline.
 
+2026-11-18: [Window compatibility history and reusable approach](we/felix-proton/docs/UI_WINDOW_COMPATIBILITY.md) adds input-region, caption-move and auxiliary-window state fixes (0068–0070). The case passes user retests for the white band and both restore gestures. This is a source/documentation update, with no new runner release.
+
 The [milestone](we/felix-proton/docs/WINE_TRANSPARENCY.md), [0067 fix report](we/fixes/0067-argb-other-process/README.md), [synthetic reproducer and results](we/tests/argb_client_fixture/README.md), and [integration assessment](we/felix-proton/docs/WINE_TRANSPARENCY_INTEGRATION_ASSESSMENT.md) document the tested cross-process ARGB fix and separate GNOME/RWC handling. This update publishes source and evidence summaries. General integration remains a proposal; no new runner release or existing-installation change is included.
 
 ## Fresh-install preview

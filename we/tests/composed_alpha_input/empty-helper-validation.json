@@ -1,0 +1,50 @@
+{
+  "time_epoch": 1794909051.0929313,
+  "mapped_empty_helper_pixels_and_input_preserved": true,
+  "both_valid_cases_cleanup_ok": true,
+  "cases": {
+    "baseline": {
+      "size": [
+        300,
+        240
+      ],
+      "alpha_histogram": {
+        "0": 72000
+      },
+      "input_rectangles": []
+    },
+    "candidate": {
+      "size": [
+        300,
+        240
+      ],
+      "alpha_histogram": {
+        "0": 72000
+      },
+      "input_rectangles": []
+    }
+  },
+  "prior_invalid_cases_retained": [
+    {
+      "case": "ui-empty-clean-baseline",
+      "pass": false,
+      "cleanup_ok": true
+    },
+    {
+      "case": "ui-empty-clean-v2-baseline",
+      "pass": false,
+      "cleanup_ok": true
+    },
+    {
+      "case": "ui-empty-clean-v3-baseline",
+      "pass": false,
+      "cleanup_ok": true
+    },
+    {
+      "case": "ui-empty-clean-v4-baseline",
+      "pass": false,
+      "cleanup_ok": true
+    }
+  ],
+  "invalid_reason": "Initial data URL title/selection and pre-show WS_EX_LAYERED sequence; inventory established helper was unmapped. Valid fixture shows first and only then enables ignore mouse; no application code changed."
+}

@@ -1,0 +1,606 @@
+{
+  "time_epoch": 1794910442.3123472,
+  "verified_private_gnome_bus_and_pointer": true,
+  "candidate_flag_off_csd_max_drag_restores": false,
+  "candidate_flag_on_csd_max_drag_restores": true,
+  "csd_normal_drag_unchanged": true,
+  "tiling_and_drag_restore_preserved_both_modes": true,
+  "maximized_resize_rejected_both_modes": true,
+  "own_scmove_and_scsize_messages_verified": true,
+  "no_private_case_processes_remaining": true,
+  "cases": {
+    "off": {
+      "private_bus_owner_pid": 80830,
+      "verified_private_compositor": true,
+      "host_pointer_not_used": true,
+      "results": [
+        {
+          "mode": "plain",
+          "normal_drag": {
+            "before": {
+              "name": "FelixEdgeFixture-plain",
+              "maximized": false,
+              "frame": [
+                144,
+                96,
+                632,
+                430
+              ],
+              "buffer": [
+                119,
+                71,
+                682,
+                480
+              ],
+              "client": 1
+            },
+            "after": {
+              "name": "FelixEdgeFixture-plain",
+              "maximized": false,
+              "frame": [
+                144,
+                96,
+                632,
+                430
+              ],
+              "buffer": [
+                119,
+                71,
+                682,
+                480
+              ],
+              "client": 1
+            },
+            "pointer_after": [
+              496,
+              262
+            ]
+          },
+          "maximized_drag": {
+            "before": {
+              "name": "FelixEdgeFixture-plain",
+              "maximized": true,
+              "frame": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "buffer": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "client": 1
+            },
+            "after": {
+              "name": "FelixEdgeFixture-plain",
+              "maximized": false,
+              "frame": [
+                360,
+                185,
+                632,
+                430
+              ],
+              "buffer": [
+                335,
+                160,
+                682,
+                480
+              ],
+              "client": 1
+            },
+            "pointer_after": [
+              676,
+              198
+            ]
+          },
+          "restored": true
+        },
+        {
+          "mode": "corrected",
+          "normal_drag": {
+            "before": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": false,
+              "frame": [
+                140,
+                110,
+                640,
+                420
+              ],
+              "buffer": [
+                140,
+                110,
+                640,
+                420
+              ],
+              "client": 1
+            },
+            "after": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": false,
+              "frame": [
+                176,
+                254,
+                640,
+                420
+              ],
+              "buffer": [
+                176,
+                254,
+                640,
+                420
+              ],
+              "client": 1
+            },
+            "pointer_after": [
+              496,
+              276
+            ]
+          },
+          "maximized_drag": {
+            "before": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": true,
+              "frame": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "buffer": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "client": 1
+            },
+            "after": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": true,
+              "frame": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "buffer": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "client": 1
+            },
+            "pointer_after": [
+              676,
+              198
+            ]
+          },
+          "restored": false,
+          "maximized_edge_drag": {
+            "before": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": true,
+              "frame": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "buffer": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "client": 1
+            },
+            "after": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": true,
+              "frame": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "buffer": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "client": 1
+            },
+            "pointer_after": [
+              1240,
+              652
+            ]
+          },
+          "tile_to_edge": {
+            "before": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": false,
+              "frame": [
+                176,
+                254,
+                640,
+                420
+              ],
+              "buffer": [
+                176,
+                254,
+                640,
+                420
+              ],
+              "client": 1
+            },
+            "after": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": false,
+              "frame": [
+                0,
+                32,
+                640,
+                768
+              ],
+              "buffer": [
+                0,
+                32,
+                640,
+                768
+              ],
+              "client": 1
+            },
+            "pointer_after": [
+              1,
+              400
+            ]
+          },
+          "tile_drag_out": {
+            "before": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": false,
+              "frame": [
+                0,
+                32,
+                640,
+                768
+              ],
+              "buffer": [
+                0,
+                32,
+                640,
+                768
+              ],
+              "client": 1
+            },
+            "after": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": false,
+              "frame": [
+                36,
+                185,
+                640,
+                420
+              ],
+              "buffer": [
+                36,
+                185,
+                640,
+                420
+              ],
+              "client": 1
+            },
+            "pointer_after": [
+              356,
+              198
+            ]
+          },
+          "tile_restored_size": true
+        }
+      ]
+    },
+    "on": {
+      "private_bus_owner_pid": 82082,
+      "verified_private_compositor": true,
+      "host_pointer_not_used": true,
+      "results": [
+        {
+          "mode": "plain",
+          "normal_drag": {
+            "before": {
+              "name": "FelixEdgeFixture-plain",
+              "maximized": false,
+              "frame": [
+                144,
+                59,
+                632,
+                430
+              ],
+              "buffer": [
+                119,
+                34,
+                682,
+                480
+              ],
+              "client": 1
+            },
+            "after": {
+              "name": "FelixEdgeFixture-plain",
+              "maximized": false,
+              "frame": [
+                144,
+                59,
+                632,
+                430
+              ],
+              "buffer": [
+                119,
+                34,
+                682,
+                480
+              ],
+              "client": 1
+            },
+            "pointer_after": [
+              496,
+              225
+            ]
+          },
+          "maximized_drag": {
+            "before": {
+              "name": "FelixEdgeFixture-plain",
+              "maximized": true,
+              "frame": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "buffer": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "client": 1
+            },
+            "after": {
+              "name": "FelixEdgeFixture-plain",
+              "maximized": false,
+              "frame": [
+                360,
+                185,
+                632,
+                430
+              ],
+              "buffer": [
+                335,
+                160,
+                682,
+                480
+              ],
+              "client": 1
+            },
+            "pointer_after": [
+              676,
+              198
+            ]
+          },
+          "restored": true
+        },
+        {
+          "mode": "corrected",
+          "normal_drag": {
+            "before": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": false,
+              "frame": [
+                140,
+                110,
+                640,
+                420
+              ],
+              "buffer": [
+                140,
+                110,
+                640,
+                420
+              ],
+              "client": 1
+            },
+            "after": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": false,
+              "frame": [
+                176,
+                254,
+                640,
+                420
+              ],
+              "buffer": [
+                176,
+                254,
+                640,
+                420
+              ],
+              "client": 1
+            },
+            "pointer_after": [
+              496,
+              276
+            ]
+          },
+          "maximized_drag": {
+            "before": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": true,
+              "frame": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "buffer": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "client": 1
+            },
+            "after": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": false,
+              "frame": [
+                356,
+                185,
+                640,
+                420
+              ],
+              "buffer": [
+                356,
+                185,
+                640,
+                420
+              ],
+              "client": 1
+            },
+            "pointer_after": [
+              676,
+              198
+            ]
+          },
+          "restored": true,
+          "maximized_edge_drag": {
+            "before": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": true,
+              "frame": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "buffer": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "client": 1
+            },
+            "after": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": true,
+              "frame": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "buffer": [
+                0,
+                32,
+                1280,
+                768
+              ],
+              "client": 1
+            },
+            "pointer_after": [
+              1240,
+              652
+            ]
+          },
+          "tile_to_edge": {
+            "before": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": false,
+              "frame": [
+                356,
+                185,
+                640,
+                420
+              ],
+              "buffer": [
+                356,
+                185,
+                640,
+                420
+              ],
+              "client": 1
+            },
+            "after": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": false,
+              "frame": [
+                0,
+                32,
+                640,
+                768
+              ],
+              "buffer": [
+                0,
+                32,
+                640,
+                768
+              ],
+              "client": 1
+            },
+            "pointer_after": [
+              1,
+              400
+            ]
+          },
+          "tile_drag_out": {
+            "before": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": false,
+              "frame": [
+                0,
+                32,
+                640,
+                768
+              ],
+              "buffer": [
+                0,
+                32,
+                640,
+                768
+              ],
+              "client": 1
+            },
+            "after": {
+              "name": "FelixEdgeFixture-corrected",
+              "maximized": false,
+              "frame": [
+                36,
+                185,
+                640,
+                420
+              ],
+              "buffer": [
+                36,
+                185,
+                640,
+                420
+              ],
+              "client": 1
+            },
+            "pointer_after": [
+              356,
+              198
+            ]
+          },
+          "tile_restored_size": true
+        }
+      ]
+    }
+  },
+  "limits": "Own fixtures on GNOME50.1/XWayland; native plain max control restores, plain normal sample not used as positive control; no real Companion interaction, no Windows or keyboard-move runtime test"
+}

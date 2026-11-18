@@ -1,0 +1,3186 @@
+{
+  "verified": true,
+  "declared_decoration_roles": 6,
+  "guarded_controls": 7,
+  "variants": {
+    "one": {
+      "flag": "1",
+      "class": "SyntheticLayeredFullscreen",
+      "verified_private_compositor": true,
+      "no_input_sent": true,
+      "cases": [
+        {
+          "mode": "owned-max",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              32,
+              1280,
+              768
+            ],
+            "gtk_frame_extents": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "mode": "unowned",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "normal-owner",
+          "owner_style": 349110272,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              32,
+              1280,
+              768
+            ],
+            "gtk_frame_extents": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "mode": "not-layered",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 32,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "not-transparent",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524288,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "app-window",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 786464,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "caption-helper",
+          "owner_style": 365887488,
+          "helper_style": 2495741952,
+          "helper_exstyle": 524576,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "resizable-helper",
+          "owner_style": 365887488,
+          "helper_style": 2483421184,
+          "helper_exstyle": 524576,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "late-owned-max",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              32,
+              1280,
+              768
+            ],
+            "gtk_frame_extents": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "mode": "owner-restored",
+          "owner_style": 349110272,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_FOCUSED"
+            ],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              32,
+              1280,
+              768
+            ],
+            "gtk_frame_extents": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "mode": "overlapped-layer",
+          "owner_style": 365887488,
+          "helper_style": 335675392,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              32,
+              1280,
+              768
+            ],
+            "gtk_frame_extents": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "mode": "uncaptioned-owner",
+          "owner_style": 2500329472,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "late-decoration-style",
+          "owner_style": 365887488,
+          "helper_style": 335675392,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              32,
+              1280,
+              768
+            ],
+            "gtk_frame_extents": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "existing_hint_preserved_after_role_and_geometry_change": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "cleanup": {
+        "fixture_exit": 0,
+        "mapped_fixture_windows": []
+      }
+    },
+    "baseline": {
+      "flag": "1",
+      "class": "SyntheticLayeredFullscreen",
+      "verified_private_compositor": true,
+      "no_input_sent": true,
+      "cases": [
+        {
+          "mode": "owned-max",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "unowned",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "normal-owner",
+          "owner_style": 349110272,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "not-layered",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 32,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "not-transparent",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524288,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "app-window",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 786464,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "caption-helper",
+          "owner_style": 365887488,
+          "helper_style": 2495741952,
+          "helper_exstyle": 524576,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "resizable-helper",
+          "owner_style": 365887488,
+          "helper_style": 2483421184,
+          "helper_exstyle": 524576,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "late-owned-max",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "owner-restored",
+          "owner_style": 349110272,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "overlapped-layer",
+          "owner_style": 365887488,
+          "helper_style": 335675392,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "uncaptioned-owner",
+          "owner_style": 2500329472,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "late-decoration-style",
+          "owner_style": 365887488,
+          "helper_style": 335675392,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        }
+      ],
+      "existing_hint_preserved_after_role_and_geometry_change": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "cleanup": {
+        "fixture_exit": 0,
+        "mapped_fixture_windows": []
+      }
+    },
+    "unset": {
+      "flag": null,
+      "class": "SyntheticLayeredFullscreen",
+      "verified_private_compositor": true,
+      "no_input_sent": true,
+      "cases": [
+        {
+          "mode": "owned-max",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "unowned",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "normal-owner",
+          "owner_style": 349110272,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "not-layered",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 32,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "not-transparent",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524288,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "app-window",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 786464,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "caption-helper",
+          "owner_style": 365887488,
+          "helper_style": 2495741952,
+          "helper_exstyle": 524576,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "resizable-helper",
+          "owner_style": 365887488,
+          "helper_style": 2483421184,
+          "helper_exstyle": 524576,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "late-owned-max",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "owner-restored",
+          "owner_style": 349110272,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_FOCUSED"
+            ],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "overlapped-layer",
+          "owner_style": 365887488,
+          "helper_style": 335675392,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "uncaptioned-owner",
+          "owner_style": 2500329472,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "late-decoration-style",
+          "owner_style": 365887488,
+          "helper_style": 335675392,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        }
+      ],
+      "existing_hint_preserved_after_role_and_geometry_change": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "cleanup": {
+        "fixture_exit": 0,
+        "mapped_fixture_windows": []
+      }
+    },
+    "zero": {
+      "flag": "0",
+      "class": "SyntheticLayeredFullscreen",
+      "verified_private_compositor": true,
+      "no_input_sent": true,
+      "cases": [
+        {
+          "mode": "owned-max",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "unowned",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "normal-owner",
+          "owner_style": 349110272,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "not-layered",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 32,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "not-transparent",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524288,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "app-window",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 786464,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "caption-helper",
+          "owner_style": 365887488,
+          "helper_style": 2495741952,
+          "helper_exstyle": 524576,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "resizable-helper",
+          "owner_style": 365887488,
+          "helper_style": 2483421184,
+          "helper_exstyle": 524576,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "late-owned-max",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "owner-restored",
+          "owner_style": 349110272,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_FOCUSED"
+            ],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "overlapped-layer",
+          "owner_style": 365887488,
+          "helper_style": 335675392,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "uncaptioned-owner",
+          "owner_style": 2500329472,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "late-decoration-style",
+          "owner_style": 365887488,
+          "helper_style": 335675392,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        }
+      ],
+      "existing_hint_preserved_after_role_and_geometry_change": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "cleanup": {
+        "fixture_exit": 0,
+        "mapped_fixture_windows": []
+      }
+    },
+    "two": {
+      "flag": "2",
+      "class": "SyntheticLayeredFullscreen",
+      "verified_private_compositor": true,
+      "no_input_sent": true,
+      "cases": [
+        {
+          "mode": "owned-max",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "unowned",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "normal-owner",
+          "owner_style": 349110272,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "not-layered",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 32,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "not-transparent",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524288,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "app-window",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 786464,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "caption-helper",
+          "owner_style": 365887488,
+          "helper_style": 2495741952,
+          "helper_exstyle": 524576,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "resizable-helper",
+          "owner_style": 365887488,
+          "helper_style": 2483421184,
+          "helper_exstyle": 524576,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "late-owned-max",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "owner-restored",
+          "owner_style": 349110272,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "overlapped-layer",
+          "owner_style": 365887488,
+          "helper_style": 335675392,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "uncaptioned-owner",
+          "owner_style": 2500329472,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "late-decoration-style",
+          "owner_style": 365887488,
+          "helper_style": 335675392,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        }
+      ],
+      "existing_hint_preserved_after_role_and_geometry_change": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "cleanup": {
+        "fixture_exit": 0,
+        "mapped_fixture_windows": []
+      }
+    },
+    "missing-class": {
+      "flag": "1",
+      "class": null,
+      "verified_private_compositor": true,
+      "no_input_sent": true,
+      "cases": [
+        {
+          "mode": "owned-max",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "unowned",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "normal-owner",
+          "owner_style": 349110272,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "not-layered",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 32,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "not-transparent",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524288,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "app-window",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 786464,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "caption-helper",
+          "owner_style": 365887488,
+          "helper_style": 2495741952,
+          "helper_exstyle": 524576,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "resizable-helper",
+          "owner_style": 365887488,
+          "helper_style": 2483421184,
+          "helper_exstyle": 524576,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "late-owned-max",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "owner-restored",
+          "owner_style": 349110272,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_FOCUSED"
+            ],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "overlapped-layer",
+          "owner_style": 365887488,
+          "helper_style": 335675392,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "uncaptioned-owner",
+          "owner_style": 2500329472,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "late-decoration-style",
+          "owner_style": 365887488,
+          "helper_style": 335675392,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        }
+      ],
+      "existing_hint_preserved_after_role_and_geometry_change": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "cleanup": {
+        "fixture_exit": 0,
+        "mapped_fixture_windows": []
+      }
+    },
+    "wrong-class": {
+      "flag": "1",
+      "class": "UnmatchedSyntheticClass",
+      "verified_private_compositor": true,
+      "no_input_sent": true,
+      "cases": [
+        {
+          "mode": "owned-max",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "unowned",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "normal-owner",
+          "owner_style": 349110272,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "not-layered",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 32,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "not-transparent",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524288,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "app-window",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 786464,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "caption-helper",
+          "owner_style": 365887488,
+          "helper_style": 2495741952,
+          "helper_exstyle": 524576,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "resizable-helper",
+          "owner_style": 365887488,
+          "helper_style": 2483421184,
+          "helper_exstyle": 524576,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "late-owned-max",
+          "owner_style": 365887488,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "owner-restored",
+          "owner_style": 349110272,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_FOCUSED"
+            ],
+            "mapped": 2,
+            "geometry": [
+              84,
+              123,
+              472,
+              273
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "overlapped-layer",
+          "owner_style": 365887488,
+          "helper_style": 335675392,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "uncaptioned-owner",
+          "owner_style": 2500329472,
+          "helper_style": 2483159040,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        },
+        {
+          "mode": "late-decoration-style",
+          "owner_style": 365887488,
+          "helper_style": 335675392,
+          "helper_exstyle": 524320,
+          "owner": {
+            "states": [
+              "_NET_WM_STATE_MAXIMIZED_HORZ",
+              "_NET_WM_STATE_MAXIMIZED_VERT"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              69,
+              1280,
+              731
+            ],
+            "gtk_frame_extents": null
+          },
+          "helper": {
+            "states": [
+              "_NET_WM_STATE_FULLSCREEN",
+              "_NET_WM_STATE_SKIP_TASKBAR"
+            ],
+            "mapped": 2,
+            "geometry": [
+              0,
+              0,
+              1280,
+              800
+            ],
+            "gtk_frame_extents": null
+          }
+        }
+      ],
+      "existing_hint_preserved_after_role_and_geometry_change": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "cleanup": {
+        "fixture_exit": 0,
+        "mapped_fixture_windows": []
+      }
+    }
+  },
+  "fixture_pe_sha256": "03535055d1ce8a7f19e48d712d7e61a3b0460d6597204ce0bccb0f25c2cebf06",
+  "fixture_source_sha256": "9a8d507fc82496710192969af4c266b6831d0358e3d1d4fb3bcd8de70af7ce98"
+}
