@@ -9,6 +9,7 @@
 | [画面、声音与本地编码](streaming/AUDIO_VIDEO.md) | 桌面及游戏菜单能进入伴侣。实际 16.8 秒游戏菜单录像含 720p30 HEVC 和双声道 AAC，可完整解码 |
 | [原图标重开与启动耗时](streaming/STARTUP_RECOVERY.md) | 修复退出后运行时残留导致旧会话被误认成已打开的问题。暖重开恢复主窗和桌面预览 |
 | [开播失败、代理与 DNS 排查](streaming/PROXY_DNS.md) | 创建直播间曾被拒绝。实测应用绕开本机代理、直连两个业务域名，随后用户从 Ubuntu 成功开播 |
+| [从 Ubuntu 列表选择窗口](#从-ubuntu-列表选择窗口) | 同一伴侣可以重复打开系统窗口列表，分别授权并预览不同窗口 |
 | [窗口后台预览与 DMA-BUF 同步](#窗口后台黑屏修复) | 原 Dock 版的 Wayland 窗口被其他应用完全遮挡约 22 秒，伴侣预览持续更新 |
 | [窗口显示与交互适配](UI_WINDOW_COMPATIBILITY.md) | 已公开的黑底、透明外框、名称图标和窗口还原修复记录 |
 
@@ -26,5 +27,16 @@
 | [回退方法](streaming/WINDOW_CAPTURE_ROLLBACK.md) | 恢复原窗口进程、重新启用修复和 UnityCapture 回退 |
 
 上述内容记录本机实现和验收，本次 GitHub 同步仅包含文档。
+
+## 从 Ubuntu 列表选择窗口
+
+2026-11-19，从直播伴侣点「添加素材 → 窗口」后可以直接进入 Ubuntu 窗口列表。选中的窗口由伴侣自动接成对应素材。用户已确认原 Dock 版选窗成功，本轮实测覆盖本地预览。
+
+| 专题 | 收录内容 |
+| --- | --- |
+| [选窗流程](streaming/WINDOW_PICKER_FLOW.md) | 系统授权、标题、自动选入，以及暂缓处理的短暂闪过 |
+| [多窗口验证](streaming/WINDOW_PICKER_MULTI_WINDOW.md) | 隔离版双路取帧，原 Dock 版列表与静止窗口首帧 |
+| [取消、删除与关窗](streaming/WINDOW_PICKER_CLEANUP.md) | 各自授权的清理结果 |
+| [组件回退](streaming/WINDOW_PICKER_ROLLBACK.md) | 恢复上一套组件及 UnityCapture 整桌面入口 |
 
 [返回项目分类目录](INDEX.md)
