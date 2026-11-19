@@ -18,6 +18,8 @@ Electron 的 `BrowserWindow` 可由应用设置 `show: false` 并在 `ready-to-s
 
 三次退出确认框测试采到 19 个原始白底样本，采样时窗口均为零不透明度。三次首次可见的完整 X11 样本分别为 95.4、130.3 和 191.9 毫秒。测试通过「取消」关闭确认框，保留主会话。临时不透明度的恢复另经验证。此次只验证退出弹窗，全程不开播。
 
+[现用源码](../../src/wgc-compat/popup_first_paint.py) · [接入与隔离复跑](../../src/wgc-compat/POPUP_FIRST_PAINT.md)
+
 ## 回退
 
 停止用户服务 `felix-douyin-exit-dialog-presentation.service`，通过服务退出钩子恢复尚在接管的窗口，再换回本机保存的上一份启动控制器。伴侣主进程可继续运行。[分段计时](EXIT_DIALOG_TIMING.md) · [保留 24 毫秒的对照依据](EXIT_DIALOG_SETTLE_AB.md)

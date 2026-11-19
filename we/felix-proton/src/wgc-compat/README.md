@@ -1,5 +1,7 @@
 # Ubuntu 选窗与 WGC 兼容层
 
+[退出确认框白底修复源码与复跑](POPUP_FIRST_PAINT.md)
+
 此目录记录 2026-11-19 已安装并验证的直播伴侣选窗实现。用户在 Ubuntu 系统选择器中授权窗口，兼容层按授权把 PipeWire DMA-BUF 转成伴侣「窗口」素材使用的 D3D11 纹理。每个授权有自己的帧通道。受测环境使用 GNOME Wayland、XWayland 和 x86-64 Proton。
 
 ## 源码入口

@@ -53,4 +53,6 @@
 | [24 与 12 毫秒对照](streaming/EXIT_DIALOG_SETTLE_AB.md) | 四轮对四轮测试及保留 24 毫秒的依据 |
 | [8 秒超时异常](streaming/EXIT_DIALOG_TIMEOUT.md) | 详细追踪中的超时放行、白底复现与待查条件 |
 
+[退出确认框源码、接入与隔离复跑](../src/wgc-compat/POPUP_FIRST_PAINT.md)
+
 [返回项目分类目录](INDEX.md)

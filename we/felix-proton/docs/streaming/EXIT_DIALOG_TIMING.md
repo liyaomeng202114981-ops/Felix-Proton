@@ -21,3 +21,5 @@
 这四轮中，映射后等到面板和按钮完整出现的区间最长，采样粒度不足以把整段归到 Chromium 或 Wine 的单一内部操作。稳定判定和轮询也计入恢复显示的时间。Mutter 的末段包含区域帧传输与接收，中位采样间隔约 19 毫秒，物理扫描输出未测量。Chromium 单轮事件属于独立样本。
 
 [白底修复及原 Dock 复测](EXIT_DIALOG_WHITE_BACKGROUND.md) · [24 与 12 毫秒对照](EXIT_DIALOG_SETTLE_AB.md) · [独立的 8 秒超时异常](EXIT_DIALOG_TIMEOUT.md)
+
+[呈现脚本与运行参数](../../src/wgc-compat/POPUP_FIRST_PAINT.md)

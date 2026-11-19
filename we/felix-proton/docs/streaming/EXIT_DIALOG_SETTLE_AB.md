@@ -13,3 +13,5 @@
 12 毫秒将恢复显示前的实测等待中位数缩短了 14.00 毫秒。端到端中位数只差 1.94 毫秒，小于测量的合成区域帧采样间隔。两组各四次的结果不足以确认稳定的端到端收益。
 
 按用户决定保留 24 毫秒，12 毫秒候选仅用于隔离对照。[分段计时](EXIT_DIALOG_TIMING.md) · [现用白底修复](EXIT_DIALOG_WHITE_BACKGROUND.md)
+
+[归档版本的 `SETTLE_SECONDS`](../../src/wgc-compat/popup_first_paint.py) · [接入与隔离复跑](../../src/wgc-compat/POPUP_FIRST_PAINT.md)

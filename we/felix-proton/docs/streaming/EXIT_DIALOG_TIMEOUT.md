@@ -9,3 +9,5 @@
 若在日常版复现，记录触发时刻、Win32 窗口与 X11 窗口 ID 的对应关系、超时前后的原始面板和按钮样本、超时事件与合成区域帧。先用日常的低开销采样确认是否复现，再单独对照详细追踪。
 
 [白底修复与回退](EXIT_DIALOG_WHITE_BACKGROUND.md) · [正常样本的分段计时](EXIT_DIALOG_TIMING.md) · [24 与 12 毫秒对照](EXIT_DIALOG_SETTLE_AB.md)
+
+[归档版本的超时处理](../../src/wgc-compat/popup_first_paint.py) · [运行与恢复说明](../../src/wgc-compat/POPUP_FIRST_PAINT.md)
