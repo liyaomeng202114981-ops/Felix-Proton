@@ -15,6 +15,7 @@
 | Ubuntu 直播伴侣 | [直连开播与实测总览](STREAMING_COMPATIBILITY.md) | [画面与声音](streaming/AUDIO_VIDEO.md) · [原图标重开](streaming/STARTUP_RECOVERY.md) · [代理与 DNS](streaming/PROXY_DNS.md) |
 | 窗口后台画面采集 | [后台黑屏修复总览](STREAMING_COMPATIBILITY.md#窗口后台黑屏修复) | [原因](streaming/WINDOW_BLACK_FRAMES.md) · [显式同步](streaming/DMABUF_EXPLICIT_SYNC.md) · [原 Dock 复测](streaming/WINDOW_DOCK_RETEST.md) · [回退](streaming/WINDOW_CAPTURE_ROLLBACK.md) |
 | Ubuntu 窗口选择 | [选窗流程及短暂闪过](streaming/WINDOW_PICKER_FLOW.md) | [多窗口验证](streaming/WINDOW_PICKER_MULTI_WINDOW.md) · [取消、删除与关窗](streaming/WINDOW_PICKER_CLEANUP.md) · [组件回退](streaming/WINDOW_PICKER_ROLLBACK.md) |
+| 直播伴侣退出确认框 | [白底修复与回退](streaming/EXIT_DIALOG_WHITE_BACKGROUND.md) | [分段计时](streaming/EXIT_DIALOG_TIMING.md) · [24 与 12 毫秒对照](streaming/EXIT_DIALOG_SETTLE_AB.md) · [8 秒超时异常](streaming/EXIT_DIALOG_TIMEOUT.md) |
 | 维护、验证与来源 | [当前公开状态](CURRENT_STATE.md) · [工作日志](WORK_REPORT.md) · [源码目录](SOURCE_LAYOUT.md) | [验证汇总](TESTING.md) · [上游来源/许可](PROVENANCE.md) |
 
 ## 本次UI里程碑的材料位置
