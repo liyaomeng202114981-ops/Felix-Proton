@@ -9,8 +9,22 @@
 | [画面、声音与本地编码](streaming/AUDIO_VIDEO.md) | 桌面及游戏菜单能进入伴侣。实际 16.8 秒游戏菜单录像含 720p30 HEVC 和双声道 AAC，可完整解码 |
 | [原图标重开与启动耗时](streaming/STARTUP_RECOVERY.md) | 修复退出后运行时残留导致旧会话被误认成已打开的问题。暖重开恢复主窗和桌面预览 |
 | [开播失败、代理与 DNS 排查](streaming/PROXY_DNS.md) | 创建直播间曾被拒绝。实测应用绕开本机代理、直连两个业务域名，随后用户从 Ubuntu 成功开播 |
+| [窗口后台预览与 DMA-BUF 同步](#窗口后台黑屏修复) | 原 Dock 版的 Wayland 窗口被其他应用完全遮挡约 22 秒，伴侣预览持续更新 |
 | [窗口显示与交互适配](UI_WINDOW_COMPATIBILITY.md) | 已公开的黑底、透明外框、名称图标和窗口还原修复记录 |
 
-本次为单机短时实测记录。观众端音画质量、长时间推流、直接窗口捕获和其他桌面环境仍待验证。桌面桥与启动控制器仍是本机原型，完整安装包尚未交付。
+此前实播为单机短时验证，观众端音画质量、长时间推流和其他桌面环境仍待验收。桌面桥与启动控制器为本机原型。下述窗口后台复测独立于此前的整桌面实播。
+
+## 窗口后台黑屏修复
+
+2026-11-19，绕开伴侣直接采样 PipeWire 的窗口 DMA-BUF，复现了原隐式同步路径的黑帧样本。窗口采集改为等待生产端显式同步后，同一格式的对照样本没有出现黑帧。随后用原 Dock 版复测遮挡，伴侣画面持续更新。该轮只做本地预览。
+
+| 专题 | 收录内容 |
+| --- | --- |
+| [黑屏原因](streaming/WINDOW_BLACK_FRAMES.md) | 进入伴侣前的 RGB 取样，以及隐式同步、显式同步和 MemFd 对照 |
+| [DMA-BUF 显式同步修复](streaming/DMABUF_EXPLICIT_SYNC.md) | acquire point、GPU 完成确认和 release point |
+| [原 Dock 复测结果](streaming/WINDOW_DOCK_RETEST.md) | 完全遮挡期间的取样与画面更新，以及验证范围 |
+| [回退方法](streaming/WINDOW_CAPTURE_ROLLBACK.md) | 恢复原窗口进程、重新启用修复和 UnityCapture 回退 |
+
+上述内容记录本机实现和验收，本次 GitHub 同步仅包含文档。
 
 [返回项目分类目录](INDEX.md)
