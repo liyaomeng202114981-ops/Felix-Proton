@@ -17,4 +17,6 @@
 
 点共享后，伴侣自己的选择框可能短暂闪过。兼容层会重新显示这个框来自动选入已授权窗口，收到首帧后随即关闭。用户已确认选窗成功，并决定暂缓这项界面细节。闪过的频率和时长暂无专门测量。
 
+[选窗辅助程序](../../src/wgc-compat/inapp_actions.cpp) · [Ubuntu 授权接口](../../src/wayland-capture/portal.py) · [源码入口与构建](../../src/wgc-compat/README.md)
+
 [多窗口验证](WINDOW_PICKER_MULTI_WINDOW.md) · [关闭与清理](WINDOW_PICKER_CLEANUP.md) · [回退方法](WINDOW_PICKER_ROLLBACK.md)

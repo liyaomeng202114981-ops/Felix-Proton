@@ -14,4 +14,6 @@
 
 通过原图标打开，系统窗口列表同时提供 A、B。授权静止的 B 后，伴侣用真实标题添加素材，收到 892×543 的一帧。伴侣的三次预览采样都保留同一画面。用户确认日常选窗成功。原 Dock 这轮覆盖系统列表和静止单窗首帧，双路同时取帧结果来自独立候选。
 
+[隔离复跑](../../src/wgc-compat/README.md#连接测试伴侣) · [WGC 来源绑定](../../src/wgc-compat/wgc.cpp) · [首帧保留](../../src/wgc-compat/dmabuf/window_stream.c)
+
 [选窗流程](WINDOW_PICKER_FLOW.md) · [取消、关窗与删除验证](WINDOW_PICKER_CLEANUP.md)

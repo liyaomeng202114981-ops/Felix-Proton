@@ -12,4 +12,6 @@
 
 每次窗口请求有独立的授权和帧通道。取消只结束正在选择的会话。关窗后对应流退出并清理占位项。窗口素材已经被伴侣保存后，兼容层按句柄追踪它是否仍存在于场景记录中。确认素材被删除后结束对应授权。清理完成后，测试场景恢复为空。
 
+[选窗请求与素材追踪](../../src/wgc-compat/inapp.py) · [单个授权的进程清理](../../src/wgc-compat/douyin_native.py)
+
 [选窗流程](WINDOW_PICKER_FLOW.md) · [多窗口验证](WINDOW_PICKER_MULTI_WINDOW.md) · [回退方法](WINDOW_PICKER_ROLLBACK.md)

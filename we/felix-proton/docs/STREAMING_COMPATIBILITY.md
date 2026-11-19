@@ -39,4 +39,6 @@
 | [取消、删除与关窗](streaming/WINDOW_PICKER_CLEANUP.md) | 各自授权的清理结果 |
 | [组件回退](streaming/WINDOW_PICKER_ROLLBACK.md) | 恢复上一套组件及 UnityCapture 整桌面入口 |
 
+[选窗源码、构建与隔离复跑](../src/wgc-compat/README.md)
+
 [返回项目分类目录](INDEX.md)

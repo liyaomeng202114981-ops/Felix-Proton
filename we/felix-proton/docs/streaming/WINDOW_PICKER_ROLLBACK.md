@@ -12,4 +12,6 @@
 
 原 Dock 图标右键可选择「UnityCapture 回退」，在伴侣使用 **Unity Video Capture** 摄像头素材。该入口共享的是整桌面，使用前可按需要整理可见内容。
 
+[匹配组件的隔离构建](../../src/wgc-compat/README.md#隔离构建)
+
 [选窗流程](WINDOW_PICKER_FLOW.md) · [临时共享的清理](WINDOW_PICKER_CLEANUP.md) · [上一套窗口同步进程回退](WINDOW_CAPTURE_ROLLBACK.md)

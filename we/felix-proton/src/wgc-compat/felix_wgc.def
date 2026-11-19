@@ -1,0 +1,5 @@
+LIBRARY felix_wgc
+EXPORTS
+    DllGetActivationFactory
+    CreateDirect3D11DeviceFromDXGIDevice
+    CreateDirect3D11SurfaceFromDXGISurface

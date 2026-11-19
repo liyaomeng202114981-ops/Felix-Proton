@@ -1,5 +1,9 @@
 # 源码范围与组件关系
 
+## 2026-11-19 Ubuntu 选窗兼容层
+
+选窗辅助程序、素材授权控制、WGC 和 DMA-BUF 帧通道放在 `src/wgc-compat/`，共用的系统授权接口位于 `src/wayland-capture/portal.py`。源码对应已验证的选窗行为，隔离构建沿用固定的 SteamRT4 SDK。日常 Dock 控制器、安装备份、前缀和客户端文件留在本机。[源码与构建说明](../src/wgc-compat/README.md) · [四份验证与回退记录](STREAMING_COMPATIBILITY.md#从-ubuntu-列表选择窗口)
+
 ## 2026-11-18 UI窗口增量
 
 本轮增量仍放在原结构：根`patches/wine/0068*`–`0070*`、`we/fixes/0068*`–`0070*`、`we/tests/composed_alpha_input/`、`native_maximized_move/`、`layered_helper_fullscreen/`及`layered-helper-fullscreen.c`。本目录新增[问题链](UI_WINDOW_COMPATIBILITY.md)与[SHA清单](UI_WINDOW_SOURCE_MANIFEST.json)，不把本机运行控制器或捕获/声音原型混入通用UI源码。
